@@ -1,17 +1,8 @@
-<!--
-=========================================================
-* Material Dashboard Dark Edition - v2.1.0
-=========================================================
+<?php
+// ... ambil data dari database
+include 'proses-list-pinjam-data.php';
+?>
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-dark
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,64 +27,59 @@
 <body class="dark-edition">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
       <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+          Perpustakaan
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item  ">
-            <a class="nav-link" href="./dashboard.html">
-              <i class="material-icons">dashboard</i>
+          <li class="nav-item ">
+            <a class="nav-link" href="../home/dashboard.php">
+              <i class="material-icons">home</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="../data_anggota/anggota.php">
               <i class="material-icons">person</i>
-              <p>User Profile</p>
+              <p>Data Anggota</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
+            <a class="nav-link" href="../data_kategori/kategori.php">
+              <i class="material-icons">event_note</i>
+              <p>Data Kategori</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="../data_buku/buku.php">
+              <i class="material-icons">import_contacts</i>
+              <p>Data Buku</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
-              <p>Table List</p>
+              <p>Peminjaman</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
+            <a class="nav-link" href="../pengembalian/pengembalian.php">
               <i class="material-icons">library_books</i>
-              <p>Typography</p>
+              <p>Pengembalian</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
+            <a class="nav-link" href="../denda/denda.php">
+              <i class="material-icons">attach_money</i>
+              <p>Denda</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
+            <a class="nav-link" href="../cetak/cetak.php">
+              <i class="material-icons">report</i>
+              <p>Laporan</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <!-- <li class="nav-item active-pro active ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
-                </a>
-            </li> -->
         </ul>
       </div>
     </div>
@@ -102,7 +88,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Upgrade to PRO</a>
+            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -158,77 +144,65 @@
         </div>
       </nav>
       <!-- End Navbar -->
+
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-8 ml-auto mr-auto">
+        <div class="row">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Material Dashboard PRO</h4>
-                  <p class="card-category">Are you looking for more components? Please check our Premium Version of Material Dashboard.</p>
+                  <h4 class="card-title ">Simple Table</h4>
+                  <p class="card-category"> Here is a subtitle for this table</p>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive table-upgrade">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th class="text-center">Free</th>
-                          <th class="text-center">PRO</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Components</td>
-                          <td class="text-center">60</td>
-                          <td class="text-center">200</td>
-                        </tr>
-                        <tr>
-                          <td>Plugins</td>
-                          <td class="text-center">2</td>
-                          <td class="text-center">15</td>
-                        </tr>
-                        <tr>
-                          <td>Example Pages</td>
-                          <td class="text-center">3</td>
-                          <td class="text-center">27</td>
-                        </tr>
-                        <tr>
-                          <td>Login, Register, Pricing, Lock Pages</td>
-                          <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                          <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                        </tr>
-                        <tr>
-                          <td>DataTables, VectorMap, SweetAlert, Wizard, jQueryValidation, FullCalendar etc...</td>
-                          <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                          <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                        </tr>
-                        <tr>
-                          <td>Mini Sidebar</td>
-                          <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                          <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                        </tr>
-                        <tr>
-                          <td>Premium Support</td>
-                          <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                          <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td class="text-center">Free</td>
-                          <td class="text-center">Just $49</td>
-                        </tr>
-                        <tr>
-                          <td class="text-center"></td>
-                          <td class="text-center">
-                            <a href="#" class="btn btn-round btn-fill btn-default disabled">Current Version</a>
-                          </td>
-                          <td class="text-center">
-                            <a target="_blank" href="http://www.creative-tim.com/product/material-dashboard-pro/?ref=md-free-upgrade-live" class="btn btn-round btn-fill btn-info">Upgrade to PRO</a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="table-responsive">
+                  <table class="data">
+                <tr>
+                    <th>Buku</th>
+                    <th>Nama</th>
+                    <th>Tgl Pinjam</th>
+                    <th>Tgl Jatuh Tempo</th>
+                    <th>Tgl Kembali</th>
+                    <th>Status</th>
+                    <th width="30%">Pilihan</th>
+                </tr>
+                <?php foreach ($data_pinjam as $pinjam) : ?>
+                <tr>
+                    <td><?php echo $pinjam['buku_judul'] ?></td>
+                    <td><?php echo $pinjam['anggota_nama'] ?></td>
+                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
+                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
+                    <td>
+                    <?php  
+                        if (empty($pinjam['tgl_kembali'])) {
+                            echo "-";
+                        } 
+                        else {
+                            echo date('d-m-Y', strtotime($pinjam['tgl_kembali']));
+                        }
+                    ?>
+                    </td>
+                    <td>
+                        <?php $status = '' ?>
+                        <?php if (empty($pinjam['tgl_kembali'])): ?>
+                            pinjam
+                        <?php $status = 'pinjam' ?>
+                        <?php else: ?>
+                            kembali
+                        <?php $status = 'kembali' ?>  
+                        <?php endif ?>
+                    </td>
+                    <td>
+                        
+                        <?php if (empty($pinjam['tgl_kembali'])): ?>
+                            <a href="../modul_pengembalian/pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-tambah" title="klik untuk proses pengembalian">Kembali</a>
+                            <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-edit">Edit</a>
+                        <?php endif ?>
+                        <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
+                    </td>
+                </tr>
+                <?php endforeach ?>
+            </table>
                   </div>
                 </div>
               </div>
