@@ -148,56 +148,75 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Data Anggota</h2>
+              <h2 class="card-title">Tambah Data Anggota</h2>
             </div>
             <div class="card-body">
               <div class="row">
                   <div class="container clearfix">
 
 
-        <div class="content">
-            <?php if (empty($data_anggota)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th>Username</th>
-                    <th>Nama</th>
-                    <th>JK</th>
-                    <th>No Telepon</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th width="20%">Pilihan</th>
-                </tr>
-                <?php foreach ($data_anggota as $anggota) : ?>
-                <tr>
-                    <td><?php echo $anggota['anggota_usrnm'] ?></td>
-                    <td><?php echo $anggota['anggota_nama'] ?></td>
-                    <td><?php echo $anggota['anggota_jk'] ?></td>
-                    <td><?php echo $anggota['anggota_telp'] ?></td>
-                    <td><?php echo $anggota['anggota_email'] ?></td>
-                    <td><?php echo $anggota['anggota_pass'] ?></td>
-                    <td>
-                        <a href="anggota-edit.php?id_anggota=<?php echo $anggota['anggota_id']; ?>" class="btn btn-edit">Edit</a>
-                        <a href="anggota-delete.php?id_anggota=<?php echo $anggota['anggota_id']; ?>" class="btn btn-hapus" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
-                </tr>
-                <?php  endforeach ?>
-            </table>
-            <?php endif ?>
-            <div class="btn-tambah-div">
-                <a href="anggota-tambah.php"><button class="btn btn-tambah">Tambah Data</button></a>
-            </div>
+            <div class="col-12">
+            <form method="post" action="">
+                <table>
+                  <tr>
+                  <input type="text" name="username" id="username" placeholder="Username" width="100%">
+                  </tr><br/><br/>
+                  <tr>
+                  <input type="text" name="nama" id="nama" placeholder="nama">
+                  </tr><br/><br/>
+                  <tr>
+                        <select name="jk" aria-placeholder="Jenis Kelamin">
+                        <option value="L">Laki-laki</option>
+                        <option value="P">Perempuan</option>
+                        </select>
+                  </tr><br/><br/>
+                  <tr>
+                  <input type="text" name="no_telepon" id="telp" placeholder="Telepon">
+                  </tr><br/><br/>
+                  <tr>
+                  <input type="email" name="email" id="email" placeholder="Email">
+                  </tr><br/><br/>
+                  <tr>
+                  <input type="password" name="password" id="password" placeholder="Password">
+                  </tr><br/><br/>
+                </table>
+                <p>
+                    <input type="submit" class="btn btn-submit" value="Simpan" name="add">
+                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                </p>
+            </form>
         </div>
 
-    </div>
-                
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    <?php
+
+    include '../includes/koneksi.php';
+    if(isset($_POST["add"])){
+    $user = $_POST['username'];
+    $nama = $_POST['nama'];
+    $jenis_kelamin = $_POST['jk'];
+    $no_telepon = $_POST['no_telepon'];
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
+
+    $query = "INSERT INTO anggota (anggota_usrnm, anggota_nama, anggota_jk, anggota_telp, anggota_email, anggota_pass) 
+        VALUES ('$user', '$nama', '$jenis_kelamin', '$no_telepon', '$email', '$pass')";
+    $hasil = mysqli_query($db, $query);
+
+    if ($hasil == true) {
+        echo "<script>window.alert('1 Record added')
+        window.location='anggota-data.php'</script>";
+    } else {
+        header('Location: anggota-tambah.php');
+    }
+    }
+    ?>
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
