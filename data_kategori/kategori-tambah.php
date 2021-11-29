@@ -139,51 +139,46 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <?php
-include 'kategori-list.php';
-?>
-
-<div class="content">
+      <div class="content">
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Data Kategori</h2>
+              <h2 class="card-title">Tambah Data Buku</h2>
             </div>
             <div class="card-body">
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-    
-            <?php if (empty($data_kategori)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th>Kategori</th>
-                    <th width="20%">Pilihan</th>
-                </tr>
-                <?php foreach ($data_kategori as $kategori) : ?>
-                <tr>
-                    <td><?php echo $kategori['kategori_nama'] ?></td>
-                    <td>
-                        <a href="kategori-edit.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-edit">Edit</a>
-                        <a href="kategori-delete.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-hapus" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
-                </tr>
-                <?php  endforeach ?>
-            </table>
-            <div class="btn-tambah-div">
-                <a href="kategori-tambah.php"><button class="btn btn-tambah">Tambah Data</button></a>
-            </div>
-            <?php endif ?>
+            <h3>Tambah Data Kategori</h3>
+            <form method="post" action="">
+                <p>Kategori</p>
+                <p><input type="text" name="kategori"></p>
+                <p>
+                    <input type="submit" class="btn btn-submit" value="Simpan" name="tambah">
+                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                </p>
+            </form>
         </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+        <?php 
+        include '../includes/koneksi.php';
+
+        if(isset($_POST["tambah"])){
+        $kategori = $_POST['kategori'];
+        
+        $query = "INSERT INTO kategori (kategori_nama) 
+            VALUES ('$kategori')";
+        $hasil = mysqli_query($db, $query);
+        
+        if ($hasil == true) {
+          echo "<script>window.alert('1 Record added')
+          window.location='kategori.php'</script>";
+        } else {
+          echo "<script>window.alert('Gagal Ditambahkan')
+          window.location='kategori-tambah.php'</script>";
+        }
+    }
+    ?>
   </div>
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
