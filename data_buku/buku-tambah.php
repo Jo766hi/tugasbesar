@@ -139,52 +139,45 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <?php 
-include 'buku-list.php';
+      <?php
+include '../data_kategori/kategori-list.php';
 ?>
+
        <div class="content">
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Data Buku</h2>
+              <h2 class="card-title">Tambah Data Buku</h2>
             </div>
             <div class="card-body">
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-            <?php if (empty($data_buku)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th>Judul</th>
-                    <th>Kategori</th>
-                    <th>Deskripsi</th>
-                    <th>Jumlah</th>
-                    <th>Cover</th>
-                    <th width="20%">Pilihan</th>
-                </tr>
-                <?php foreach ($data_buku as $buku) : ?>
-                <tr>
-                    <td><?php echo $buku['buku_judul'] ?></td>
-                    <td><?php echo $buku['kategori_nama'] ?></td>
-                    <td><?php echo $buku['buku_deskripsi'] ?></td>
-                    <td><?php echo $buku['buku_jumlah'] ?></td>
-                    <td><img class="buku-cover" src="cover/<?php echo $buku['buku_cover'] ?>" width="50px"></td>
-                    <td>
-                        <a href="buku-edit.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-edit">Edit</a>
-                        <a href="buku-delete.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-hapus" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-            </table>
-            <div class="btn-tambah-div">
-                <a href="buku-tambah.php"><button class="btn btn-tambah">Tambah Data</button></a>
-            </div>
-            <?php endif ?>
-        </div>
+            <form method="post" action="" enctype="multipart/form-data">
+                <p>Judul</p>
+                <p><input type="text" name="judul"></p>
 
-    </div>
+                <p>Kategori</p>
+                <p>
+                	<select name="kategori">
+                        <?php foreach ($data_kategori as $kategori) : ?>
+                            <option value="<?php echo $kategori['kategori_id'] ?>"><?php echo $kategori['kategori_nama'] ?></option>
+                        <?php endforeach ?>
+                	</select>
+                </p>
+
+                <p>Deskripsi</p>
+                <p><textarea name="deskripsi"></textarea></p>
+
+                <p>Jumlah</p>
+                <p><input type="number" name="jumlah"></p>
+
+                <p>Cover</p>
+                <p><input type="file" name="cover"></p>
+
+                <p><input type="submit" class="btn btn-submit" value="Simpan" name="submit"></p>
+            </form>
+        </div>
                 
                 </div>
               </div>
@@ -192,6 +185,33 @@ include 'buku-list.php';
           </div>
         </div>
       </div>
+      <?php
+      include '../includes/koneksi.php';
+      if (isset($_POST["submit"])){
+      $judul     = $_POST['judul'];
+      $kategori  = $_POST['kategori'];
+      $deskripsi = $_POST['deskripsi'];
+      $jumlah    = $_POST['jumlah'];
+
+      // ambil data file yang diupload
+      $file        = $_FILES['cover']['tmp_name'];
+      $nama_file   = $_FILES['cover']['name'];
+      $destination = "cover/" . $nama_file;
+
+      $query = "INSERT INTO buku (buku_judul, kategori_id, buku_deskripsi, buku_jumlah, buku_cover) 
+          VALUES ('$judul', $kategori, '$deskripsi', $jumlah, '$nama_file')";
+      $hasil = mysqli_query($db, $query);
+      if ($hasil == true) {
+
+          // jika data berhasil diinsert, lakukan proses upload
+          move_uploaded_file($file, $destination);
+
+          echo "<script>window.alert('1 Record added')
+        window.location='buku.php'</script>";
+      } else {
+          header('Location: buku-tambah.php');
+      }
+      }?>
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
