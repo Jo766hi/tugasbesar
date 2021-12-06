@@ -67,10 +67,11 @@
 	</section>
 
 	<?php
+	session_start();
 	require("../includes/koneksi.php");
-	if (isset($_POST['btnlogin']))
+	if (isset($_POST['btnlogin'])) {
 
-		$user_login = $_POST['username'];
+	$user_login = $_POST['username'];
 	$pass_login = $_POST['password'];
 
 	$sql = "SELECT * FROM user WHERE username = '{$user_login}' and password = '{$pass_login}'";
@@ -83,7 +84,7 @@
 		$email = $row['email'];
 		$level = $row['level'];
 	}
-	if ($user_login == $user && $pass_login == $pass && $level == "petugas") {
+	if ($user_login == $user && $pass_login == $pass && $level == 'petugas') {
 		echo "Username : $user_login dan Password : $pass_login";
 		header("Location: ../home/dashboard.php");
 		$_SESSION['username'] = $user;
@@ -96,8 +97,10 @@
 		$_SESSION['nama'] = $nama;
 		$_SESSION['email'] = $email;
 	} else {
-		echo "error";
+		echo "<script>window.alert('User Tidak Ditemukan')
+			window.location='login.php'</script>";
 	}
+}
 	?>
 
 	<!--   Core JS Files   -->

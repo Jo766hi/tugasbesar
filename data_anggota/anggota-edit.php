@@ -12,6 +12,13 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+<?php 
+  session_start();
+  require ("../includes/koneksi.php");
+  if(empty($_SESSION['username'])){
+      header ("Location:../login/login.php");
+  } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -159,7 +166,7 @@ include '../includes/koneksi.php';
 
 // ambil artikel yang mau di edit
 $id_anggota = $_GET['id_anggota'];
-$query = "SELECT * FROM anggota WHERE anggota_id = $id_anggota";
+$query = "SELECT * FROM user WHERE id = $id_anggota and level = 'anggota'";
 $hasil = mysqli_query($db, $query);
 $data_anggota = mysqli_fetch_assoc($hasil);
 
@@ -178,7 +185,7 @@ $data_anggota = mysqli_fetch_assoc($hasil);
             <div class="col-12">
             <form method="post" action="">
                 <table>
-                  <input type="hidden" name="id_anggota" value="<?php echo $data_anggota['anggota_id']; ?>">
+                  <input type="hidden" name="id_anggota" value="<?php echo $data_anggota['id']; ?>">
                   <tr>
                   <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $data_anggota['anggota_usrnm']; ?>">
                   </tr><br/><br/>

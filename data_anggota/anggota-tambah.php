@@ -12,6 +12,13 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+<?php 
+  session_start();
+  require ("../includes/koneksi.php");
+  if(empty($_SESSION['username'])){
+      header ("Location:../login/login.php");
+  } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -176,6 +183,9 @@
                   <input type="text" name="username" id="username" placeholder="Username" width="100%">
                   </tr><br/><br/>
                   <tr>
+                  <input type="email" name="email" id="email" placeholder="Email">
+                  </tr><br/><br/>
+                  <tr>
                   <input type="text" name="nama" id="nama" placeholder="nama">
                   </tr><br/><br/>
                   <tr>
@@ -186,9 +196,6 @@
                   </tr><br/><br/>
                   <tr>
                   <input type="text" name="no_telepon" id="telp" placeholder="Telepon">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="email" name="email" id="email" placeholder="Email">
                   </tr><br/><br/>
                   <tr>
                   <input type="password" name="password" id="password" placeholder="Password">
@@ -213,19 +220,19 @@
     include '../includes/koneksi.php';
     if(isset($_POST["add"])){
     $user = $_POST['username'];
+    $email = $_POST['email'];
     $nama = $_POST['nama'];
     $jenis_kelamin = $_POST['jk'];
     $no_telepon = $_POST['no_telepon'];
-    $email = $_POST['email'];
     $pass = $_POST['password'];
 
-    $query = "INSERT INTO anggota (anggota_usrnm, anggota_nama, anggota_jk, anggota_telp, anggota_email, anggota_pass) 
-        VALUES ('$user', '$nama', '$jenis_kelamin', '$no_telepon', '$email', '$pass')";
+    $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
+        VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$pass', 'anggota')";
     $hasil = mysqli_query($db, $query);
 
     if ($hasil == true) {
         echo "<script>window.alert('1 Record added')
-        window.location='anggota-data.php'</script>";
+        window.location='anggota.php'</script>";
     } else {
         header('Location: anggota-tambah.php');
     }

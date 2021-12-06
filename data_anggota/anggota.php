@@ -12,6 +12,13 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+<?php 
+  session_start();
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -176,24 +183,24 @@
             <table class="data">
                 <tr>
                     <th>Username</th>
-                    <th>Nama</th>
-                    <th>JK</th>
-                    <th>No Telepon</th>
                     <th>Email</th>
+                    <th>Nama</th>
+                    <th>Jenis Kelamin</th>
+                    <th>No. Telepon</th>
                     <th>Password</th>
                     <th width="20%">Pilihan</th>
                 </tr>
                 <?php foreach ($data_anggota as $anggota) : ?>
                 <tr>
-                    <td><?php echo $anggota['anggota_usrnm'] ?></td>
-                    <td><?php echo $anggota['anggota_nama'] ?></td>
-                    <td><?php echo $anggota['anggota_jk'] ?></td>
-                    <td><?php echo $anggota['anggota_telp'] ?></td>
-                    <td><?php echo $anggota['anggota_email'] ?></td>
-                    <td><?php echo $anggota['anggota_pass'] ?></td>
+                    <td><?php echo $anggota['username'] ?></td>
+                    <td><?php echo $anggota['email'] ?></td>
+                    <td><?php echo $anggota['nama'] ?></td>
+                    <td><?php echo $anggota['jk'] ?></td>
+                    <td><?php echo $anggota['telp'] ?></td>
+                    <td><?php echo $anggota['password'] ?></td>
                     <td>
-                        <a href="anggota-edit.php?id_anggota=<?php echo $anggota['anggota_id']; ?>" class="btn btn-edit">Edit</a>
-                        <a href="anggota-delete.php?id_anggota=<?php echo $anggota['anggota_id']; ?>" class="btn btn-hapus" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
+                        <a href="anggota-edit.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-edit">Edit</a>
+                        <a href="anggota-delete.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-hapus" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>
                 </tr>
                 <?php  endforeach ?>
