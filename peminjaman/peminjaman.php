@@ -156,6 +156,9 @@ include 'proses-list-pinjam-data.php';
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Launch demo modal
+                  </button>
                   <table class="data">
                 <tr>
                     <th>Buku</th>
@@ -164,7 +167,7 @@ include 'proses-list-pinjam-data.php';
                     <th>Tgl Jatuh Tempo</th>
                     <th>Tgl Kembali</th>
                     <th>Status</th>
-                    <th width="30%">Pilihan</th>
+                    <th>Pilihan</th>
                 </tr>
                 <?php foreach ($data_pinjam as $pinjam) : ?>
                 <tr>
@@ -207,7 +210,7 @@ include 'proses-list-pinjam-data.php';
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
      
