@@ -1,6 +1,7 @@
 <?php
 // ... ambil data dari database
 include 'proses-list-pinjam-data.php';
+include 'pinjam-form.php';
 ?>
 
 <!DOCTYPE html>
