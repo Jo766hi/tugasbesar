@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Des 2021 pada 08.31
+-- Waktu pembuatan: 06 Des 2021 pada 16.51
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.11
 
@@ -20,32 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_perpus`
 --
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `anggota`
---
-
-CREATE TABLE `anggota` (
-  `anggota_id` int(10) UNSIGNED NOT NULL,
-  `anggota_usrnm` varchar(32) NOT NULL,
-  `anggota_nama` varchar(50) NOT NULL,
-  `anggota_jk` enum('L','P') NOT NULL,
-  `anggota_telp` varchar(14) NOT NULL,
-  `anggota_email` varchar(32) NOT NULL,
-  `anggota_pass` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `anggota`
---
-
-INSERT INTO `anggota` (`anggota_id`, `anggota_usrnm`, `anggota_nama`, `anggota_jk`, `anggota_telp`, `anggota_email`, `anggota_pass`) VALUES
-(4, 'Dandelion', 'Eko Irwana', 'L', '081234567890', 'ItsEko@gmail.com', 'hicantik'),
-(7, 'Lily', 'Indah April', 'P', '086754329000', 'itsIndahe@gmail.com', 'indoapril'),
-(14, 'Wintersoldier', 'Bucky Barnes', 'L', '087654320000', 'callme@BUcky', 'rahasiaa'),
-(17, 'Rose', 'Chikalia', 'P', '089765443322', 'Chika@lia', 'secret');
 
 -- --------------------------------------------------------
 
@@ -107,27 +81,6 @@ CREATE TABLE `kembali` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `petugas`
---
-
-CREATE TABLE `petugas` (
-  `petugas_id` int(10) UNSIGNED NOT NULL,
-  `petugas_nama` varchar(50) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `petugas`
---
-
-INSERT INTO `petugas` (`petugas_id`, `petugas_nama`, `username`, `password`) VALUES
-(2, 'Mutia Rahmah', 'Mjolnir', 'heheheh'),
-(3, 'Loki Laufeyson', 'admin', 'admin');
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `pinjam`
 --
 
@@ -139,15 +92,35 @@ CREATE TABLE `pinjam` (
   `tgl_jatuh_tempo` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `jk` varchar(50) NOT NULL,
+  `telp` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `level` enum('petugas','anggota') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `nama`, `jk`, `telp`, `password`, `level`) VALUES
+(9, 'dywdgyew', 'hbddweyi@gmail.com', 'jkhsdcuigf', 'L', '72376', 'wkbffuiwe', 'petugas'),
+(10, 'lapet', 'lapet@gmail.com', 'lapet', 'L', '1234567', 'lapet', 'anggota'),
+(11, 'melati', 'melati@gmail.com', 'melati', 'P', '12345678', '27e80ebc907bd57004986be9e6f2dd83', 'petugas');
+
 --
 -- Indexes for dumped tables
 --
-
---
--- Indeks untuk tabel `anggota`
---
-ALTER TABLE `anggota`
-  ADD PRIMARY KEY (`anggota_id`);
 
 --
 -- Indeks untuk tabel `buku`
@@ -170,12 +143,6 @@ ALTER TABLE `kembali`
   ADD KEY `pinjam_id` (`pinjam_id`);
 
 --
--- Indeks untuk tabel `petugas`
---
-ALTER TABLE `petugas`
-  ADD PRIMARY KEY (`petugas_id`);
-
---
 -- Indeks untuk tabel `pinjam`
 --
 ALTER TABLE `pinjam`
@@ -184,14 +151,14 @@ ALTER TABLE `pinjam`
   ADD KEY `buku_id` (`buku_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- Indeks untuk tabel `user`
 --
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel `anggota`
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
-ALTER TABLE `anggota`
-  MODIFY `anggota_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `buku`
@@ -212,16 +179,16 @@ ALTER TABLE `kembali`
   MODIFY `kembali_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `petugas`
---
-ALTER TABLE `petugas`
-  MODIFY `petugas_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT untuk tabel `pinjam`
 --
 ALTER TABLE `pinjam`
   MODIFY `pinjam_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
