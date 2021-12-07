@@ -1,8 +1,13 @@
 <?php
 include "layout/header.php";
 
-?>
 
+session_start();
+require("../includes/koneksi.php");
+if (empty($_SESSION['username'])) {
+    header("Location:error.php");
+}
+?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">

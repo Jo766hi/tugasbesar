@@ -1,9 +1,16 @@
 <?php
 include '../includes/koneksi.php';
 
-  $q = mysqli_query($db, "SELECT * FROM denda");
-  $uang = mysqli_fetch_row($q);
-  
+session_start();
+require("../includes/koneksi.php");
+if (empty($_SESSION['username'])) {
+  header("Location:error.php");
+}
+
+
+$q = mysqli_query($db, "SELECT * FROM denda");
+$uang = mysqli_fetch_row($q);
+
 ?>
 
 <!DOCTYPE html>
@@ -159,34 +166,34 @@ include '../includes/koneksi.php';
             </div>
             <div class="card-body">
 
-            <?php
-     if(isset($_POST['submit'])){
-       $nominal = $_POST['ubah'];
+              <?php
+              if (isset($_POST['submit'])) {
+                $nominal = $_POST['ubah'];
 
-       $query = "UPDATE denda SET 
+                $query = "UPDATE denda SET 
                   nominal = $nominal";
-      mysqli_query($db, $query);
-     }
-     ?>
+                mysqli_query($db, $query);
+              }
+              ?>
 
-            <form action="" method="post">
+              <form action="" method="post">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Denda</label>
-                  <input type="number" name="ubah" class="form-control" id="nominal" value="<?= $uang[0];?>">
+                  <input type="number" name="ubah" class="form-control" id="nominal" value="<?= $uang[0]; ?>">
                 </div>
-                
+
 
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-            </form>
+              </form>
             </div>
-            
+
           </div>
         </div>
       </div>
-      
 
- 
-  <footer class="footer">
+
+
+      <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
             <ul>
@@ -197,26 +204,26 @@ include '../includes/koneksi.php';
             </ul>
           </nav>
       </footer>
-      
-    <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-  <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-  
+
+      <!--   Core JS Files   -->
+      <script src="../assets/js/core/jquery.min.js"></script>
+      <script src="../assets/js/core/popper.min.js"></script>
+      <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+      <script src="https://unpkg.com/default-passive-events"></script>
+      <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+      <!-- Place this tag in your head or just before your close body tag. -->
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+      <!--  Google Maps Plugin    -->
+      <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+      <!-- Chartist JS -->
+      <script src="../assets/js/plugins/chartist.min.js"></script>
+      <!--  Notifications Plugin    -->
+      <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+      <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
+      <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+      <script src="../assets/demo/demo.js"></script>
+
 </body>
 
 </html>
