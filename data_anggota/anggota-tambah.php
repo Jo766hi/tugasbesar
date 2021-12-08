@@ -14,10 +14,10 @@
 -->
 <?php 
   session_start();
-  require ("../includes/koneksi.php");
-  if(empty($_SESSION['username'])){
-      header ("Location:../login/login.php");
-  } 
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">

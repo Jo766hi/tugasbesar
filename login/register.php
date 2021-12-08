@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="card-body">
 
-                            <form method="POST" class="my-login-validation" action="register3.php">
+                            <form method="POST" class="my-login-validation" action="">
                                 <div class="form-group">
                                     <label for="anggota_usrnm">Username</label>
                                     <input id="angggota_usrnm" type="text" class="form-control" name="anggota_usrnm" required autofocus>
@@ -118,6 +118,7 @@
     </section>
 
     <?php
+
     require("../includes/koneksi.php");
     if (isset($_POST['btnRegister'])) {
         $username = $_POST['anggota_usrnm'];
@@ -128,14 +129,16 @@
         $password = md5($_POST['anggota_pass']);
         $level = $_POST['level'];
 
-        $sql = "INSERT INTO user (username,nama,email,password,level,jk,telp) VALUES ('$username','$nama','$email','$password','$level','$jk','$telp')";
+        $sql = "INSERT INTO user (username, email, nama, jk, telp, password, level) VALUES ('$username','$email','$nama','$jk','$telp','$password','$level')";
 
         $pemeriksaan_username = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username' or email='$email'"));
 
         if ($pemeriksaan_username > 0) {
             echo "<script>alert('Username atau Email Anda Sudah Terdaftar!')</script>";
+            header ("location: register.php");
         } elseif ($db->query($sql) === TRUE) {
             echo "<script>alert('Registrasi Akun Anda Berhasil!')</script>";
+            header ("location: ../home/dashboard.php");
         } else {
             echo "Terjadi kesalahan: " . $sql . "<br/>" . $db->error;
         }
