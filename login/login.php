@@ -71,36 +71,36 @@
 	require("../includes/koneksi.php");
 	if (isset($_POST['btnlogin'])) {
 
-	$user_login = $_POST['username'];
-	$pass_login = $_POST['password'];
+		$user_login = $_POST['username'];
+		$pass_login = $_POST['password'];
 
-	$sql = "SELECT * FROM user WHERE username = '{$user_login}' and password = '{$pass_login}'";
-	$query = mysqli_query($db, $sql);
+		$sql = "SELECT * FROM user WHERE username = '{$user_login}' and password = '{$pass_login}'";
+		$query = mysqli_query($db, $sql);
 
-	while ($row = mysqli_fetch_array($query)) {
-		$user = $row['username'];
-		$pass = $row['password'];
-		$nama = $row['nama'];
-		$email = $row['email'];
-		$level = $row['level'];
-	}
-	if ($user_login == $user && $pass_login == $pass && $level == 'petugas') {
-		echo "Username : $user_login dan Password : $pass_login";
-		header("Location: ../home/dashboard.php");
-		$_SESSION['username'] = $user;
-		$_SESSION['nama'] = $nama;
-		$_SESSION['email'] = $email;
-	} elseif ($user_login == $user && $pass_login == $pass && $level == "anggota") {
-		echo "Username : $user_login dan Password : $pass_login";
-		header("Location: ../home/dashboard.php");
-		$_SESSION['username'] = $user;
-		$_SESSION['nama'] = $nama;
-		$_SESSION['email'] = $email;
-	} else {
-		echo "<script>window.alert('User Tidak Ditemukan')
+		while ($row = mysqli_fetch_array($query)) {
+			$user = $row['username'];
+			$pass =  md5($row['password']);
+			$nama = $row['nama'];
+			$email = $row['email'];
+			$level = $row['level'];
+		}
+		if ($user_login == $user && $pass_login == $pass && $level == 'petugas') {
+			echo "Username : $user_login dan Password : $pass_login";
+			header("Location: ../home/dashboard.php");
+			$_SESSION['username'] = $user;
+			$_SESSION['nama'] = $nama;
+			$_SESSION['email'] = $email;
+		} elseif ($user_login == $user && $pass_login == $pass && $level == "anggota") {
+			echo "Username : $user_login dan Password : $pass_login";
+			header("Location: ../home/dashboard.php");
+			$_SESSION['username'] = $user;
+			$_SESSION['nama'] = $nama;
+			$_SESSION['email'] = $email;
+		} else {
+			echo "<script>window.alert('User Tidak Ditemukan')
 			window.location='login.php'</script>";
+		}
 	}
-}
 	?>
 
 	<!--   Core JS Files   -->
