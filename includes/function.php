@@ -17,17 +17,17 @@ function ambil_kategori($db)
 function hitung_denda($tgl_kembali, $tgl_jatuh_tempo)
 {
     include '../includes/koneksi.php';
+
     $q = mysqli_query($db, "SELECT * FROM denda");
     $uang = mysqli_fetch_row($q);
-    $tes = intval($uang[0]);
+
     if (strtotime( $tgl_kembali ) > strtotime($tgl_jatuh_tempo)) {
-        $kembali = new DateTime($tgl_kembali); 
-        $jatuh_tempo   = new DateTime($tgl_jatuh_tempo); 
+        $kembali        = new DateTime($tgl_kembali); 
+        $jatuh_tempo    = new DateTime($tgl_jatuh_tempo); 
 
-        $selisih = $kembali->diff($jatuh_tempo);
-        $selisih = $selisih->format('%d');
-
-        $denda = intval($uang[0]) * $selisih;
+        $selisih    = $kembali->diff($jatuh_tempo);
+        echo $selisih    = $selisih->format('%a');
+        $denda      = intval($uang[0]) * $selisih;
 
     } else {
         $denda = 0;

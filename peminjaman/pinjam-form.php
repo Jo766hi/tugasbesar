@@ -30,7 +30,7 @@ include '../data_anggota/anggota-list.php';
                 <p>
                     <select name="anggota">
                         <?php foreach ($data_anggota as $anggota) : ?>
-                        <option value="<?php echo $anggota['anggota_id'] ?>"><?php echo $anggota['anggota_nama'] ?></option>
+                        <option value="<?php echo $anggota['id'] ?>"><?php echo $anggota['nama'] ?></option>
                         <?php endforeach ?>
                     </select>
                 </p>

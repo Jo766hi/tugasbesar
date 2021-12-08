@@ -1,8 +1,17 @@
 <?php
 // ... ambil data dari database
-include 'proses-list-pengembalian.php';
-?>
+include '../data_buku/buku-list.php';
 
+// ... ambil data dari database
+include '../data_anggota/anggota-list.php';
+
+
+$id_pinjam = $_GET['id_pinjam'];
+$query = "SELECT * FROM pinjam WHERE pinjam.pinjam_id = $id_pinjam";
+$hasil = mysqli_query($db, $query);
+$data_pinjam = mysqli_fetch_assoc($hasil);
+var_dump($data_pinjam);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,13 +65,13 @@ include 'proses-list-pengembalian.php';
               <p>Data Buku</p>
             </a>
           </li>
-          <li class="nav-iteme">
+          <li class="nav-item active">
             <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
               <p>Peminjaman</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="../pengembalian/pengembalian.php">
               <i class="material-icons">library_books</i>
               <p>Pengembalian</p>
@@ -144,54 +153,65 @@ include 'proses-list-pengembalian.php';
         </div>
       </nav>
       <!-- End Navbar -->
-    
 
-            <div class="content">
+      <div class="content">
         <div class="container-fluid">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h4 class="card-title"><h1>Daftar Pengembalian</h1></h4>
-              <p class="card-category">Created using Roboto Font Family</p>
-            </div>
-            <div class="card-body">
-              <div id="typography">
-            <?php if (empty($data_kembali)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th>Buku</th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th width="20%">Pilihan</th>
-                </tr>
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Simple Table</h4>
+                  <p class="card-category"> Here is a subtitle for this table</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                  <h3>Edit Data Peminjaman</h3>
+            <?php  
+            // Check message ada atau tidak
+            if(!empty($_SESSION['messages'])) {
+                echo $_SESSION['messages']; //menampilkan pesan 
+                unset($_SESSION['messages']); //menghapus pesan setelah refresh
+            }
+            ?>
+            <form action="proses-edit-pinjam.php" method="post">
+            <input type="hidden" name="pinjam_id" value="<?php echo $id_pinjam ?>">
+                <p>Buku</p>
+                <p>
+                    <select name="buku">
+                        <?php foreach ($data_buku as $buku): ?>
+                            <option value="<?php echo $buku['buku_id'] ?>" <?php echo ($buku['buku_id'] == $data_pinjam['buku_id']) ? 'selected' : '' ; ?> ><?php echo $buku['buku_judul'] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </p>
 
-                <?php foreach ($data_kembali as $kembali) : ?>
-                <tr>
-                    <td><?php echo $kembali['buku_judul'] ?></td>
-                    <td><?php echo $kembali['nama'] ?></td>
-                    <td><?php echo $kembali['tgl_pinjam'] ?></td>
-                    <td><?php echo $kembali['tgl_jatuh_tempo'] ?></td>
-                    <td><?php echo $kembali['tgl_kembali'] ?></td>
-                    <td>
-                    <a href="delete-pengembalian.php?id_kembali=<?php echo $kembali['kembali_id'] ?>" onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-                    
-            </table>
-            <?php endif ?>
-                
+                <p>Anggota</p>
+                <p>
+                    <select name="anggota">
+                        <?php foreach ($data_anggota as $anggota) : ?>
+                        <option value="<?php echo $anggota['id'] ?>" <?php echo ($anggota['id'] == $data_pinjam['anggota_id']) ? 'selected' : '' ; ?> ><?php echo $anggota['nama'] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </p>
+
+                <p>Tanggal Pinjam</p>
+                <p><input type="date" name="tgl_pinjam" disabled value="<?php echo $data_pinjam['tgl_pinjam'] ?>"></p>
+
+                <p>Tanggal Jatuh Tempo</p>
+                <p><input type="date" name="tgl_jatuh_tempo" value="<?php echo $data_pinjam['tgl_jatuh_tempo'] ?>"></p>
+
+                <p>
+                    <input type="submit" class="btn btn-submit" value="Simpan">
+                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                </p>
+            </form>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
-    </div>
-    </div>
-    </div>
+     
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
@@ -226,5 +246,3 @@ include 'proses-list-pengembalian.php';
 </body>
 
 </html>
-
-

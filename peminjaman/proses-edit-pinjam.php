@@ -1,10 +1,5 @@
 <?php
-session_start();
-// ... jika belum login, alihkan ke halaman login
-if (! isset($_SESSION['user'])) {
-    header('Location: ../login.php');
-    exit();
-}
+
 
 include '../includes/koneksi.php';
 include '../includes/function.php';
@@ -31,13 +26,6 @@ $q = "SELECT buku.buku_judul, buku.buku_id, pinjam.pinjam_id, pinjam.anggota_id 
 $hasil_check = mysqli_query($db, $q);
 $data = mysqli_fetch_assoc($hasil_check);
 
-if (count($data['pinjam_id']) > 0 && $pinjam_id != $data['pinjam_id']) {
-	$_SESSION['messages'] = '<font color="red">anggota dengan id '.$data['anggota_id'].' sudah meminjam buku '.$data['buku_judul'].' ini!</font>';
-	
-	header('Location: edit-pinjam.php?id_pinjam=' . $pinjam_id);
-    exit();
-}
-
 $query = "UPDATE pinjam 
 			SET 
 				buku_id = '$buku', 
@@ -55,7 +43,7 @@ if ($hasil == true) {
 	// Mengurangi stok buku
 	
 	$_SESSION['messages'] = '<font color="green">Proses edit data sukses!</font>';
-	header('Location: pinjam-data.php');
+	header('Location: peminjaman.php');
 } else {
 	$_SESSION['messages'] = '<font color="red">Proses edit gagal!</font>';
     header('Location: edit-pinjam.php?id_pinjam=' . $pinjam_id);

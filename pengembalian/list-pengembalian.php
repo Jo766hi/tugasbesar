@@ -1,6 +1,18 @@
 <?php
-// ... ambil data dari database
-include 'proses-list-pengembalian.php';
+include '../includes/koneksi.php';
+include '../includes/function.php';
+
+$id_pinjam = $_GET['id_pinjam'];
+$q = "SELECT user.nama, buku.*, pinjam.* FROM pinjam 
+    LEFT JOIN buku ON pinjam.buku_id = buku.buku_id 
+    LEFT JOIN user ON pinjam.anggota_id = user.id
+    WHERE pinjam.pinjam_id = $id_pinjam";
+$hasil = mysqli_query($db, $q);
+$data_pinjam = mysqli_fetch_assoc($hasil);
+$tgl_kembali = date('Y-m-d');
+var_dump($tgl_kembali);
+$denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
+
 ?>
 
 <!DOCTYPE html>
@@ -56,13 +68,13 @@ include 'proses-list-pengembalian.php';
               <p>Data Buku</p>
             </a>
           </li>
-          <li class="nav-iteme">
+          <li class="nav-item ">
             <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
               <p>Peminjaman</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item active ">
             <a class="nav-link" href="../pengembalian/pengembalian.php">
               <i class="material-icons">library_books</i>
               <p>Pengembalian</p>
@@ -88,7 +100,7 @@ include 'proses-list-pengembalian.php';
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Peminjaman</a>
+            <a class="navbar-brand" href="javascript:void(0)">Pengembalian</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -144,54 +156,51 @@ include 'proses-list-pengembalian.php';
         </div>
       </nav>
       <!-- End Navbar -->
-    
-
-            <div class="content">
+      <div class="content">
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title"><h1>Daftar Pengembalian</h1></h4>
+              <h4 class="card-title">Material Dashboard Heading</h4>
               <p class="card-category">Created using Roboto Font Family</p>
             </div>
             <div class="card-body">
               <div id="typography">
-            <?php if (empty($data_kembali)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th>Buku</th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th width="20%">Pilihan</th>
-                </tr>
+              <form method="post" action="proses-pengembalian.php">
+                <input type="hidden" name="pinjam_id" value="<?php echo $data_pinjam['pinjam_id'] ?>">
+                <input type="hidden" name="tgl_kembali" value="<?php echo $tgl_kembali ?>">
+                <input type="hidden" name="denda" value="<?php echo $denda ?>">
+                <p>Buku</p>
+                <p>
+                    <input type="text" value="<?php echo $data_pinjam['buku_judul'] ?>" disabled>
+                </p>
 
-                <?php foreach ($data_kembali as $kembali) : ?>
-                <tr>
-                    <td><?php echo $kembali['buku_judul'] ?></td>
-                    <td><?php echo $kembali['nama'] ?></td>
-                    <td><?php echo $kembali['tgl_pinjam'] ?></td>
-                    <td><?php echo $kembali['tgl_jatuh_tempo'] ?></td>
-                    <td><?php echo $kembali['tgl_kembali'] ?></td>
-                    <td>
-                    <a href="delete-pengembalian.php?id_kembali=<?php echo $kembali['kembali_id'] ?>" onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-                    
-            </table>
-            <?php endif ?>
+                <p>Anggota</p>
+                <p>
+                    <input type="text" value="<?php echo $data_pinjam['nama'] ?>" disabled>
+                </p>
+
+                <p>Tanggal Pinjam</p>
+                <p><input type="date" value="<?php echo $data_pinjam['tgl_pinjam'] ?>" disabled></p>
+
+                <p>Tanggal Jatuh Tempo</p>
+                <p><input type="date" value="<?php echo $data_pinjam['tgl_jatuh_tempo'] ?>" disabled></p>
+
+                <p>Tanggal Kembali</p>
+                <p><input type="date" value="<?php echo $tgl_kembali ?>" disabled></p>
+
+                <p>Denda</p>
+                <p><input type="text" value="<?php echo $denda ?>" disabled></p>
+
+                <p><input type="submit" class="btn btn-submit" value="Simpan"></p>
+            </form>
                 
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
-    </div>
+      
+  
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
@@ -226,5 +235,3 @@ include 'proses-list-pengembalian.php';
 </body>
 
 </html>
-
-

@@ -173,7 +173,7 @@ include 'pinjam-form.php';
                 <?php foreach ($data_pinjam as $pinjam) : ?>
                 <tr>
                     <td><?php echo $pinjam['buku_judul'] ?></td>
-                    <td><?php echo $pinjam['anggota_nama'] ?></td>
+                    <td><?php echo $pinjam['nama'] ?></td>
                     <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
                     <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
                     <td>
@@ -199,7 +199,7 @@ include 'pinjam-form.php';
                     <td>
                         
                         <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            <a href="../modul_pengembalian/pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-tambah" title="klik untuk proses pengembalian">Kembali</a>
+                            <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-tambah" title="klik untuk proses pengembalian">Kembali</a>
                             <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-edit">Edit</a>
                         <?php endif ?>
                         <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
