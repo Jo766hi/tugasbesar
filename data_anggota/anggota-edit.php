@@ -173,6 +173,39 @@ $data_anggota = mysqli_fetch_assoc($hasil);
 ?>
       <div class="content">
         <div class="container-fluid">
+        <?php
+          include '../includes/koneksi.php';
+                
+          if(isset($_POST["save"])){
+          $id_anggota = $_POST['id_anggota'];
+          $user = $_POST['username'];
+          $email = $_POST['email'];
+          $nama = $_POST['nama'];
+          $jenis_kelamin = $_POST['jk'];
+          $no_telepon = $_POST['no_telepon'];
+          $pass = $_POST['password'];
+
+          $query = "UPDATE user
+              SET username = '$user',
+                  email = '$email',
+                  nama = '$nama',
+                  jk = '$jenis_kelamin',
+                  telp = '$no_telepon',
+                  password = '$pass'
+              WHERE id = $id_anggota AND level = 'anggota'";
+
+          $hasil = mysqli_query($db, $query);
+          // var_dump(mysqli_error($db));
+          if ($hasil == true) {
+            echo "<div class=alert role=alert style=background-color:purple;>
+                  Kategori Berhasil di Tambah
+                  </div>";
+          } else {
+          echo "koneksi gagal" .mysqli_error($db);
+          }
+          }
+            
+            ?>
           <div class="card">
             <div class="card-header card-header-primary">
               <h2 class="card-title">Edit Data Anggota</h2>
@@ -228,39 +261,6 @@ $data_anggota = mysqli_fetch_assoc($hasil);
         </div>
       </div>
     
-    <?php
-   include '../includes/koneksi.php';
-        
-   if(isset($_POST["save"])){
-   $id_anggota = $_POST['id_anggota'];
-   $user = $_POST['username'];
-   $email = $_POST['email'];
-   $nama = $_POST['nama'];
-   $jenis_kelamin = $_POST['jk'];
-   $no_telepon = $_POST['no_telepon'];
-   $pass = $_POST['password'];
-
-   $query = "UPDATE user
-       SET username = '$user',
-           email = '$email',
-           nama = '$nama',
-           jk = '$jenis_kelamin',
-           telp = '$no_telepon',
-           password = '$pass'
-       WHERE id = $id_anggota AND level = 'anggota'";
-
-   $hasil = mysqli_query($db, $query);
-   // var_dump(mysqli_error($db));
-   if ($hasil == true) {
-    echo "<script>window.alert('Berhasil Update')
-    window.location='anggota.php'</script>";
-   } else {
-      
-       echo "koneksi gagal" .mysqli_error($db);
-   }
-   }
-    
-    ?>
  <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">

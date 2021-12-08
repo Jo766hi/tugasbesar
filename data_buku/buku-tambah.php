@@ -24,6 +24,7 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="//cdn.ckeditor.com/4.17.1/basic/ckeditor.js"></script>
 </head>
 
 <body class="dark-edition">
@@ -152,6 +153,37 @@ include '../data_kategori/kategori-list.php';
 
        <div class="content">
         <div class="container-fluid">
+        <?php
+      include '../includes/koneksi.php';
+      if (isset($_POST["submit"])){
+      $judul     = $_POST['judul'];
+      $kategori  = $_POST['kategori'];
+      $deskripsi = $_POST['editor1'];
+      $jumlah    = $_POST['jumlah'];
+
+      // ambil data file yang diupload
+      $file        = $_FILES['cover']['tmp_name'];
+      $nama_file   = $_FILES['cover']['name'];
+      $destination = "cover/" . $nama_file;
+
+      $query = "INSERT INTO buku (buku_judul, kategori_id, buku_deskripsi, buku_jumlah, buku_cover) 
+          VALUES ('$judul', $kategori, '$deskripsi', $jumlah, '$nama_file')";
+      $hasil = mysqli_query($db, $query);
+      if ($hasil == true) {
+
+          // jika data berhasil diinsert, lakukan proses upload
+          move_uploaded_file($file, $destination);
+
+          echo  "<div class=alert role=alert style=background-color:purple;>
+          Data Berhasil di Tambah
+          </div>";
+      } else {
+        "<div class=alert role=alert style=background-color:purple;>
+        Data Gagal di Tambah
+        </div>";
+      }
+      }?>
+     
           <div class="card">
             <div class="card-header card-header-primary">
               <h2 class="card-title">Tambah Data Buku</h2>
@@ -174,7 +206,10 @@ include '../data_kategori/kategori-list.php';
                 </p>
 
                 <p>Deskripsi</p>
-                <p><textarea name="deskripsi"></textarea></p>
+                <p><textarea name="editor1"></textarea></p>
+                <script>
+                        CKEDITOR.replace( 'editor1' );
+                </script>
 
                 <p>Jumlah</p>
                 <p><input type="number" name="jumlah"></p>
@@ -192,34 +227,6 @@ include '../data_kategori/kategori-list.php';
           </div>
         </div>
       </div>
-      <?php
-      include '../includes/koneksi.php';
-      if (isset($_POST["submit"])){
-      $judul     = $_POST['judul'];
-      $kategori  = $_POST['kategori'];
-      $deskripsi = $_POST['deskripsi'];
-      $jumlah    = $_POST['jumlah'];
-
-      // ambil data file yang diupload
-      $file        = $_FILES['cover']['tmp_name'];
-      $nama_file   = $_FILES['cover']['name'];
-      $destination = "cover/" . $nama_file;
-
-      $query = "INSERT INTO buku (buku_judul, kategori_id, buku_deskripsi, buku_jumlah, buku_cover) 
-          VALUES ('$judul', $kategori, '$deskripsi', $jumlah, '$nama_file')";
-      $hasil = mysqli_query($db, $query);
-      if ($hasil == true) {
-
-          // jika data berhasil diinsert, lakukan proses upload
-          move_uploaded_file($file, $destination);
-
-          echo "<script>window.alert('1 Record added')
-        window.location='buku.php'</script>";
-      } else {
-          header('Location: buku-tambah.php');
-      }
-      }?>
-     
      <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">

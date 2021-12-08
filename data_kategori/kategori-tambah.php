@@ -148,6 +148,27 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
+        <?php 
+        include '../includes/koneksi.php';
+
+        if(isset($_POST["tambah"])){
+        $kategori = $_POST['kategori'];
+        
+        $query = "INSERT INTO kategori (kategori_nama) 
+            VALUES ('$kategori')";
+        $hasil = mysqli_query($db, $query);
+        
+        if ($hasil == true) {
+          echo "<div class=alert role=alert style=background-color:purple;>
+          Kategori Berhasil di Tambah
+          </div>";
+        } else {
+          echo "<div class=alert role=alert style=background-color:purple;>
+          Kategori Gagal di Tambah
+          </div>";
+        }
+    }
+    ?>
           <div class="card">
             <div class="card-header card-header-primary">
               <h2 class="card-title">Tambah Data Buku</h2>
@@ -167,25 +188,7 @@
             </form>
         </div>
 
-        <?php 
-        include '../includes/koneksi.php';
-
-        if(isset($_POST["tambah"])){
-        $kategori = $_POST['kategori'];
         
-        $query = "INSERT INTO kategori (kategori_nama) 
-            VALUES ('$kategori')";
-        $hasil = mysqli_query($db, $query);
-        
-        if ($hasil == true) {
-          echo "<script>window.alert('1 Record added')
-          window.location='kategori.php'</script>";
-        } else {
-          echo "<script>window.alert('Gagal Ditambahkan')
-          window.location='kategori-tambah.php'</script>";
-        }
-    }
-    ?>
   </div>
  
   <footer class="footer">
