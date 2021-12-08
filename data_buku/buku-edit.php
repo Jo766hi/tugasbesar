@@ -1,3 +1,10 @@
+<?php 
+  session_start();
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +24,7 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="//cdn.ckeditor.com/4.17.1/basic/ckeditor.js"></script>
 </head>
 
 <body class="dark-edition">
@@ -137,9 +145,10 @@
             </ul>
           </div>
         </div>
+
       </nav>
       <!-- End Navbar -->
-      <?php
+<?php
 include '../data_kategori/kategori-list.php';
 ?>
 <?php
@@ -156,66 +165,14 @@ $data_buku = mysqli_fetch_assoc($hasil);
 ?>
       <div class="content">
         <div class="container-fluid">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h2 class="card-title">Edit Data Anggota</h2>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                  <div class="container clearfix">
-
-
-                  <div class="content">
-            <h3>Tambah Data Buku</h3>
-            <form method="post" action="" enctype="multipart/form-data">
-                <input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>">
-                <p>Judul</p>
-                <p><input type="text" name="judul" value="<?php echo $data_buku['buku_judul'] ?>"></p>
-
-                <p>Kategori</p>
-                <p>
-                	<select name="kategori">
-                        <?php foreach ($data_kategori as $kategori) : ?>
-                            <?php
-                            if ($data_buku['kategori_id'] == $kategori['kategori_id']) {
-                                $selected = "selected";
-                            } else {
-                                $selected = null;
-                            }
-                            ?>
-                            <option value="<?php echo $kategori['kategori_id'] ?>" <?php echo $selected ?>><?php echo $kategori['kategori_nama'] ?></option>
-                        <?php endforeach ?>
-                	</select>
-                </p>
-
-                <p>Deskripsi</p>
-                <p><textarea name="deskripsi"><?php echo $data_buku['buku_deskripsi'] ?></textarea></p>
-
-                <p>Jumlah</p>
-                <p><input type="number" name="jumlah" value="<?php echo $data_buku['buku_jumlah'] ?>"></p>
-
-                <p>Cover</p>
-                <p><input type="file" name="cover"></p>
-
-                <p><input type="submit" class="btn btn-submit" value="Simpan" name="update"></p>
-            </form>
-        </div>
-
-  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <?php 
+        <?php 
     include '../includes/koneksi.php';
     
     if (isset($_POST["update"])){
     $id_buku = $_POST['id_buku'];
     $judul = $_POST['judul'];
     $kategori = $_POST['kategori'];
-    $deskripsi = $_POST['deskripsi'];
+    $deskripsi = $_POST['editor1'];
     $jumlah = $_POST['jumlah'];
     
     $q = mysqli_query($db, "SELECT buku_cover FROM buku WHERE buku_id = $id_buku");
@@ -255,16 +212,71 @@ $data_buku = mysqli_fetch_assoc($hasil);
             move_uploaded_file($file, $destination);
         }
     
-        echo "<script>window.alert('Berhasil Update')
-        window.location='buku.php'</script>";
+        echo "<div class=alert role=alert style=background-color:purple;>
+        Data Berhasil di Update
+        </div>";
     } else {
-      echo "<script>window.alert('Gagal Update')
-      window.location='buku-edit.php'</script>";
+      echo "<div class=alert role=alert style=background-color:purple;>
+      Data Gagal di Update
+      </div>"; 
     }
 }
     
     
     ?>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h2 class="card-title">Edit Data Anggota</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="container clearfix">
+                  <div class="content">
+                <h3>Tambah Data Buku</h3>
+                <form method="post" action="" enctype="multipart/form-data">
+
+                <input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>">
+                <p>Judul</p>
+                <p><input type="text" name="judul" value="<?php echo $data_buku['buku_judul'] ?>"></p>
+
+                <p>Kategori</p>
+                <p>
+                	<select name="kategori">
+                        <?php foreach ($data_kategori as $kategori) : ?>
+                            <?php
+                            if ($data_buku['kategori_id'] == $kategori['kategori_id']) {
+                                $selected = "selected";
+                            } else {
+                                $selected = null;
+                            }
+                            ?>
+                            <option value="<?php echo $kategori['kategori_id'] ?>" <?php echo $selected ?>><?php echo $kategori['kategori_nama'] ?></option>
+                        <?php endforeach ?>
+                	</select>
+                </p>
+
+                <p>Deskripsi</p>
+                <p><textarea name="editor1"><?php echo $data_buku['buku_deskripsi'] ?></textarea></p>
+                <script>
+                        CKEDITOR.replace( 'editor1' );
+                </script>
+                <p>Jumlah</p>
+                <p><input type="number" name="jumlah" value="<?php echo $data_buku['buku_jumlah'] ?>"></p>
+
+                <p>Cover</p>
+                <p><input type="file" name="cover"></p>
+
+                <p><input type="submit" class="btn btn-submit" value="Simpan" name="update"></p>
+            </form>
+        </div>
+
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
    
      
    <footer class="footer">

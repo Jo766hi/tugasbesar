@@ -1,3 +1,10 @@
+<?php 
+  session_start();
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,6 +158,28 @@ $data_kategori = mysqli_fetch_assoc($hasil);
 ?>
       <div class="content">
         <div class="container-fluid">
+    <?php
+    include '../includes/koneksi.php';
+    if(isset($_POST["edit"])){
+    $kategori = $_POST['kategori'];
+    $id_kategori = $_POST['id_kategori'];
+
+    $query = "UPDATE kategori 
+        SET kategori_nama = '$kategori'
+        WHERE kategori_id = $id_kategori";
+
+    $hasil = mysqli_query($db, $query);
+    if ($hasil == true) {
+      echo "<div class=alert role=alert style=background-color:purple;>
+      Kategori Berhasil di Update
+      </div>";
+    } else {
+      echo "<div class=alert role=alert style=background-color:purple;>
+      Kategori Gagal di Update
+      </div>";
+    }
+  }
+  ?>
           <div class="card">
             <div class="card-header card-header-primary">
               <h2 class="card-title">Edit Kategori</h2>
@@ -181,26 +210,7 @@ $data_kategori = mysqli_fetch_assoc($hasil);
         </div>
       </div>
     
-      <?php
-    include '../includes/koneksi.php';
-    if(isset($_POST["edit"])){
-    $kategori = $_POST['kategori'];
-    $id_kategori = $_POST['id_kategori'];
-
-    $query = "UPDATE kategori 
-        SET kategori_nama = '$kategori'
-        WHERE kategori_id = $id_kategori";
-
-    $hasil = mysqli_query($db, $query);
-    if ($hasil == true) {
-      echo "<script>window.alert('Berhasil Diupdate')
-      window.location='kategori.php'</script>";
-    } else {
-      echo "<script>window.alert('Gagal Diupdate')
-      window.location='kategori-edit.php'</script>";
-    }
-}
-?>
+      
 
   
   <footer class="footer">

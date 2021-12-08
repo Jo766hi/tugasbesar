@@ -14,10 +14,10 @@
 -->
 <?php 
   session_start();
-  require ("../includes/koneksi.php");
-  if(empty($_SESSION['username'])){
-      header ("Location:../login/login.php");
-  } 
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -173,6 +173,39 @@ $data_anggota = mysqli_fetch_assoc($hasil);
 ?>
       <div class="content">
         <div class="container-fluid">
+        <?php
+          include '../includes/koneksi.php';
+                
+          if(isset($_POST["save"])){
+          $id_anggota = $_POST['id_anggota'];
+          $user = $_POST['username'];
+          $email = $_POST['email'];
+          $nama = $_POST['nama'];
+          $jenis_kelamin = $_POST['jk'];
+          $no_telepon = $_POST['no_telepon'];
+          $pass = $_POST['password'];
+
+          $query = "UPDATE user
+              SET username = '$user',
+                  email = '$email',
+                  nama = '$nama',
+                  jk = '$jenis_kelamin',
+                  telp = '$no_telepon',
+                  password = '$pass'
+              WHERE id = $id_anggota AND level = 'anggota'";
+
+          $hasil = mysqli_query($db, $query);
+          // var_dump(mysqli_error($db));
+          if ($hasil == true) {
+            echo "<div class=alert role=alert style=background-color:purple;>
+                  Kategori Berhasil di Tambah
+                  </div>";
+          } else {
+          echo "koneksi gagal" .mysqli_error($db);
+          }
+          }
+            
+            ?>
           <div class="card">
             <div class="card-header card-header-primary">
               <h2 class="card-title">Edit Data Anggota</h2>
@@ -187,14 +220,17 @@ $data_anggota = mysqli_fetch_assoc($hasil);
                 <table>
                   <input type="hidden" name="id_anggota" value="<?php echo $data_anggota['id']; ?>">
                   <tr>
-                  <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $data_anggota['anggota_usrnm']; ?>">
+                  <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $data_anggota['username']; ?>">
                   </tr><br/><br/>
                   <tr>
-                  <input type="text" name="nama" id="nama" placeholder="nama" value="<?php echo $data_anggota['anggota_nama']; ?>">
+                  <input type="email" name="email" id="email" placeholder="Email" value="<?php echo $data_anggota['email']; ?>">
+                  </tr><br/><br/>
+                  <tr>
+                  <input type="text" name="nama" id="nama" placeholder="nama" value="<?php echo $data_anggota['nama']; ?>">
                   </tr><br/><br/>
                   <tr>
                         <select name="jk" aria-placeholder="Jenis Kelamin">
-                        <?php if ($data_anggota['anggota_jk'] == "L") : ?>
+                        <?php if ($data_anggota['jk'] == "L") : ?>
                         <option value="L" selected>Laki-laki</option>
                         <option value="P">Perempuan</option>
                         <?php else : ?>
@@ -204,13 +240,10 @@ $data_anggota = mysqli_fetch_assoc($hasil);
                         </select>
                   </tr><br/><br/>
                   <tr>
-                  <input type="text" name="no_telepon" id="telp" placeholder="Telepon" value="<?php echo $data_anggota['anggota_telp']; ?>">
+                  <input type="text" name="no_telepon" id="telp" placeholder="Telepon" value="<?php echo $data_anggota['telp']; ?>">
                   </tr><br/><br/>
                   <tr>
-                  <input type="email" name="email" id="email" placeholder="Email" value="<?php echo $data_anggota['anggota_email']; ?>">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="password" name="password" id="password" placeholder="Password" value="<?php echo $data_anggota['anggota_pass']; ?>">
+                  <input type="password" name="password" id="password" placeholder="Password" value="<?php echo $data_anggota['password']; ?>">
                   </tr><br/><br/>
                 </table>
                 <p>
@@ -228,39 +261,6 @@ $data_anggota = mysqli_fetch_assoc($hasil);
         </div>
       </div>
     
-    <?php
-   include '../includes/koneksi.php';
-        
-   if(isset($_POST["save"])){
-   $id_anggota = $_POST['id_anggota'];
-   $user = $_POST['username'];
-   $nama = $_POST['nama'];
-   $jenis_kelamin = $_POST['jk'];
-   $no_telepon = $_POST['no_telepon'];
-   $email = $_POST['email'];
-   $pass = $_POST['password'];
-
-   $query = "UPDATE anggota 
-       SET anggota_usrnm = '$user',
-           anggota_nama = '$nama',
-           anggota_jk = '$jenis_kelamin',
-           anggota_telp = '$no_telepon',
-           anggota_email = '$email',
-           anggota_pass = '$pass'
-       WHERE anggota_id = $id_anggota";
-
-   $hasil = mysqli_query($db, $query);
-   // var_dump(mysqli_error($db));
-   if ($hasil == true) {
-    echo "<script>window.alert('Berhasil Update')
-    window.location='anggota.php'</script>";
-   } else {
-      
-       echo "koneksi gagal" .mysqli_error($db);
-   }
-   }
-    
-    ?>
  <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">

@@ -14,10 +14,10 @@
 -->
 <?php 
   session_start();
-  require ("../includes/koneksi.php");
-  if(empty($_SESSION['username'])){
-      header ("Location:../login/login.php");
-  } 
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -167,6 +167,34 @@
 
       <div class="content">
         <div class="container-fluid">
+        <?php
+
+          include '../includes/koneksi.php';
+          if(isset($_POST["add"])){
+          $user = $_POST['username'];
+          $email = $_POST['email'];
+          $nama = $_POST['nama'];
+          $jenis_kelamin = $_POST['jk'];
+          $no_telepon = $_POST['no_telepon'];
+          $pass = $_POST['password'];
+
+          $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
+              VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$pass', 'anggota')";
+          $hasil = mysqli_query($db, $query);
+
+          if ($hasil == true) {
+              echo "<div class=alert role=alert style=background-color:purple;>
+              Anggota Berhasil di Tambah
+              </div>";
+          } else {
+            "<div class=alert role=alert style=background-color:purple;>
+              Anggota Gagal di Tambah
+              </div>";
+              header('Location: anggota-tambah.php');
+          }
+          }
+          ?>
+
           <div class="card">
             <div class="card-header card-header-primary">
               <h2 class="card-title">Tambah Data Anggota</h2>
@@ -215,30 +243,7 @@
           </div>
         </div>
       </div>
-    <?php
-
-    include '../includes/koneksi.php';
-    if(isset($_POST["add"])){
-    $user = $_POST['username'];
-    $email = $_POST['email'];
-    $nama = $_POST['nama'];
-    $jenis_kelamin = $_POST['jk'];
-    $no_telepon = $_POST['no_telepon'];
-    $pass = $_POST['password'];
-
-    $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
-        VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$pass', 'anggota')";
-    $hasil = mysqli_query($db, $query);
-
-    if ($hasil == true) {
-        echo "<script>window.alert('1 Record added')
-        window.location='anggota.php'</script>";
-    } else {
-        header('Location: anggota-tambah.php');
-    }
-    }
-    ?>
-
+    
 <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
