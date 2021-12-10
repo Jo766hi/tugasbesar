@@ -72,14 +72,14 @@
 	if (isset($_POST['btnlogin'])) {
 
 		$user_login = $_POST['username'];
-		$pass_login = $_POST['password'];
+		$pass_login = md5($_POST['password']);
 
 		$sql = "SELECT * FROM user WHERE username = '{$user_login}' and password = '{$pass_login}'";
 		$query = mysqli_query($db, $sql);
 
 		while ($row = mysqli_fetch_array($query)) {
 			$user = $row['username'];
-			$pass =  md5($row['password']);
+			$pass = $row['password'];
 			$nama = $row['nama'];
 			$email = $row['email'];
 			$level = $row['level'];

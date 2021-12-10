@@ -10,7 +10,6 @@ $id_pinjam = $_GET['id_pinjam'];
 $query = "SELECT * FROM pinjam WHERE pinjam.pinjam_id = $id_pinjam";
 $hasil = mysqli_query($db, $query);
 $data_pinjam = mysqli_fetch_assoc($hasil);
-var_dump($data_pinjam);
 ?>
 <!DOCTYPE html>
 <html lang="en">
