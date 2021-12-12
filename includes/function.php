@@ -57,3 +57,5 @@ function tambah_stok($db, $buku_id)
     $q = "UPDATE buku SET buku_jumlah = buku_jumlah + 1 WHERE buku_id = $buku_id";
     mysqli_query($db, $q);
 }
+
+

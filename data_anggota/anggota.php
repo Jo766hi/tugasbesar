@@ -18,7 +18,15 @@
    header('Location: ../login/login.php');
    exit();
   }
+
 ?>
+<?php
+
+require '../includes/koneksi.php';
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,10 +121,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form class="navbar-form" action="" method="GET">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
                 </button>
@@ -180,9 +188,14 @@
 
         
         <div class="content">
-            <?php if (empty($data_anggota)) : ?>
-            Tidak ada data.
-            <?php else : ?>
+
+            <?php if(isset($_GET['cari'])) : ?>
+                <?php
+                $cari = $_GET['cari'];
+                $hasil = mysqli_query($db, "SELECT * FROM user WHERE nama like '%$cari%' or username like '%$cari%'");
+                var_dump ($data_anggota);
+                ?>
+            <?php else : ?> 
             <table class="data">
                 <tr>
                     <th>Username</th>
@@ -206,9 +219,9 @@
                         <a href="anggota-delete.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>
                 </tr>
-                <?php  endforeach ?>
+                <?php endforeach; ?>
+                <?php endif; ?>
             </table>
-            <?php endif ?>
                 <a href="anggota-tambah.php"><button class="btn btn-primary">Tambah Data</button></a>
         </div>
 
