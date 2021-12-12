@@ -133,13 +133,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -170,13 +173,14 @@ $data_kategori = mysqli_fetch_assoc($hasil);
 
     $hasil = mysqli_query($db, $query);
     if ($hasil == true) {
-      echo "<div class=alert role=alert style=background-color:purple;>
-      Kategori Berhasil di Update
-      </div>";
+      echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+      <strong>Kategori Berhasil di Update!</strong>
+      <button type=button class=close data-dismiss=alert aria-label=Close>
+        <span aria-hidden=true>&times;</span>
+      </button>
+    </div>";
     } else {
-      echo "<div class=alert role=alert style=background-color:purple;>
-      Kategori Gagal di Update
-      </div>";
+      echo "koneksi gagal" .mysqli_error($db);
     }
   }
   ?>
@@ -184,21 +188,22 @@ $data_kategori = mysqli_fetch_assoc($hasil);
             <div class="card-header card-header-primary">
               <h2 class="card-title">Edit Kategori</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body table-relative">
               <div class="row">
                   <div class="container clearfix">
 
 
                   <div class="content">
-            <h3>Edit Kategori</h3>
             <form method="post" action="">
                 <input type="hidden" name="id_kategori" id="id_kategori" value="<?php echo $data_kategori['kategori_id']; ?>">
-                <p>Kategori</p>
-                <p><input type="text" name="kategori" value="<?php echo $data_kategori['kategori_nama'] ?>"></p>
+                <div class="form-group">
+									<label for="kategori">Kategori</label>
+									<input id="kategori" type="text" class="form-control" name="kategori" value="<?php echo $data_kategori['kategori_nama'] ?>" required autofocus>
+								</div><br/>
 
                 <p>
-                    <input type="submit" class="btn btn-submit" value="Simpan" name="edit">
-                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                    <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="edit">
+                    <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
                 </p>
             </form>
         </div>

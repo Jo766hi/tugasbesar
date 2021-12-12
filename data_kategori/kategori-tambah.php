@@ -133,13 +133,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -159,36 +162,39 @@
         $hasil = mysqli_query($db, $query);
         
         if ($hasil == true) {
-          echo "<div class=alert role=alert style=background-color:purple;>
-          Kategori Berhasil di Tambah
+          echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+            <strong>Kategori Berhasil di Tambah!</strong>
+            <button type=button class=close data-dismiss=alert aria-label=Close>
+              <span aria-hidden=true>&times;</span>
+            </button>
           </div>";
         } else {
-          echo "<div class=alert role=alert style=background-color:purple;>
-          Kategori Gagal di Tambah
-          </div>";
+          echo "koneksi gagal" .mysqli_error($db);
         }
     }
     ?>
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Tambah Data Buku</h2>
+              <h2 class="card-title">Tambah Data Kategori</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body table-relative">
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-            <h3>Tambah Data Kategori</h3>
             <form method="post" action="">
-                <p>Kategori</p>
-                <p><input type="text" name="kategori"></p>
+            <div class="form-group">
+									<label for="kategori">Kategori</label>
+									<input id="kategori" type="text" class="form-control" name="kategori" value="" required autofocus>
+								</div><br/>
                 <p>
-                    <input type="submit" class="btn btn-submit" value="Simpan" name="tambah">
-                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                    <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="tambah">
+                    <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
                 </p>
             </form>
         </div>
 
         
+  </div>
   </div>
  
   <footer class="footer">

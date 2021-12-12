@@ -133,13 +133,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -179,15 +182,13 @@ include 'buku-list.php';
                     <td><?php echo $buku['buku_jumlah'] ?></td>
                     <td><img class="buku-cover" src="cover/<?php echo $buku['buku_cover'] ?>" width="50px"></td>
                     <td>
-                        <a href="buku-edit.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-edit">Edit</a>
-                        <a href="buku-delete.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-hapus" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
+                        <a href="buku-edit.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Edit</a>
+                        <a href="buku-delete.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>
                 </tr>
                 <?php endforeach ?>
             </table>
-            <div class="btn-tambah-div">
-                <a href="buku-tambah.php"><button class="btn btn-tambah">Tambah Data</button></a>
-            </div>
+                <a href="buku-tambah.php"><button class="btn btn-primary">Tambah Data</button></a>
             <?php endif ?>
         </div>
 

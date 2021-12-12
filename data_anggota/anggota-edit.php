@@ -147,13 +147,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -197,9 +200,12 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $hasil = mysqli_query($db, $query);
           // var_dump(mysqli_error($db));
           if ($hasil == true) {
-            echo "<div class=alert role=alert style=background-color:purple;>
-                  Kategori Berhasil di Tambah
-                  </div>";
+            echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+            <strong>Data Berhasil di Ubah!</strong>
+            <button type=button class=close data-dismiss=alert aria-label=Close>
+              <span aria-hidden=true>&times;</span>
+            </button>
+          </div>";
           } else {
           echo "koneksi gagal" .mysqli_error($db);
           }
@@ -210,45 +216,65 @@ $data_anggota = mysqli_fetch_assoc($hasil);
             <div class="card-header card-header-primary">
               <h2 class="card-title">Edit Data Anggota</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
               <div class="row">
                   <div class="container clearfix">
 
 
             <div class="col-12">
             <form method="post" action="">
-                <table>
-                  <input type="hidden" name="id_anggota" value="<?php echo $data_anggota['id']; ?>">
-                  <tr>
-                  <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $data_anggota['username']; ?>">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="email" name="email" id="email" placeholder="Email" value="<?php echo $data_anggota['email']; ?>">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="text" name="nama" id="nama" placeholder="nama" value="<?php echo $data_anggota['nama']; ?>">
-                  </tr><br/><br/>
-                  <tr>
-                        <select name="jk" aria-placeholder="Jenis Kelamin">
-                        <?php if ($data_anggota['jk'] == "L") : ?>
-                        <option value="L" selected>Laki-laki</option>
-                        <option value="P">Perempuan</option>
-                        <?php else : ?>
-                        <option value="L">Laki-laki</option>
-                        <option value="P" selected>Perempuan</option>
-                        <?php  endif ?>
-                        </select>
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="text" name="no_telepon" id="telp" placeholder="Telepon" value="<?php echo $data_anggota['telp']; ?>">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="password" name="password" id="password" placeholder="Password" value="<?php echo $data_anggota['password']; ?>">
-                  </tr><br/><br/>
-                </table>
+            <input type="hidden" name="id_anggota" value="<?php echo $data_anggota['id']?>">
+            <div class="form-group">
+									<label for="username">Username</label>
+									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data_anggota['username'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Username is invalid
+									</div>
+								</div><br/>
+            <div class="form-group">
+									<label for="email">Email</label>
+									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data_anggota['email'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Email is invalid
+									</div>
+								</div><br/>
+           <div class="form-group">
+									<label for="nama">Nama</label>
+									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data_anggota['nama'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Name is invalid
+									</div>
+								</div><br/>
+           <div class="form-group">
+									<label for="jk">Jenis Kelamin</label>
+									<select id="jk" class="custom-select" name="jk">
+                    <?php if($data_anggota['jk'] == "L") :?>
+                      <option value = "L" selected >Laki- laki</option>
+                      <option value = "P" >Perempuan</option>
+                    <?php else : ?>
+                      <option value = "L">Laki - laki</option>
+                      <option value = "P" selected>Perempuan</option>
+                    <?php endif ?>
+                  </select> 
+								</div><br/>
+         <div class="form-group">
+									<label for="telp">Telephone</label>
+									<input id="telp" type="text" class="form-control" name="no_telepon" value="<?php echo $data_anggota['telp'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Telephone is invalid
+									</div>
+								</div><br/>
+						<div class="form-group">
+									<label for="password">Password
+									</label>
+									<input id="password" type="password" class="form-control" name="password" value="<?php echo $data_anggota['password']; ?>" required data-eye>
+									<div class="invalid-feedback">
+										Password is required
+									</div>
+								</div>
                 <p>
-                    <input type="submit" class="btn btn-submit" value="Simpan" name="save">
-                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                    <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="save">
+                    <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
                 </p>
             </form>
         </div>
@@ -266,7 +292,7 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           <nav class="float-mid">
             <ul>
               <li>
-                <a href="https://creative-tim.com/presentation">
+                <a href="https://creative-tim.com/presentation" class="d-none d-lg-block">
                   About Us
                 </a>
             </ul>

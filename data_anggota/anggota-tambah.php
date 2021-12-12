@@ -147,13 +147,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -183,14 +186,14 @@
           $hasil = mysqli_query($db, $query);
 
           if ($hasil == true) {
-              echo "<div class=alert role=alert style=background-color:purple;>
-              Anggota Berhasil di Tambah
-              </div>";
+            echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+            <strong>Anggota Berhasil di Tambah!</strong>
+            <button type=button class=close data-dismiss=alert aria-label=Close>
+              <span aria-hidden=true>&times;</span>
+            </button>
+          </div>";
           } else {
-            "<div class=alert role=alert style=background-color:purple;>
-              Anggota Gagal di Tambah
-              </div>";
-              header('Location: anggota-tambah.php');
+            echo "koneksi gagal" .mysqli_error($db);
           }
           }
           ?>
@@ -199,39 +202,59 @@
             <div class="card-header card-header-primary">
               <h2 class="card-title">Tambah Data Anggota</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
               <div class="row">
                   <div class="container clearfix">
 
 
             <div class="col-12">
             <form method="post" action="">
-                <table>
-                  <tr>
-                  <input type="text" name="username" id="username" placeholder="Username" width="100%">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="email" name="email" id="email" placeholder="Email">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="text" name="nama" id="nama" placeholder="nama">
-                  </tr><br/><br/>
-                  <tr>
-                        <select name="jk" aria-placeholder="Jenis Kelamin">
-                        <option value="L">Laki-laki</option>
-                        <option value="P">Perempuan</option>
-                        </select>
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="text" name="no_telepon" id="telp" placeholder="Telepon">
-                  </tr><br/><br/>
-                  <tr>
-                  <input type="password" name="password" id="password" placeholder="Password">
-                  </tr><br/><br/>
-                </table>
+            <div class="form-group">
+									<label for="username">Username</label>
+									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
+									<div class="invalid-feedback">
+										Username is invalid
+									</div>
+								</div><br/>
+            <div class="form-group">
+									<label for="email">Email</label>
+									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+									<div class="invalid-feedback">
+										Email is invalid
+									</div>
+								</div><br/>
+           <div class="form-group">
+									<label for="nama">Nama</label>
+									<input id="nama" type="text" class="form-control" name="nama" value="" required autofocus>
+									<div class="invalid-feedback">
+										Name is invalid
+									</div>
+								</div><br/>
+           <div class="form-group">
+									<label for="jk">Jenis Kelamin</label>
+									<select id="jk" class="custom-select" name="jk">
+                      <option value = "L">Laki- laki</option>
+                      <option value = "P">Perempuan</option>
+                  </select> 
+								</div><br/>
+         <div class="form-group">
+									<label for="telp">Telephone</label>
+									<input id="telp" type="text" class="form-control" name="no_telepon" value="" required autofocus>
+									<div class="invalid-feedback">
+										Telephone is invalid
+									</div>
+								</div><br/>
+						<div class="form-group">
+									<label for="password">Password
+									</label>
+									<input id="password" type="password" class="form-control" name="password" value="" required data-eye>
+									<div class="invalid-feedback">
+										Password is required
+									</div>
+								</div>
                 <p>
-                    <input type="submit" class="btn btn-submit" value="Simpan" name="add">
-                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                    <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="add">
+                    <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
                 </p>
             </form>
         </div>

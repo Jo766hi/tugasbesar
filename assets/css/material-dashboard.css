@@ -155,6 +155,9 @@ sub {
 sup {
   top: -.5em;
 }
+.btn-edit {
+  color: #9c27b0;
+}
 
 a {
   color: #9c27b0;

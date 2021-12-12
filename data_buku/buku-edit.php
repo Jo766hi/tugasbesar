@@ -134,13 +134,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -212,13 +215,14 @@ $data_buku = mysqli_fetch_assoc($hasil);
             move_uploaded_file($file, $destination);
         }
     
-        echo "<div class=alert role=alert style=background-color:purple;>
-        Data Berhasil di Update
-        </div>";
+        echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+            <strong>Buku Berhasil di Update!</strong>
+            <button type=button class=close data-dismiss=alert aria-label=Close>
+              <span aria-hidden=true>&times;</span>
+            </button>
+          </div>";
     } else {
-      echo "<div class=alert role=alert style=background-color:purple;>
-      Data Gagal di Update
-      </div>"; 
+      echo "koneksi gagal" .mysqli_error($db);
     }
 }
     
@@ -226,23 +230,24 @@ $data_buku = mysqli_fetch_assoc($hasil);
     ?>
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Edit Data Anggota</h2>
+              <h2 class="card-title">Edit Data Buku</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-                <h3>Tambah Data Buku</h3>
                 <form method="post" action="" enctype="multipart/form-data">
 
                 <input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>">
-                <p>Judul</p>
-                <p><input type="text" name="judul" value="<?php echo $data_buku['buku_judul'] ?>"></p>
+                <div class="form-group">
+									<label for="judul">Judul</label>
+									<input id="judul" type="text" class="form-control" name="judul" value="<?php echo $data_buku['buku_judul'] ?>" required autofocus>
+								</div><br/>
 
-                <p>Kategori</p>
-                <p>
-                	<select name="kategori">
-                        <?php foreach ($data_kategori as $kategori) : ?>
+                <div class="form-group">
+									<label for="kategori">kategori</label>
+									<select id="kategori" name="kategori" class="custom-select">
+                  <?php foreach ($data_kategori as $kategori) : ?>
                             <?php
                             if ($data_buku['kategori_id'] == $kategori['kategori_id']) {
                                 $selected = "selected";
@@ -252,21 +257,21 @@ $data_buku = mysqli_fetch_assoc($hasil);
                             ?>
                             <option value="<?php echo $kategori['kategori_id'] ?>" <?php echo $selected ?>><?php echo $kategori['kategori_nama'] ?></option>
                         <?php endforeach ?>
-                	</select>
-                </p>
-
+                  </select> 
+								</div><br/>
                 <p>Deskripsi</p>
                 <p><textarea name="editor1"><?php echo $data_buku['buku_deskripsi'] ?></textarea></p>
                 <script>
                         CKEDITOR.replace( 'editor1' );
-                </script>
-                <p>Jumlah</p>
-                <p><input type="number" name="jumlah" value="<?php echo $data_buku['buku_jumlah'] ?>"></p>
-
+                </script><br/>
+                 <div class="form-group">
+									<label for="jumlah">Jumlah</label>
+									<input id="jumlah" type="number" class="form-control" name="jumlah" value="<?php echo $data_buku['buku_jumlah'] ?>" required autofocus></div><br/>
+                
                 <p>Cover</p>
                 <p><input type="file" name="cover"></p>
 
-                <p><input type="submit" class="btn btn-submit" value="Simpan" name="update"></p>
+                <p><input type="submit" class="btn btn-primary btn-block" value="Simpan" name="update"></p>
             </form>
         </div>
 

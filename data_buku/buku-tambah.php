@@ -134,13 +134,16 @@
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../login/logout.php">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -174,13 +177,14 @@ include '../data_kategori/kategori-list.php';
           // jika data berhasil diinsert, lakukan proses upload
           move_uploaded_file($file, $destination);
 
-          echo  "<div class=alert role=alert style=background-color:purple;>
-          Data Berhasil di Tambah
-          </div>";
+          echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+          <strong>Buku Berhasil di Tambah!</strong>
+          <button type=button class=close data-dismiss=alert aria-label=Close>
+            <span aria-hidden=true>&times;</span>
+          </button>
+            </div>";
       } else {
-        "<div class=alert role=alert style=background-color:purple;>
-        Data Gagal di Tambah
-        </div>";
+        echo "koneksi gagal" .mysqli_error($db);
       }
       }?>
      
@@ -188,36 +192,43 @@ include '../data_kategori/kategori-list.php';
             <div class="card-header card-header-primary">
               <h2 class="card-title">Tambah Data Buku</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-            <form method="post" action="" enctype="multipart/form-data">
-                <p>Judul</p>
-                <p><input type="text" name="judul"></p>
-
-                <p>Kategori</p>
-                <p>
-                	<select name="kategori">
-                        <?php foreach ($data_kategori as $kategori) : ?>
-                            <option value="<?php echo $kategori['kategori_id'] ?>"><?php echo $kategori['kategori_nama'] ?></option>
-                        <?php endforeach ?>
-                	</select>
-                </p>
-
-                <p>Deskripsi</p>
+                  <form method="post" action="" enctype="multipart/form-data">
+                  <div class="form-group">
+									<label for="judul">Judul</label>
+									<input id="judul" type="text" class="form-control" name="judul" value="" required autofocus>
+									<div class="invalid-feedback">
+										Judul is invalid
+									</div>
+								</div><br/>
+                <div class="form-group">
+									<label for="kategori">kategori</label>
+									<select id="kategori" class="custom-select" name="kategori">
+                    <?php foreach($data_kategori as $kategori) :?>
+                      <option value = "<?php echo $kategori['kategori_id'] ?>"><?php echo $kategori['kategori_nama'] ?></option>
+                    <?php endforeach ?>
+                  </select> 
+								</div><br/>
+               <p>Deskripsi</p>
                 <p><textarea name="editor1"></textarea></p>
                 <script>
                         CKEDITOR.replace( 'editor1' );
                 </script>
-
-                <p>Jumlah</p>
-                <p><input type="number" name="jumlah"></p>
+                 
+                 <div class="form-group">
+									<label for="jumlah">Jumlah</label>
+									<input id="jumlah" type="number" class="form-control" name="jumlah" value="" required autofocus>
+									<div class="invalid-feedback">
+										Jumlah is invalid
+									</div></div><br/>
 
                 <p>Cover</p>
                 <p><input type="file" name="cover"></p>
 
-                <p><input type="submit" class="btn btn-submit" value="Simpan" name="submit"></p>
+                <p><input type="submit" class="btn btn-primary btn-block" value="Simpan" name="submit"></p>
             </form>
         </div>
                 
