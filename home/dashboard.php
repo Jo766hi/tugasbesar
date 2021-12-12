@@ -17,7 +17,7 @@
   require ("../includes/koneksi.php");
   if(empty($_SESSION['username'])){
       header ("Location:error.php");
-      
+  }     
   include '../includes/koneksi.php';
   include '../data_buku/buku-list.php';
   include '../peminjaman/proses-list-pinjam-data.php';
@@ -29,7 +29,7 @@
   $row_anggota = mysqli_num_rows($data);
 
 
-  } 
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">

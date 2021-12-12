@@ -16,4 +16,6 @@ $data_buku = array();
 while ($row = mysqli_fetch_assoc($hasil)) {
     $data_buku[] = $row;
 }
+
+$row_buku = mysqli_num_rows($hasil);
 ?>
