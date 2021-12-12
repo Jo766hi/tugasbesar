@@ -1,5 +1,4 @@
 <?php
-
 function ambil_kategori($db)
 {
     // ambil data kategori
@@ -58,4 +57,19 @@ function tambah_stok($db, $buku_id)
     mysqli_query($db, $q);
 }
 
+function cari($keyword)
+{
+    include '../includes/koneksi.php';
+    $query = "SELECT * FROM user 
+                WHERE nama 
+                LIKE '%$keyword%' OR 
+                username LIKE '%$keyword%'";
 
+    $hasil = mysqli_query($db, $query);
+    $data_anggota = array();
+    // ... tiap baris dari hasil query dikumpulkan ke $data_anggota
+    while ($row = mysqli_fetch_assoc($hasil)) {
+    $data_anggota[] = $row;
+}
+    return $data_anggota;
+}

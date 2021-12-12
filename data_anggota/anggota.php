@@ -23,6 +23,8 @@
 <?php
 
 require '../includes/koneksi.php';
+include 'anggota-list.php';
+include '../includes/function.php';
 
 
 ?>
@@ -121,6 +123,7 @@ require '../includes/koneksi.php';
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
+
             <form class="navbar-form" action="" method="GET">
               <div class="input-group no-border">
                 <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
@@ -130,6 +133,7 @@ require '../includes/koneksi.php';
                 </button>
               </div>
             </form>
+
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -170,12 +174,7 @@ require '../includes/koneksi.php';
           </div>
         </div>
       </nav>
-      <!-- End Navbar -->
-      <?php 
-      include "anggota-list.php";
-      
-      ?>
-
+      <!-- End Navbar --> 
       <div class="content">
         <div class="container-fluid">
           <div class="card">
@@ -189,13 +188,8 @@ require '../includes/koneksi.php';
         
         <div class="content">
 
-            <?php if(isset($_GET['cari'])) : ?>
-                <?php
-                $cari = $_GET['cari'];
-                $hasil = mysqli_query($db, "SELECT * FROM user WHERE nama like '%$cari%' or username like '%$cari%'");
-                var_dump ($data_anggota);
-                ?>
-            <?php else : ?> 
+            <?php if(isset($_GET["cari"])) { ?>
+            <?php $data_anggota = cari($_GET["keyword"]);}?>
             <table class="data">
                 <tr>
                     <th>Username</th>
@@ -206,7 +200,9 @@ require '../includes/koneksi.php';
                     <th>Password</th>
                     <th width="20%">Pilihan</th>
                 </tr>
-                <?php foreach ($data_anggota as $anggota) : ?>
+                
+                <?php 
+                foreach ($data_anggota as $anggota) : ?>
                 <tr>
                     <td><?php echo $anggota['username'] ?></td>
                     <td><?php echo $anggota['email'] ?></td>
@@ -220,7 +216,6 @@ require '../includes/koneksi.php';
                     </td>
                 </tr>
                 <?php endforeach; ?>
-                <?php endif; ?>
             </table>
                 <a href="anggota-tambah.php"><button class="btn btn-primary">Tambah Data</button></a>
         </div>

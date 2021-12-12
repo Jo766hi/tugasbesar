@@ -17,6 +17,18 @@
   require ("../includes/koneksi.php");
   if(empty($_SESSION['username'])){
       header ("Location:error.php");
+      
+  include '../includes/koneksi.php';
+  include '../data_buku/buku-list.php';
+  include '../peminjaman/proses-list-pinjam-data.php';
+
+
+
+  $q = "SELECT username FROM user WHERE level = 'anggota'";
+  $data = mysqli_query($db, $q);
+  $row_anggota = mysqli_num_rows($data);
+
+
   } 
 ?>
 <!DOCTYPE html>
@@ -173,7 +185,7 @@
                     <i class="material-icons">group</i>
                   </div>
                   <p class="card-category">Total Siswa</p>
-                  <h3 class="card-title">50</h3>
+                  <h3 class="card-title"><?php echo $row_anggota ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -188,7 +200,7 @@
                     <i class="material-icons">chrome_reader_mode</i>
                   </div>
                   <p class="card-category">Data Buku</p>
-                  <h3 class="card-title">50</h3>
+                  <h3 class="card-title"><?php echo $row_buku ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
