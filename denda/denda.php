@@ -1,12 +1,11 @@
 <?php
-include '../includes/koneksi.php';
-
 session_start();
-require("../includes/koneksi.php");
-if (empty($_SESSION['username'])) {
-  header("Location:error.php");
-}
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
 
+include '../includes/koneksi.php';
 
 $q = mysqli_query($db, "SELECT * FROM denda");
 $uang = mysqli_fetch_row($q);

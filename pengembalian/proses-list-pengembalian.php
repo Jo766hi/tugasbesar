@@ -3,7 +3,7 @@
 
 include '../includes/koneksi.php';
 
-$query = "SELECT buku.buku_judul, pinjam.tgl_pinjam, pinjam.tgl_jatuh_tempo,kembali.kembali_id, kembali.tgl_kembali, user.nama
+$query = "SELECT buku.buku_judul, pinjam.tgl_pinjam, pinjam.tgl_jatuh_tempo,kembali.kembali_id, kembali.tgl_kembali, user.nama, kembali.denda
     FROM pinjam
     JOIN buku ON buku.buku_id = pinjam.buku_id
     JOIN user ON user.id = pinjam.anggota_id

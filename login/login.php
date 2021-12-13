@@ -68,6 +68,10 @@
 
 	<?php
 	session_start();
+	if (isset($_SESSION['username'])) {
+		header('Location: ../home/dashboard.php');
+		exit();
+	   }
 	require("../includes/koneksi.php");
 	if (isset($_POST['btnlogin'])) {
 
@@ -83,19 +87,18 @@
 			$nama = $row['nama'];
 			$email = $row['email'];
 			$level = $row['level'];
+			$id = $row['id'];
 		}
-		if ($user_login == $user && $pass_login == $pass && $level == 'petugas') {
+		if ($user_login == $user && $pass_login == $pass) {
 			echo "Username : $user_login dan Password : $pass_login";
 			header("Location: ../home/dashboard.php");
 			$_SESSION['username'] = $user;
 			$_SESSION['nama'] = $nama;
 			$_SESSION['email'] = $email;
-		} elseif ($user_login == $user && $pass_login == $pass && $level == "anggota") {
-			echo "Username : $user_login dan Password : $pass_login";
-			header("Location: ../home/dashboard.php");
-			$_SESSION['username'] = $user;
-			$_SESSION['nama'] = $nama;
-			$_SESSION['email'] = $email;
+			$_SESSION['level'] = $level;
+			$_SESSION['user_id'] = $id;
+
+
 		} else {
 			echo "<script>window.alert('User Tidak Ditemukan')
 			window.location='login.php'</script>";

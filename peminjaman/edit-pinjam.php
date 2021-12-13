@@ -1,8 +1,12 @@
 <?php
-// ... ambil data dari database
-include '../data_buku/buku-list.php';
 
-// ... ambil data dari database
+session_start();
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
+  
+include '../data_buku/buku-list.php';
 include '../data_anggota/anggota-list.php';
 
 

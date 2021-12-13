@@ -168,6 +168,7 @@ include 'proses-list-pengembalian.php';
                     <th>Tgl Pinjam</th>
                     <th>Tgl Jatuh Tempo</th>
                     <th>Tgl Kembali</th>
+                    <th>Denda</th>
                     <th width="20%">Pilihan</th>
                 </tr>
 
@@ -178,6 +179,8 @@ include 'proses-list-pengembalian.php';
                     <td><?php echo $kembali['tgl_pinjam'] ?></td>
                     <td><?php echo $kembali['tgl_jatuh_tempo'] ?></td>
                     <td><?php echo $kembali['tgl_kembali'] ?></td>
+                    <td><?php echo $kembali['denda'] ?></td>
+
                     <td>
                     <a href="delete-pengembalian.php?id_kembali=<?php echo $kembali['kembali_id'] ?>" onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
                     </td>

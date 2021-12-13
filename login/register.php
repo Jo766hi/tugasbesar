@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	if (isset($_SESSION['username'])) {
+		header('Location: ../home/dashboard.php');
+		exit();
+	   }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,20 +88,10 @@
                                                 Password is required
                                             </div>
                                         </div>
-
+                                        
                                         <div class="form-group">
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" name="agree" id="agree" class="custom-control-input" required="">
-                                                <label for="agree" class="custom-control-label">I agree to the <a href="#">Terms and Conditions</a></label>
-                                                <div class="invalid-feedback">
-                                                    You must agree with our Terms and Conditions
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="level">pilih status</label>
-                                            <select name="level" class="custom-select" id="">
-                                                <option value="petugas">petugas</option>
+                                            <label for="level">Level</label>
+                                            <select name="level" class="custom-select" id="" disabled>
                                                 <option value="anggota">anggota</option>
                                             </select>
 
@@ -118,7 +115,6 @@
     </section>
 
     <?php
-
     require("../includes/koneksi.php");
     if (isset($_POST['btnRegister'])) {
         $username = $_POST['anggota_usrnm'];

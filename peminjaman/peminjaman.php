@@ -1,5 +1,10 @@
 <?php
-// ... ambil data dari database
+
+session_start();
+if (!isset($_SESSION['username'])) {
+ header('Location: ../login/login.php');
+ exit();
+}
 include 'proses-list-pinjam-data.php';
 include 'pinjam-form.php';
 ?>

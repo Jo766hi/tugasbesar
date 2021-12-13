@@ -1,8 +1,10 @@
 <?php
-// ... ambil data dari database
+    if (!isset($_SESSION['username'])) {
+        header('Location: ../login/login.php');
+        exit();
+        
+    }
 include '../data_buku/buku-list.php';
-
-// ... ambil data dari database
 include '../data_anggota/anggota-list.php';
 ?>
 
@@ -21,7 +23,7 @@ include '../data_anggota/anggota-list.php';
                 <p>
                     <select name="buku">
                         <?php foreach ($data_buku as $buku): ?>
-                            <option value="<?php echo $buku['buku_id'] ?>"><?php echo $buku['buku_judul'] ?></option>
+                            <option value="<?php echo $buku['buku_id'] ?> "><?php echo $buku['buku_judul'] ?></option>
                         <?php endforeach ?>
                     </select>
                 </p>
