@@ -199,7 +199,7 @@
                   <div class="card-icon">
                     <i class="material-icons">chrome_reader_mode</i>
                   </div>
-                  <p class="card-category">Data Buku</p>
+                  <p class="card-category">Total Buku</p>
                   <h3 class="card-title"><?php echo $row_buku ?></h3>
                 </div>
                 <div class="card-footer">

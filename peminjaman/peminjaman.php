@@ -166,8 +166,12 @@ include 'pinjam-form.php';
                 <div class="card-body">
                   <div class="table-responsive">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  Launch demo modal
+                  Pinjam Buku
                   </button>
+                  <?php if (empty($data_pinjam)) : ?>
+                  Tidak ada data.
+                  <?php else : ?>
+
                   <table class="data">
                 <tr>
                     <th>Buku</th>
@@ -215,6 +219,7 @@ include 'pinjam-form.php';
                 </tr>
                 <?php endforeach ?>
             </table>
+              <?php endif ?>
                   </div>
                 </div>
               </div>
