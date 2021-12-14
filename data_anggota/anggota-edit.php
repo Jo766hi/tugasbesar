@@ -186,8 +186,12 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $nama = $_POST['nama'];
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
-          $pass = md5($_POST['password']);
+          $pass = ($_POST['password']);
           $level = $_POST['level'];
+
+          if ($pass !== $data_anggota['password']){
+            $pass = md5($_POST['password']);
+          }
 
 
           $query = "UPDATE user
@@ -203,12 +207,8 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $hasil = mysqli_query($db, $query);
           // var_dump(mysqli_error($db));
           if ($hasil == true) {
-            echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
-            <strong>Data Berhasil di Ubah!</strong>
-            <button type=button class=close data-dismiss=alert aria-label=Close>
-              <span aria-hidden=true>&times;</span>
-            </button>
-          </div>";
+            echo "<script>window.alert('Data Berhasil di Update')
+            window.location='anggota.php'</script>";
           } else {
           echo "koneksi gagal" .mysqli_error($db);
           }

@@ -171,7 +171,11 @@ $data_anggota = mysqli_fetch_array($tampil);
           $nama = $_POST['nama'];
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
-          $pass = md5($_POST['password']);
+          $pass = $_POST['password'];
+
+          if ($pass !== $data_anggota['password']){
+            $pass = md5($_POST['password']);
+          }
 
           $query = "UPDATE user
               SET username = '$user',
