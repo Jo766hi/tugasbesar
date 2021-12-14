@@ -125,7 +125,7 @@
         $password = md5($_POST['anggota_pass']);
         $level = $_POST['level'];
 
-        $sql = "INSERT INTO user (username, email, nama, jk, telp, password, level) VALUES ('$username','$email','$nama','$jk','$telp','$password','$level')";
+        $sql = "INSERT INTO user (username, email, nama, jk, telp, password, level) VALUES ('$username','$email','$nama','$jk','$telp','$password','anggota')";
 
         $pemeriksaan_username = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username' or email='$email'"));
 

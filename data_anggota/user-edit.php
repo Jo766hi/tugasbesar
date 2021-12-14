@@ -1,14 +1,10 @@
-<?php
-
-session_start();
-if (!isset($_SESSION['username'])) {
- header('Location: ../login/login.php');
- exit();
-}
-include 'proses-list-pinjam-data.php';
-include 'pinjam-form.php';
+<?php 
+  session_start();
+  if (!isset($_SESSION['id'])) {
+   header('Location: ../login/login.php');
+   exit();
+  }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,8 +40,8 @@ include 'pinjam-form.php';
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="../data_anggota/anggota.php">
+          <li class="nav-item active ">
+            <a class="nav-link" href="../data_anggota/user-edit.php">
               <i class="material-icons">person</i>
               <p>Data Anggota</p>
             </a>
@@ -62,7 +58,7 @@ include 'pinjam-form.php';
               <p>Data Buku</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
               <p>Peminjaman</p>
@@ -94,7 +90,7 @@ include 'pinjam-form.php';
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Peminjaman</a>
+            <a class="navbar-brand" href="javascript:void(0)">Data Anggota</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -153,90 +149,135 @@ include 'pinjam-form.php';
         </div>
       </nav>
       <!-- End Navbar -->
+<?php
 
+include '../includes/koneksi.php';
+
+// ambil artikel yang mau di edit
+$tampil = mysqli_query($db, "SELECT * FROM user WHERE id = '$_SESSION[id]'");
+$data_anggota = mysqli_fetch_array($tampil);
+
+
+?>
       <div class="content">
         <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h2 class="card-title ">Daftar Peminjaman </h4>
-                </div>
-                <div class="card-body table-responsive">
-                  <div class= "row">
-                  <div class= "container-clearfix">
-                  <div class= "content">
-                <table class="data">
-                <tr>
-                    <th>Buku</th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th>Status</th>
-                    <th>Pilihan</th>
-                </tr>
-                <?php foreach ($data_pinjam as $pinjam) : ?>
-                <tr>
-                    <td><?php echo $pinjam['buku_judul'] ?></td>
-                    <td><?php echo $pinjam['nama'] ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
-                    <td>
-                    <?php  
-                        if (empty($pinjam['tgl_kembali'])) {
-                            echo "-";
-                        } 
-                        else {
-                            echo date('d-m-Y', strtotime($pinjam['tgl_kembali']));
-                        }
-                    ?>
-                    </td>
-                    <td>
-                        <?php $status = '' ?>
-                        <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            pinjam
-                        <?php $status = 'pinjam' ?>
-                        <?php else: ?>
-                            kembali
-                        <?php $status = 'kembali' ?>  
-                        <?php endif ?>
-                    </td>
-                    <td>
-                        
-                        <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-primary" title="klik untuk proses pengembalian">Kembali</a>
-                            <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-primary">Edit</a>
-                        <?php endif ?>
-                        <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-            </table>
+        <?php
+          include '../includes/koneksi.php';
+                
+          if(isset($_POST["save"])){
+          $id_anggota = $_POST['id'];
+          $user = $_POST['username'];
+          $email = $_POST['email'];
+          $nama = $_POST['nama'];
+          $jenis_kelamin = $_POST['jk'];
+          $no_telepon = $_POST['no_telepon'];
+          $pass = md5($_POST['password']);
 
-            <div class="table-responsive">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Pinjam Buku
+          $query = "UPDATE user
+              SET username = '$user',
+                  email = '$email',
+                  nama = '$nama',
+                  jk = '$jenis_kelamin',
+                  telp = '$no_telepon',
+                  password = '$pass'
+              WHERE id = $id_anggota AND level = 'anggota'";
+
+          $hasil = mysqli_query($db, $query);
+          // var_dump(mysqli_error($db));
+          if ($hasil == true) {
+            echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+            <strong>Data Berhasil di Ubah!</strong>
+            <button type=button class=close data-dismiss=alert aria-label=Close>
+              <span aria-hidden=true>&times;</span>
             </button>
-            <?php if (empty($data_pinjam)) : ?> Tidak ada data.
-            <?php else : ?>
+          </div>";
+          } else {
+          echo "koneksi gagal" .mysqli_error($db);
+          }
+          }
+            
+            ?>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h2 class="card-title">Edit Data Anggota</h2>
+            </div>
+            <div class="card-body table-responsive">
+              <div class="row">
+                  <div class="container clearfix">
 
-            <?php endif ?>
+
+            <div class="col-12">
+            <form method="post" action="">
+            <input type="hidden" name="id" value="<?php echo $data_anggota['id']?>">
+            <div class="form-group">
+									<label for="username">Username</label>
+									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data_anggota['username'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Username is invalid
+									</div>
+								</div><br/>
+            <div class="form-group">
+									<label for="email">Email</label>
+									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data_anggota['email'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Email is invalid
+									</div>
+								</div><br/>
+           <div class="form-group">
+									<label for="nama">Nama</label>
+									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data_anggota['nama'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Name is invalid
+									</div>
+								</div><br/>
+           <div class="form-group">
+									<label for="jk">Jenis Kelamin</label><br/>
+									<select id="jk" class="custom-select" name="jk">
+                    <?php if($data_anggota['jk'] == "L") :?>
+                      <option value = "L" selected >Laki- laki</option>
+                      <option value = "P" >Perempuan</option>
+                    <?php else : ?>
+                      <option value = "L">Laki - laki</option>
+                      <option value = "P" selected>Perempuan</option>
+                    <?php endif ?>
+                  </select> 
+								</div><br/>
+         <div class="form-group">
+									<label for="telp">Telephone</label>
+									<input id="telp" type="text" class="form-control" name="no_telepon" value="<?php echo $data_anggota['telp'];?>" required autofocus>
+									<div class="invalid-feedback">
+										Telephone is invalid
+									</div>
+								</div><br/>
+						<div class="form-group">
+									<label for="password">Password
+									</label>
+									<input id="password" type="password" class="form-control" name="password" value="<?php echo $data_anggota['password']; ?>" required data-eye>
+									<div class="invalid-feedback">
+										Password is required
+									</div>
+								</div>
+                <p>
+                    <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="save">
+                    <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
+                </p>
+            </form>
+        </div>
 
                   </div>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
-        </div></div></div>
-     
-  <footer class="footer">
+    
+ <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
             <ul>
               <li>
-                <a href="https://creative-tim.com/presentation">
+                <a href="https://creative-tim.com/presentation" class="d-none d-lg-block">
                   About Us
                 </a>
             </ul>

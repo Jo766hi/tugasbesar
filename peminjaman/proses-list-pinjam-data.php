@@ -13,7 +13,7 @@ include '../includes/koneksi.php';
             FROM pinjam
             JOIN buku ON buku.buku_id = pinjam.buku_id
             JOIN user ON user.id = pinjam.anggota_id
-            WHERE anggota_id = '" . $_SESSION['user_id'] . "'";
+            WHERE anggota_id = '" . $_SESSION['id'] . "'";
             }
 $h = mysqli_query($db, $a);
 mysqli_connect_error();

@@ -96,7 +96,7 @@
 			$_SESSION['nama'] = $nama;
 			$_SESSION['email'] = $email;
 			$_SESSION['level'] = $level;
-			$_SESSION['user_id'] = $id;
+			$_SESSION['id'] = $id;
 
 
 		} else {

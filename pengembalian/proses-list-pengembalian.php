@@ -13,7 +13,7 @@ $query = "SELECT buku.buku_judul, pinjam.tgl_pinjam, pinjam.tgl_jatuh_tempo,kemb
     JOIN buku ON buku.buku_id = pinjam.buku_id
     JOIN user ON user.id = pinjam.anggota_id
     JOIN kembali ON pinjam.pinjam_id = kembali.pinjam_id
-    WHERE anggota_id = '" . $_SESSION['user_id'] . "'";
+    WHERE anggota_id = '" . $_SESSION['id'] . "'";
 }
 $hasil = mysqli_query($db, $query);
 mysqli_connect_error();

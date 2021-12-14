@@ -1,14 +1,10 @@
-<?php
-
+<?php 
 session_start();
-if (!isset($_SESSION['username'])) {
- header('Location: ../login/login.php');
- exit();
+if (empty($_SESSION['username'])){
+    header ("location: ../login/login.php");
+    exit();
 }
-include 'proses-list-pinjam-data.php';
-include 'pinjam-form.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,8 +46,8 @@ include 'pinjam-form.php';
               <p>Data Anggota</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="../data_kategori/kategori.php">
+          <li class="nav-item active ">
+            <a class="nav-link" href="../data_kategori/user-kategori.php">
               <i class="material-icons">event_note</i>
               <p>Data Kategori</p>
             </a>
@@ -62,7 +58,7 @@ include 'pinjam-form.php';
               <p>Data Buku</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
               <p>Peminjaman</p>
@@ -94,7 +90,7 @@ include 'pinjam-form.php';
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Peminjaman</a>
+            <a class="navbar-brand" href="javascript:void(0)">Data Kategori</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -153,84 +149,46 @@ include 'pinjam-form.php';
         </div>
       </nav>
       <!-- End Navbar -->
+      <?php
+    include 'kategori-list.php';
+    $no = 1;
+    ?>
 
-      <div class="content">
+<div class="content">
         <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h2 class="card-title ">Daftar Peminjaman </h4>
-                </div>
-                <div class="card-body table-responsive">
-                  <div class= "row">
-                  <div class= "container-clearfix">
-                  <div class= "content">
-                <table class="data">
-                <tr>
-                    <th>Buku</th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th>Status</th>
-                    <th>Pilihan</th>
-                </tr>
-                <?php foreach ($data_pinjam as $pinjam) : ?>
-                <tr>
-                    <td><?php echo $pinjam['buku_judul'] ?></td>
-                    <td><?php echo $pinjam['nama'] ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
-                    <td>
-                    <?php  
-                        if (empty($pinjam['tgl_kembali'])) {
-                            echo "-";
-                        } 
-                        else {
-                            echo date('d-m-Y', strtotime($pinjam['tgl_kembali']));
-                        }
-                    ?>
-                    </td>
-                    <td>
-                        <?php $status = '' ?>
-                        <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            pinjam
-                        <?php $status = 'pinjam' ?>
-                        <?php else: ?>
-                            kembali
-                        <?php $status = 'kembali' ?>  
-                        <?php endif ?>
-                    </td>
-                    <td>
-                        
-                        <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-primary" title="klik untuk proses pengembalian">Kembali</a>
-                            <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-primary">Edit</a>
-                        <?php endif ?>
-                        <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-            </table>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h2 class="card-title">Data Kategori</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="container clearfix">
+                  <div class="content">
 
-            <div class="table-responsive">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Pinjam Buku
-            </button>
-            <?php if (empty($data_pinjam)) : ?> Tidak ada data.
+            <?php if (empty($data_kategori)) : ?>
+            Tidak ada data.
             <?php else : ?>
-
+            <table class="data">
+                <tr>
+                    <th width="50%">No.</th>
+                    <th width="30%">Kategori</th>
+                </tr>
+                <?php foreach ($data_kategori as $kategori) : ?>
+                <tr>
+                    <td><?php echo $no++?></td>
+                    <td><?php echo $kategori['kategori_nama'] ?></td>
+                <?php  endforeach ?>
+            </table>
             <?php endif ?>
-
-                  </div>
+        </div>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
-        </div></div></div>
-     
+    
+  
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">

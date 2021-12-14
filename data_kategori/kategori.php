@@ -1,7 +1,7 @@
 <?php 
   session_start();
-  if (!isset($_SESSION['username'])) {
-   header('Location: ../login/login.php');
+  if (($_SESSION['level'] !== 'petugas')) {
+   header('Location: ../data_kategori/user-kategori.php');
    exit();
   }
 ?>
