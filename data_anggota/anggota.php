@@ -198,6 +198,8 @@ include '../includes/function.php';
                     <th>Jenis Kelamin</th>
                     <th>No. Telepon</th>
                     <th>Password</th>
+                    <th>level</th>
+
                     <th width="20%">Pilihan</th>
                 </tr>
                 
@@ -209,7 +211,9 @@ include '../includes/function.php';
                     <td><?php echo $anggota['nama'] ?></td>
                     <td><?php echo $anggota['jk'] ?></td>
                     <td><?php echo $anggota['telp'] ?></td>
-                    <td><?php echo md5($anggota['password']) ?></td>
+                    <td><?php echo $anggota['password'] ?></td>
+                    <td><?php echo $anggota['level'] ?></td>
+
                     <td>
                         <a href="anggota-edit.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-primary">Edit</a>
                         <a href="anggota-delete.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>

@@ -2,7 +2,7 @@
 
 include '../includes/koneksi.php';
 
-$query = "SELECT * FROM user WHERE level ='anggota'";
+$query = "SELECT * FROM user";
 
 $hasil = mysqli_query($db, $query);
 

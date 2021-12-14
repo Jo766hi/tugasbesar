@@ -186,7 +186,7 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $nama = $_POST['nama'];
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
-          $pass = $_POST['password'];
+          $pass = md5($_POST['password']);
           $level = $_POST['level'];
 
 
