@@ -166,12 +166,11 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Simple Table</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <h2 class="card-title ">Edit Data Peminjaman</h2>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                  <h3>Edit Data Peminjaman</h3>
+
             <?php  
             // Check message ada atau tidak
             if(!empty($_SESSION['messages'])) {
@@ -206,8 +205,8 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
                 <p><input type="date" name="tgl_jatuh_tempo" value="<?php echo $data_pinjam['tgl_jatuh_tempo'] ?>"></p>
 
                 <p>
-                    <input type="submit" class="btn btn-submit" value="Simpan">
-                    <input type="reset" class="btn btn-submit" value="Batal" onclick="self.history.back();">
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                    <input type="reset" class="btn btn-primary" value="Batal" onclick="self.history.back();">
                 </p>
             </form>
                   </div>

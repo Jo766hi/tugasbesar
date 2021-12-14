@@ -94,7 +94,7 @@ include 'proses-list-pengembalian.php';
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Peminjaman</a>
+            <a class="navbar-brand" href="javascript:void(0)">Pengembalian</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -159,8 +159,7 @@ include 'proses-list-pengembalian.php';
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title"><h1>Daftar Pengembalian</h1></h4>
-              <p class="card-category">Created using Roboto Font Family</p>
+              <h2 class="card-title">Daftar Pengembalian</h2>
             </div>
             <div class="card-body">
               <div id="typography">
@@ -188,7 +187,7 @@ include 'proses-list-pengembalian.php';
                     <td><?php echo $kembali['denda'] ?></td>
 
                     <td>
-                    <a href="delete-pengembalian.php?id_kembali=<?php echo $kembali['kembali_id'] ?>" onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
+                    <a href="delete-pengembalian.php?id_kembali=<?php echo $kembali['kembali_id'] ?>" onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-primary">Hapus</a>
                     </td>
                 </tr>
                 <?php endforeach ?>

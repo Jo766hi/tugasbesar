@@ -168,7 +168,7 @@
                         <option  style="color: black;" value="2">Data Peminjaman</option>
                       </select>
                     </div>
-                    <button id="cetakAnggota" type="button" class="btn btn-default">Submit</button>
+                    <button id="cetakAnggota" type="button" class="btn btn-primary">Submit</button>
                   </form>
                   </div>
                 </div>

@@ -160,18 +160,10 @@ include 'pinjam-form.php';
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Simple Table</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <h2 class="card-title ">Daftar Peminjaman </h4>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  Pinjam Buku
-                  </button>
-                  <?php if (empty($data_pinjam)) : ?>
-                  Tidak ada data.
-                  <?php else : ?>
-
+                  
                   <table class="data">
                 <tr>
                     <th>Buku</th>
@@ -211,15 +203,23 @@ include 'pinjam-form.php';
                     <td>
                         
                         <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-tambah" title="klik untuk proses pengembalian">Kembali</a>
-                            <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-edit">Edit</a>
+                            <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-primary" title="klik untuk proses pengembalian">Kembali</a>
+                            <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-primary">Edit</a>
                         <?php endif ?>
-                        <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-hapus">Hapus</a>
+                        <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>
                 </tr>
                 <?php endforeach ?>
             </table>
-              <?php endif ?>
+
+            <div class="table-responsive">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Pinjam Buku
+            </button>
+            <?php if (empty($data_pinjam)) : ?> Tidak ada data.
+            <?php else : ?>
+
+            <?php endif ?>
+
                   </div>
                 </div>
               </div>
