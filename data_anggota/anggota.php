@@ -185,22 +185,7 @@ include '../includes/function.php';
         
         <div class="content">
 
-            <?php if(isset($_GET["cari"])) { ?>
-            <?php $data_anggota = cari($_GET["keyword"]);}?>
-            <table class="data">
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Nama</th>
-                    <th>Jenis Kelamin</th>
-                    <th>No. Telepon</th>
-                    <th>Password</th>
-                    <th>level</th>
-
-                    <th width="20%">Pilihan</th>
-                </tr>
-                
-                <?php 
+            <?php 
                 if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
                   $halaman = $_GET['halaman'];
                 } else {
@@ -220,9 +205,24 @@ include '../includes/function.php';
                   $hal_akhir = $jlh_halaman;
                                 
                   $query2 = "SELECT * FROM user LIMIT $offset,$limit";
-                  $result2 = mysqli_query($db, $query2);
+                  $data_anggota = mysqli_query($db, $query2);
                 
-                foreach ($result2 as $anggota) : ?>
+                  ?>
+            <?php if(isset($_GET["cari"])) { ?>
+            <?php $data_anggota = cari($_GET["keyword"]);}?>
+            <table class="data">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Nama</th>
+                    <th>Jenis Kelamin</th>
+                    <th>No. Telepon</th>
+                    <th>Password</th>
+                    <th>level</th>
+
+                    <th width="20%">Pilihan</th>
+                </tr>
+                <?php foreach ($data_anggota as $anggota) : ?>
                 <tr>
                     <td><?php echo $anggota['username'] ?></td>
                     <td><?php echo $anggota['email'] ?></td>
