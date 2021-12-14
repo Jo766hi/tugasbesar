@@ -5,7 +5,8 @@ include '../includes/koneksi.php';
         (SELECT tgl_kembali FROM kembali JOIN pinjam ON kembali.pinjam_id=pinjam.pinjam_id WHERE kembali.pinjam_id=id_pinjam) as tgl_kembali
         FROM pinjam
         JOIN buku ON buku.buku_id = pinjam.buku_id
-        JOIN user ON user.id = pinjam.anggota_id";
+        JOIN user ON user.id = pinjam.anggota_id
+        ";
         }
     else if($_SESSION['level'] == 'anggota') {
         $a = "SELECT pinjam.*,pinjam.pinjam_id as id_pinjam, buku.buku_id ,buku.buku_judul, user.nama, 
