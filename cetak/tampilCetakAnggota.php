@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Data Anggota</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
    
@@ -44,7 +44,6 @@
 		<th>Jenis Kelamin</th>
 		<th>No. HP</th>
         <th>Email</th>
-        <th>Password</th>
     </tr>
 
 	<?php
@@ -59,7 +58,6 @@
             <td><?php echo $anggota['jk'] ?></td>
             <td><?php echo $anggota['telp'] ?></td>
             <td><?php echo $anggota['email'] ?></td>
-            <td><?php echo $anggota['password'] ?></td>
 		</tr>
 		<?php endforeach ?>
 </table>
@@ -73,7 +71,6 @@
 
 <script>
 	function cetak() {
-		document.getElementById("cetak").innerHTML
 		window.print();
 	}
 

@@ -12,7 +12,6 @@
 		<th>Jenis Kelamin</th>
 		<th>No. Telp</th>
         <th>Email</th>
-        <th>Password</th>
     </tr>
 
 	<?php
@@ -27,7 +26,6 @@
             <td><?php echo $anggota['jk'] ?></td>
             <td><?php echo $anggota['telp'] ?></td>
             <td><?php echo $anggota['email'] ?></td>
-            <td><?php echo $anggota['password'] ?></td>
 		</tr>
 		<?php endforeach ?>
 </table>
