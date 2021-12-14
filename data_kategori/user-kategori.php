@@ -164,17 +164,8 @@ if (empty($_SESSION['username'])){
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-
-            <?php if (empty($data_kategori)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th width="50%">No.</th>
-                    <th width="30%">Kategori</th>
-                </tr>
-                <?php 
-                if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
+              <?php 
+                 if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
                   $halaman = $_GET['halaman'];
                 } else {
                   $halaman = 1;
@@ -193,9 +184,17 @@ if (empty($_SESSION['username'])){
                   $hal_akhir = $jlh_halaman;
                                 
                   $query2 = "SELECT * FROM kategori LIMIT $offset,$limit";
-                  $result2 = mysqli_query($db, $query2);
-                
-                  foreach ($result2 as $kategori) : ?>
+                  $data_kategori = mysqli_query($db, $query2);
+                  ?>
+            <?php if (empty($data_kategori)) : ?>
+            Tidak ada data.
+            <?php else : ?>   
+            <table class="data">
+                <tr>
+                    <th width="50%">No.</th>
+                    <th width="30%">Kategori</th>
+                </tr>
+                <?php foreach ($data_kategori as $kategori) : ?>
                 <tr>
                     <td><?php echo $no++?></td>
                     <td><?php echo $kategori['kategori_nama'] ?></td>

@@ -185,7 +185,7 @@ include '../includes/function.php';
         
         <div class="content">
 
-            <?php 
+                <?php 
                 if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
                   $halaman = $_GET['halaman'];
                 } else {
@@ -208,8 +208,8 @@ include '../includes/function.php';
                   $data_anggota = mysqli_query($db, $query2);
                 
                   ?>
-            <?php if(isset($_GET["cari"])) { ?>
-            <?php $data_anggota = cari($_GET["keyword"]);}?>
+                  <?php if(isset($_GET["cari"])) { ?>
+                  <?php $data_anggota = cari($_GET["keyword"]);}?>
             <table class="data">
                 <tr>
                     <th>Username</th>
@@ -222,7 +222,7 @@ include '../includes/function.php';
 
                     <th width="20%">Pilihan</th>
                 </tr>
-                <?php foreach ($data_anggota as $anggota) : ?>
+                    <?php foreach ($data_anggota as $anggota) : ?>
                 <tr>
                     <td><?php echo $anggota['username'] ?></td>
                     <td><?php echo $anggota['email'] ?></td>
