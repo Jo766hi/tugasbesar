@@ -222,10 +222,35 @@ include '../includes/function.php'
             <div class="table-responsive">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Pinjam Buku
             </button>
-            <?php if (empty($data_pinjam)) : ?> Tidak ada data.
-            <?php else : ?>
 
-            <?php endif ?>
+
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <?php 
+            if ($halaman == 1){
+            echo "";
+            }
+            else {
+            ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
+            <?php } ?>
+                            
+            <?php
+            for ($i=1; $i<=$jlh_halaman; $i++){
+            echo "<li class=page-item><a class=page-link href=peminjaman.php?halaman=$i>$i</a></li>";
+            }
+            ?>
+            <?php
+            if ($halaman == $jlh_halaman){
+              echo "";
+            }else {
+              ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sesudah"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$jlh_halaman"?>">Next</a></li>
+          <?php }?>  
+          </ul>
+            </nav>
 
                   </div>
                 </div>
