@@ -22,13 +22,18 @@
   include '../data_buku/buku-list.php';
   include '../peminjaman/proses-list-pinjam-data.php';
 
-
-
   $q = "SELECT username FROM user WHERE level = 'anggota'";
   $data = mysqli_query($db, $q);
   $row_anggota = mysqli_num_rows($data);
 
+  $query = "SELECT * FROM pinjam";
+  $pinjam = mysqli_query($db, $query);
+  $row_pinjam = mysqli_num_rows($pinjam);
 
+  $a = "SELECT * FROM kembali";
+  $kembali = mysqli_query($db, $a);
+  $row_kembali = mysqli_num_rows($kembali);
+  $row_peminjaman = $row_pinjam - $row_kembali;
   
 ?>
 <!DOCTYPE html>
@@ -185,7 +190,7 @@
                     <i class="material-icons">group</i>
                   </div>
                   <p class="card-category">Total Siswa</p>
-                  <h3 class="card-title"><?php echo $row_anggota ?></h3>
+                  <h3 class="card-title"><?php echo $row_anggota; ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -200,7 +205,7 @@
                     <i class="material-icons">chrome_reader_mode</i>
                   </div>
                   <p class="card-category">Total Buku</p>
-                  <h3 class="card-title"><?php echo $row_buku ?></h3>
+                  <h3 class="card-title"><?php echo $row_buku; ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -215,7 +220,7 @@
                     <i class="material-icons">style</i>
                   </div>
                   <p class="card-category">Peminjaman</p>
-                  <h3 class="card-title">50</h3>
+                  <h3 class="card-title"><?php echo $row_peminjaman; ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
