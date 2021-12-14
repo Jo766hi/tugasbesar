@@ -7,6 +7,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 include 'proses-list-pengembalian.php';
+include '../includes/function.php'
 ?>
 
 <!DOCTYPE html>
@@ -103,10 +104,10 @@ include 'proses-list-pengembalian.php';
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form class="navbar-form" action="" method="GET">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
                 </button>
@@ -163,6 +164,9 @@ include 'proses-list-pengembalian.php';
             </div>
             <div class="card-body">
               <div id="typography">
+            <?php if(isset($_GET["cari"])) { ?>
+            <?php $data_kembali = cari3($_GET["keyword"]);}?>
+
             <?php if (empty($data_kembali)) : ?>
             Tidak ada data.
             <?php else : ?>

@@ -56,7 +56,7 @@ function tambah_stok($db, $buku_id)
     $q = "UPDATE buku SET buku_jumlah = buku_jumlah + 1 WHERE buku_id = $buku_id";
     mysqli_query($db, $q);
 }
-
+//pencarian anggota
 function cari($keyword)
 {
     include '../includes/koneksi.php';
@@ -109,4 +109,40 @@ function cari2($keyword){
     }
     // ... lanjut di tampilan
     return $data_pinjam;
+}
+
+//pencarian untuk pengembalian
+function cari3($keyword){
+    include '../includes/koneksi.php';
+
+    if($_SESSION['level'] == 'petugas') {
+        $query = "SELECT buku.buku_judul, pinjam.tgl_pinjam, pinjam.tgl_jatuh_tempo,kembali.kembali_id, kembali.tgl_kembali, user.nama, kembali.denda
+            FROM pinjam
+            JOIN buku ON buku.buku_id = pinjam.buku_id
+            JOIN user ON user.id = pinjam.anggota_id
+            JOIN kembali ON pinjam.pinjam_id = kembali.pinjam_id
+            WHERE user.nama
+            LIKE '%$keyword%' OR
+            buku.buku_judul LIKE '%$keyword%'";
+        }
+        else if($_SESSION['level'] == 'anggota') {
+        $query = "SELECT buku.buku_judul, pinjam.tgl_pinjam, pinjam.tgl_jatuh_tempo,kembali.kembali_id, kembali.tgl_kembali, user.nama, kembali.denda
+            FROM pinjam
+            JOIN buku ON buku.buku_id = pinjam.buku_id
+            JOIN user ON user.id = pinjam.anggota_id
+            JOIN kembali ON pinjam.pinjam_id = kembali.pinjam_id
+            WHERE buku.buku_judul LIKE '%$keyword%'
+            AND anggota_id = '" . $_SESSION['id'] . "'";
+        }
+        $h = mysqli_query($db, $query);
+        mysqli_connect_error();
+    // ... menampung semua data kategori
+        $data_kembali = array();
+
+    // ... tiap baris dari hasil query dikumpulkan ke $data_buku
+        while ($row = mysqli_fetch_assoc($h)) {
+        $data_kembali[] = $row;
+    }
+    // ... lanjut di tampilan
+    return $data_kembali;
 }
