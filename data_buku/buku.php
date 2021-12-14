@@ -163,19 +163,7 @@ include 'buku-list.php';
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-            <?php if (empty($data_buku)) : ?>
-            Tidak ada data.
-            <?php else : ?>
-            <table class="data">
-                <tr>
-                    <th>Judul</th>
-                    <th>Kategori</th>
-                    <th>Deskripsi</th>
-                    <th>Jumlah</th>
-                    <th>Cover</th>
-                    <th width="20%">Pilihan</th>
-                </tr>
-                <?php 
+            <?php 
                 if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
                   $halaman = $_GET['halaman'];
                 } else {
@@ -198,9 +186,21 @@ include 'buku-list.php';
                   FROM buku
                   JOIN kategori
                   ON buku.kategori_id = kategori.kategori_id LIMIT $offset,$limit";
-                  $result2 = mysqli_query($db, $query2);
-                  
-                  foreach ($result2 as $buku) : ?>
+                  $data_buku = mysqli_query($db, $query2);
+              ?>
+            <?php if (empty($data_buku)) : ?>
+            Tidak ada data.
+            <?php else : ?>      
+            <table class="data">
+                <tr>
+                    <th>Judul</th>
+                    <th>Kategori</th>
+                    <th>Deskripsi</th>
+                    <th>Jumlah</th>
+                    <th>Cover</th>
+                    <th width="20%">Pilihan</th>
+                </tr>
+                  <?php foreach ($data_buku as $buku) : ?>
                 <tr>
                     <td><?php echo $buku['buku_judul'] ?></td>
                     <td><?php echo $buku['kategori_nama'] ?></td>
