@@ -172,7 +172,29 @@ include 'kategori-list.php';
                     <th>Kategori</th>
                     <th width="20%">Pilihan</th>
                 </tr>
-                <?php foreach ($data_kategori as $kategori) : ?>
+                <?php 
+                 if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
+                  $halaman = $_GET['halaman'];
+                } else {
+                  $halaman = 1;
+                }
+                  $limit = 3;
+                  if ($halaman > 1){
+                    $offset = ($halaman * $limit) - $limit;
+                  } else $offset = 0;
+                  $sebelum = $halaman - 1;
+                  $sesudah = $halaman + 1;
+                  $query = "SELECT * FROM kategori";
+                  $result = mysqli_query($db, $query);
+                  
+                  $jlh_data = mysqli_num_rows($result);
+                  $jlh_halaman = ceil($jlh_data/$limit);
+                  $hal_akhir = $jlh_halaman;
+                                
+                  $query2 = "SELECT * FROM kategori LIMIT $offset,$limit";
+                  $result2 = mysqli_query($db, $query2);
+                
+                  foreach ($result2 as $kategori) : ?>
                 <tr>
                     <td><?php echo $kategori['kategori_nama'] ?></td>
                     <td>
@@ -184,6 +206,31 @@ include 'kategori-list.php';
             </table>
                 <a href="kategori-tambah.php"><button class="btn btn-primary">Tambah</button></a>
             <?php endif ?>
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <?php 
+            if ($halaman == 1){
+            echo "";
+            }
+            else {
+            ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "kategori.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "kategori.php?halaman=$sebelum"?>">Previous</a></li>
+            <?php } ?>
+                            
+            <?php
+            for ($i=1; $i<=$jlh_halaman; $i++){
+            echo "<li class=page-item><a class=page-link href=kategori.php?halaman=$i>$i</a></li>";
+            }
+            ?>
+            <?php
+            if ($halaman == $jlh_halaman){
+              echo "";
+            }else {
+              ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "kategori.php?halaman=$sesudah"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "kategori.php?halaman=$jlh_halaman"?>">Next</a></li>
+          <?php }?>  
         </div>
                 </div>
               </div>

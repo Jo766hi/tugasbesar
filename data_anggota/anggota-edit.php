@@ -249,7 +249,7 @@ $data_anggota = mysqli_fetch_assoc($hasil);
 									</div>
 								</div><br/>
            <div class="form-group">
-									<label for="jk">Jenis Kelamin</label>
+									<label for="jk">Jenis Kelamin</label><br/>
 									<select id="jk" class="custom-select" name="jk">
                     <?php if($data_anggota['jk'] == "L") :?>
                       <option value = "L" selected >Laki- laki</option>
@@ -276,7 +276,7 @@ $data_anggota = mysqli_fetch_assoc($hasil);
 									</div>
 								</div>
                 <div class="form-group">
-									<label for="level">Level</label>
+									<label for="level">Level</label><br/>
 									<select id ="level" class="custom-select" name="level">
                     <?php if($data_anggota['level'] == "anggota") :?>
                       <option value = "anggota" selected >Anggota</option>

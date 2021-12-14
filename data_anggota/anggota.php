@@ -18,14 +18,11 @@
    header('Location: ../data_anggota/user-edit.php');
    exit();
   }
-
-?>
+  ?>
 <?php
-
 require '../includes/koneksi.php';
 include 'anggota-list.php';
 include '../includes/function.php';
-
 
 ?>
 
@@ -204,7 +201,28 @@ include '../includes/function.php';
                 </tr>
                 
                 <?php 
-                foreach ($data_anggota as $anggota) : ?>
+                if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
+                  $halaman = $_GET['halaman'];
+                } else {
+                  $halaman = 1;
+                }
+                  $limit = 3;
+                  if ($halaman > 1){
+                    $offset = ($halaman * $limit) - $limit;
+                  } else $offset = 0;
+                  $sebelum = $halaman - 1;
+                  $sesudah = $halaman + 1;
+                  $query = "SELECT * FROM user";
+                  $result = mysqli_query($db, $query);
+                  
+                  $jlh_data = mysqli_num_rows($result);
+                  $jlh_halaman = ceil($jlh_data/$limit);
+                  $hal_akhir = $jlh_halaman;
+                                
+                  $query2 = "SELECT * FROM user LIMIT $offset,$limit";
+                  $result2 = mysqli_query($db, $query2);
+                
+                foreach ($result2 as $anggota) : ?>
                 <tr>
                     <td><?php echo $anggota['username'] ?></td>
                     <td><?php echo $anggota['email'] ?></td>
@@ -221,7 +239,34 @@ include '../includes/function.php';
                 </tr>
                 <?php endforeach; ?>
             </table>
-                <a href="anggota-tambah.php"><button class="btn btn-primary">Tambah Data</button></a>
+                <a href="anggota-tambah.php"><button class="btn btn-primary">Tambah Data</button></a><br/>
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <?php 
+            if ($halaman == 1){
+            echo "";
+            }
+            else {
+            ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "anggota.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "anggota.php?halaman=$sebelum"?>">Previous</a></li>
+            <?php } ?>
+                            
+            <?php
+            for ($i=1; $i<=$jlh_halaman; $i++){
+            echo "<li class=page-item><a class=page-link href=anggota.php?halaman=$i>$i</a></li>";
+            }
+            ?>
+            <?php 
+            if ($halaman == $jlh_halaman){
+              echo "";
+            }else {
+              ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "anggota.php?halaman=$sesudah"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "anggota.php?halaman=$jlh_halaman"?>">Next</a></li>
+          <?php } ?>  
+          </ul>
+            </nav>
         </div>
 
                   </div>
