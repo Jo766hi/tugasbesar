@@ -281,7 +281,7 @@ $data_anggota = mysqli_fetch_array($tampil);
           <nav class="float-mid">
             <ul>
               <li>
-                <a href="https://creative-tim.com/presentation" class="d-none d-lg-block">
+                <a href="../about-us/about-us.html">
                   About Us
                 </a>
             </ul>

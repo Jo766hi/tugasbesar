@@ -208,7 +208,7 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
           <nav class="float-mid">
             <ul>
               <li>
-                <a href="https://creative-tim.com/presentation">
+                <a href="../about-us/about-us.html">
                   About Us
                 </a>
             </ul>

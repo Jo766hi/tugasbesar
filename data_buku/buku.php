@@ -258,7 +258,7 @@ include 'buku-list.php';
           <nav class="float-mid">
             <ul>
               <li>
-                <a href="https://creative-tim.com/presentation">
+                <a href="../about-us/about-us.html">
                   About Us
                 </a>
             </ul>

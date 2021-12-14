@@ -222,7 +222,7 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
           <nav class="float-mid">
             <ul>
               <li>
-                <a href="https://creative-tim.com/presentation">
+                <a href="../about-us/about-us.html">
                   About Us
                 </a>
             </ul>
