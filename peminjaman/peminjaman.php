@@ -171,9 +171,9 @@ include '../includes/function.php'
             <?php if(isset($_GET["cari"])) { ?>
             <?php $data_pinjam = cari2($_GET["keyword"]);}?>
 
-                <table class="data">
+                <table style="border-collapse:separate; border-spacing: 20px;">
                 <tr>
-                    <th>Buku</th>
+                    <th>Buku  </th>
                     <th>Nama</th>
                     <th>Tgl Pinjam</th>
                     <th>Tgl Jatuh Tempo</th>
@@ -259,7 +259,7 @@ include '../includes/function.php'
           </div> 
         </div>
       </div>
-        </div></div></div>
+        </div></div>
      
   <footer class="footer">
         <div class="container-fluid">
