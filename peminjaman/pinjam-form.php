@@ -5,7 +5,20 @@
         
     }
 include '../data_buku/buku-list.php';
-include '../data_anggota/anggota-list.php';
+include '../includes/koneksi.php';
+if($_SESSION['level'] == 'petugas') {
+    $query = "SELECT * FROM user WHERE level ='anggota'";
+}
+else if($_SESSION['level'] == 'anggota') {
+    $query = "SELECT * FROM user WHERE id = '" . $_SESSION['id'] . "'";
+}
+    $hasil = mysqli_query($db, $query);
+    // ... menampung semua data kategori
+    $data_anggota = array();
+    // ... tiap baris dari hasil query dikumpulkan ke $data_anggota
+    while ($row = mysqli_fetch_assoc($hasil)) {
+    $data_anggota[] = $row;
+    }
 ?>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -28,7 +41,7 @@ include '../data_anggota/anggota-list.php';
                     </select>
                 </p>
 
-                <p>Anggota</p>
+                <p>Nama</p>
                 <p>
                     <select name="anggota">
                         <?php foreach ($data_anggota as $anggota) : ?>

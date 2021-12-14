@@ -169,7 +169,7 @@ include '../includes/koneksi.php';
 
 // ambil artikel yang mau di edit
 $id_anggota = $_GET['id_anggota'];
-$query = "SELECT * FROM user WHERE id = $id_anggota and level = 'anggota'";
+$query = "SELECT * FROM user WHERE id = $id_anggota";
 $hasil = mysqli_query($db, $query);
 $data_anggota = mysqli_fetch_assoc($hasil);
 
@@ -187,6 +187,8 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
           $pass = $_POST['password'];
+          $level = $_POST['level'];
+
 
           $query = "UPDATE user
               SET username = '$user',
@@ -194,8 +196,9 @@ $data_anggota = mysqli_fetch_assoc($hasil);
                   nama = '$nama',
                   jk = '$jenis_kelamin',
                   telp = '$no_telepon',
-                  password = '$pass'
-              WHERE id = $id_anggota AND level = 'anggota'";
+                  password = '$pass',
+                  level = '$level'
+              WHERE id = $id_anggota";
 
           $hasil = mysqli_query($db, $query);
           // var_dump(mysqli_error($db));
@@ -272,6 +275,16 @@ $data_anggota = mysqli_fetch_assoc($hasil);
 										Password is required
 									</div>
 								</div>
+                <div class="form-group">
+									<label for="level">Level</label>
+									<select id ="level" class="custom-select" name="level">
+                    <?php if($data_anggota['level'] == "anggota") :?>
+                      <option value = "anggota" selected >Anggota</option>
+                      <option value = "petugas" >Petugas</option>
+                    <?php else : ?>
+                      <option value = "anggota" >Anggota</option>
+                      <option value = "petugas" selected>Petugas</option>
+                    <?php endif ?>
                 <p>
                     <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="save">
                     <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
