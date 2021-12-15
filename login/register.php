@@ -123,18 +123,33 @@
         $telp = $_POST['anggota_telp'];
         $email = $_POST['anggota_email'];
         $password = md5($_POST['anggota_pass']);
-        $level = $_POST['level'];
+        $level = 'anggota';
 
         $sql = "INSERT INTO user (username, email, nama, jk, telp, password, level) VALUES ('$username','$email','$nama','$jk','$telp','$password','anggota')";
 
-        $pemeriksaan_username = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username' or email='$email'"));
+        $cek1 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username'"));
+        $cek2 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE email='$email'"));
+        $cek3 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username' or email='$email'"));
 
-        if ($pemeriksaan_username > 0) {
-            echo "<script>alert('Username atau Email Anda Sudah Terdaftar!')</script>";
-            header ("location: register.php");
-        } elseif ($db->query($sql) === TRUE) {
+        if ($cek1 > 0) {
+            echo "<div class=alert alert-danger role=alert>
+            Username sudah Terdaftar
+          </div>";
+            return false;
+        } 
+        if ($cek2 > 0) {
+            echo "<div class=alert alert-danger role=alert>
+            Email sudah Terdaftar
+          </div>";
+            return false;
+        }if ($cek3 > 0) {
+            echo "<div class=alert alert-danger role=alert>
+            Username dan Email sudah Terdaftar
+          </div>";
+            return false;
+        }elseif ($db->query($sql) === TRUE) {
             echo "<script>alert('Registrasi Akun Anda Berhasil!')</script>";
-            header ("location: ../home/dashboard.php");
+            header ("location: login.php");
         } else {
             echo "Terjadi kesalahan: " . $sql . "<br/>" . $db->error;
         }
