@@ -177,12 +177,8 @@ include '../data_kategori/kategori-list.php';
           // jika data berhasil diinsert, lakukan proses upload
           move_uploaded_file($file, $destination);
 
-          echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
-          <strong>Buku Berhasil di Tambah!</strong>
-          <button type=button class=close data-dismiss=alert aria-label=Close>
-            <span aria-hidden=true>&times;</span>
-          </button>
-            </div>";
+          echo "<script>window.alert('Data Berhasil di Tambah')
+          window.location='buku.php'</script>";
       } else {
         echo "koneksi gagal" .mysqli_error($db);
       }
@@ -198,28 +194,28 @@ include '../data_kategori/kategori-list.php';
                   <div class="content">
                   <form method="post" action="" enctype="multipart/form-data">
                   <div class="form-group">
-									<label for="judul">Judul</label>
+									<label for="judul">Judul</label><br/>
 									<input id="judul" type="text" class="form-control" name="judul" value="" required autofocus>
 									<div class="invalid-feedback">
 										Judul is invalid
 									</div>
 								</div><br/>
                 <div class="form-group">
-									<label for="kategori">kategori</label>
+									<label for="kategori">kategori</label><br/>
 									<select id="kategori" class="custom-select" name="kategori">
                     <?php foreach($data_kategori as $kategori) :?>
                       <option value = "<?php echo $kategori['kategori_id'] ?>"><?php echo $kategori['kategori_nama'] ?></option>
                     <?php endforeach ?>
                   </select> 
 								</div><br/>
-               <p>Deskripsi</p>
+               <p>Deskripsi</p><br/>
                 <p><textarea name="editor1"></textarea></p>
                 <script>
                         CKEDITOR.replace( 'editor1' );
                 </script>
                  
                  <div class="form-group">
-									<label for="jumlah">Jumlah</label>
+									<label for="jumlah">Jumlah</label><br/>
 									<input id="jumlah" type="number" class="form-control" name="jumlah" value="" required autofocus>
 									<div class="invalid-feedback">
 										Jumlah is invalid

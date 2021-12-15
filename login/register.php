@@ -36,21 +36,15 @@
                         </div>
                         <div class="card-body">
 
-                            <form method="POST" class="my-login-validation" action="">
+                            <form method="POST" class="my-login-validation" action="" id="user" onsubmit="return validation()">
                                 <div class="form-group">
                                     <label for="anggota_usrnm">Username</label>
-                                    <input id="angggota_usrnm" type="text" class="form-control" name="anggota_usrnm" required autofocus>
-                                    <div class="invalid-feedback">
-                                        What's your username?
-                                    </div>
-
+                                    <input id="angggota_usrnm" type="text" class="form-control" name="anggota_usrnm" required/>
+                                </div>
 
                                     <div class="form-group">
                                         <label for="anggota_nama">Nama</label>
-                                        <input id="anggota_nama" type="text" class="form-control" name="anggota_nama" required autofocus>
-                                        <div class="invalid-feedback">
-                                            What's your name?
-                                        </div>
+                                        <input id="anggota_nama" type="text" class="form-control" name="anggota_nama" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="anggota_jk">Jenis Kelamin</label>
@@ -73,20 +67,17 @@
                                         <br>
                                         <div class="form-group">
                                             <label for="anggota_telp">No. Telp</label>
-                                            <input id="anggota_telp" type="text" class="form-control" name="anggota_telp" required>
+                                            <input id="anggota_telp" type="text" class="form-control" name="anggota_telp" minlength="11" required/>
 
                                         </div>
                                         <div class="form-group">
                                             <label for="anggota_email">Email</label>
-                                            <input id="anggota_email" type="email" class="form-control" name="anggota_email" required>
+                                            <input id="anggota_email" type="email" class="form-control" name="anggota_email" required/>
 
                                         </div>
                                         <div class="form-group">
                                             <label for="anggota_pass">Password</label>
-                                            <input id="anggota_pass" type="password" class="form-control" name="anggota_pass" required data-eye>
-                                            <div class="invalid-feedback">
-                                                Password is required
-                                            </div>
+                                            <input id="anggota_pass" type="password" class="form-control" name="anggota_pass" minlength="8" required/>
                                         </div>
                                         
                                         <div class="form-group">
@@ -148,8 +139,8 @@
           </div>";
             return false;
         }elseif ($db->query($sql) === TRUE) {
-            echo "<script>alert('Registrasi Akun Anda Berhasil!')</script>";
-            header ("location: login.php");
+            "<script>window.alert('Register Berhasil')
+            window.location='login.php'</script>";
         } else {
             echo "Terjadi kesalahan: " . $sql . "<br/>" . $db->error;
         }
@@ -160,27 +151,66 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/my-login.js"></script>
     <!--   Core JS Files   -->
-    <script src="assets/js/core/jquery.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/bootstrap-material-design.js"></script>
+    <script src="../assets/js/core/jquery.min.js"></script>
+    <script src="../assets/js/core/jquery.validate.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/bootstrap-material-design.js"></script>
 
     <script src="https://unpkg.com/default-passive-events"></script>
 
     <!--  Notifications Plugin, full documentation here: http://bootstrap-notify.remabledesigns.com/    -->
-    <script src="assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
 
     <!--  Charts Plugin, full documentation here: https://gionkunz.github.io/chartist-js/ -->
-    <script src="assets/js/core/chartist.min.js"></script>
+    <script src="../assets/js/core/chartist.min.js"></script>
 
     <!-- Plugin for Scrollbar documentation here: https://github.com/utatti/perfect-scrollbar -->
-    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 
     <!-- Demo init -->
-    <script src="assets/js/plugins/demo.js"></script>
+    <script src="../assets/js/plugins/demo.js"></script>
 
     <!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="assets/js/material-dashboard.js?v=2.1.0"></script>
+    <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $('#user').validate({
+        rules: {
+            anggota_telp: {
+                digits:true,
+                maxlength:13,
+                minlength:11
+            },
+            email: {
+                email:true
+            },
+            password: {
+                digits:true,
+                maxlength:8,
+                minlength:8
+            }
+        },
+        messages: {
+            anggota_telp: {
+                required: "No. Telephone harus Diisi",
+                minlength: "No. Telephone minimal terdiri dari 11 digit",
+			    maxlength: "No. Telephone maksimal terdiri dari 13 digit"
+            },
+            email: {
+                required: "Email Harus Diisi",
+                email: "Format Email tidak Valid" 
+            },
+            password: {
+                required: "Password Harus Diisi",
+                minlength: "Password minimal terdiri dari 8 karakter",
+			    maxlength: "Password maksimal terdiri dari 8 karakter" 
+            }
+        }
+    });
+
+});
+</script>
 </body>
 
 </html>

@@ -189,12 +189,8 @@ $data_anggota = mysqli_fetch_array($tampil);
           $hasil = mysqli_query($db, $query);
           // var_dump(mysqli_error($db));
           if ($hasil == true) {
-            echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
-            <strong>Data Berhasil di Ubah!</strong>
-            <button type=button class=close data-dismiss=alert aria-label=Close>
-              <span aria-hidden=true>&times;</span>
-            </button>
-          </div>";
+            echo "<script>window.alert('Data Berhasil di Update')
+            window.location='user-edit.php'</script>";
           } else {
           echo "koneksi gagal" .mysqli_error($db);
           }
@@ -214,21 +210,21 @@ $data_anggota = mysqli_fetch_array($tampil);
             <form method="post" action="">
             <input type="hidden" name="id" value="<?php echo $data_anggota['id']?>">
             <div class="form-group">
-									<label for="username">Username</label>
+									<label for="username">Username</label><br/>
 									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data_anggota['username'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Username is invalid
 									</div>
 								</div><br/>
             <div class="form-group">
-									<label for="email">Email</label>
+									<label for="email">Email</label><br/>
 									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data_anggota['email'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
 								</div><br/>
            <div class="form-group">
-									<label for="nama">Nama</label>
+									<label for="nama">Nama</label><br/>
 									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data_anggota['nama'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Name is invalid
@@ -247,15 +243,14 @@ $data_anggota = mysqli_fetch_array($tampil);
                   </select> 
 								</div><br/>
          <div class="form-group">
-									<label for="telp">Telephone</label>
+									<label for="telp">Telephone</label><br/>
 									<input id="telp" type="text" class="form-control" name="no_telepon" value="<?php echo $data_anggota['telp'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Telephone is invalid
 									</div>
 								</div><br/>
 						<div class="form-group">
-									<label for="password">Password
-									</label>
+									<label for="password">Password</label><br/>
 									<input id="password" type="password" class="form-control" name="password" value="<?php echo $data_anggota['password']; ?>" required data-eye>
 									<div class="invalid-feedback">
 										Password is required

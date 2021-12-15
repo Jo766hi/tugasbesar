@@ -215,12 +215,8 @@ $data_buku = mysqli_fetch_assoc($hasil);
             move_uploaded_file($file, $destination);
         }
     
-        echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
-            <strong>Buku Berhasil di Update!</strong>
-            <button type=button class=close data-dismiss=alert aria-label=Close>
-              <span aria-hidden=true>&times;</span>
-            </button>
-          </div>";
+        echo "<script>window.alert('Data Berhasil di Update')
+        window.location='buku.php'</script>";
     } else {
       echo "koneksi gagal" .mysqli_error($db);
     }
@@ -240,12 +236,12 @@ $data_buku = mysqli_fetch_assoc($hasil);
 
                 <input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>">
                 <div class="form-group">
-									<label for="judul">Judul</label>
+									<label for="judul">Judul</label><br/>
 									<input id="judul" type="text" class="form-control" name="judul" value="<?php echo $data_buku['buku_judul'] ?>" required autofocus>
 								</div><br/>
 
                 <div class="form-group">
-									<label for="kategori">kategori</label>
+									<label for="kategori">kategori</label><br/>
 									<select id="kategori" name="kategori" class="custom-select">
                   <?php foreach ($data_kategori as $kategori) : ?>
                             <?php
@@ -259,13 +255,13 @@ $data_buku = mysqli_fetch_assoc($hasil);
                         <?php endforeach ?>
                   </select> 
 								</div><br/>
-                <p>Deskripsi</p>
+                <p>Deskripsi</p><br/>
                 <p><textarea name="editor1"><?php echo $data_buku['buku_deskripsi'] ?></textarea></p>
                 <script>
                         CKEDITOR.replace( 'editor1' );
                 </script><br/>
                  <div class="form-group">
-									<label for="jumlah">Jumlah</label>
+									<label for="jumlah">Jumlah</label><br/>
 									<input id="jumlah" type="number" class="form-control" name="jumlah" value="<?php echo $data_buku['buku_jumlah'] ?>" required autofocus></div><br/>
                 
                 <p>Cover</p>

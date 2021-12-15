@@ -180,18 +180,19 @@
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
           $pass = $_POST['password'];
+          $level = $_POST['level'];
+          
+          if ($pass !== $data_anggota['password']){
+            $pass = md5($_POST['password']);
+          }
 
           $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
-              VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$pass', 'anggota')";
+          VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$pass', '$level')";
           $hasil = mysqli_query($db, $query);
-
+     
           if ($hasil == true) {
-            echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
-            <strong>Anggota Berhasil di Tambah!</strong>
-            <button type=button class=close data-dismiss=alert aria-label=Close>
-              <span aria-hidden=true>&times;</span>
-            </button>
-          </div>";
+            echo "<script>window.alert('Data Berhasil di Tambah')
+            window.location='anggota.php'</script>";
           } else {
             echo "koneksi gagal" .mysqli_error($db);
           }
@@ -210,48 +211,53 @@
             <div class="col-12">
             <form method="post" action="">
             <div class="form-group">
-									<label for="username">Username</label>
+									<label for="username">Username</label><br/>
 									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
 									<div class="invalid-feedback">
 										Username is invalid
 									</div>
 								</div><br/>
             <div class="form-group">
-									<label for="email">Email</label>
+									<label for="email">Email</label><br/>
 									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
 								</div><br/>
            <div class="form-group">
-									<label for="nama">Nama</label>
+									<label for="nama">Nama</label><br/>
 									<input id="nama" type="text" class="form-control" name="nama" value="" required autofocus>
 									<div class="invalid-feedback">
 										Name is invalid
 									</div>
 								</div><br/>
            <div class="form-group">
-									<label for="jk">Jenis Kelamin</label>
+									<label for="jk">Jenis Kelamin</label><br/>
 									<select id="jk" class="custom-select" name="jk">
                       <option value = "L">Laki- laki</option>
                       <option value = "P">Perempuan</option>
                   </select> 
 								</div><br/>
          <div class="form-group">
-									<label for="telp">Telephone</label>
+									<label for="telp">Telephone</label><br/>
 									<input id="telp" type="text" class="form-control" name="no_telepon" value="" required autofocus>
 									<div class="invalid-feedback">
 										Telephone is invalid
 									</div>
 								</div><br/>
 						<div class="form-group">
-									<label for="password">Password
-									</label>
+									<label for="password">Password</label><br/>
 									<input id="password" type="password" class="form-control" name="password" value="" required data-eye>
 									<div class="invalid-feedback">
 										Password is required
 									</div>
 								</div>
+                <div class="form-group">
+									<label for="level">Level</label><br/>
+									<select id="level" class="custom-select" name="level">
+                      <option value = "anggota">Anggota</option>
+                      <option value = "petugas">Petugas</option>
+                  </select> 
                 <p>
                     <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="add">
                     <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">
