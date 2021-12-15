@@ -1,11 +1,9 @@
 <?php 
   session_start();
-  if (($_SESSION['level']) !== 'petugas') {
-   header('Location: ../cetak/user-cetak.php');
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
    exit();
   }
-
-  include '../includes/function.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -168,8 +166,6 @@
                       
                       <select  id="status" name="status" class="form-control col-md-5 dropdown">
                         <option  style="color: black;" value="#">-- Pilih Data --</option>
-                        <option  style="color: black;" value="0">Data Anggota</option>
-                        <option  style="color: black;" value="1">Data Buku</option>
                         <option  style="color: black;" value="2">Data Peminjaman</option>
                       </select>
                     </div>
@@ -225,17 +221,7 @@
     var status = $('#status').val();
     var left = (screen.width/2) - (800/2);
     var right = (screen.height/2) - (640/2);
-    
-
-    if(status == "0"){
-    var url = 'tampilCetakAnggota.php?status='+status;
-    window.open(url, '', 'width=800, height=640, scrollbars=yes, left='+left+', top='+top+'');
-
-    } else if(status == "1"){
-    var url = 'tampilCetakBuku.php?status='+status;
-    window.open(url, '', 'width=800, height=640, scrollbars=yes, left='+left+', top='+top+'');
-
-    } else if(status == "2"){
+    if(status == "2"){
       var url = 'tampilCetakPeminjaman.php?status='+status;
     window.open(url, '', 'width=800, height=640, scrollbars=yes, left='+left+', top='+top+'');
     }
