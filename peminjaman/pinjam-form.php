@@ -34,7 +34,7 @@ else if($_SESSION['level'] == 'anggota') {
             <form action="proses-tambah-pinjam.php" method="post">
                 <p>Buku</p>
                 <p>
-                    <select name="buku">
+                    <select class="form-select" name="buku">
                         <?php foreach ($data_buku as $buku): ?>
                             <option value="<?php echo $buku['buku_id'] ?> "><?php echo $buku['buku_judul'] ?></option>
                         <?php endforeach ?>

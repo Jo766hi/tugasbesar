@@ -156,14 +156,16 @@ include '../includes/function.php'
       <!-- End Navbar -->
     
 
-            <div class="content">
+      <div class="content">
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Daftar Pengembalian</h2>
+              <h2 class="card-title">Pengembalian</h2>
             </div>
             <div class="card-body">
-              <div id="typography">
+              <div class="row">
+                  <div class="container clearfix">
+                  <div class="content">
             <?php if(isset($_GET["cari"])) { ?>
             <?php $data_kembali = cari3($_GET["keyword"]);}?>
 
@@ -198,15 +200,40 @@ include '../includes/function.php'
                     
             </table>
             <?php endif ?>
-                
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <?php 
+            if ($halaman == 1){
+            echo "";
+            }
+            else {
+            ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
+            <?php } ?>
+                            
+            <?php
+            for ($i=1; $i<=$jlh_halaman; $i++){
+            echo "<li class=page-item><a class=page-link href=pengembalian.php?halaman=$i>$i</a></li>";
+            }
+            ?>
+            <?php
+            if ($halaman == $jlh_halaman){
+              echo "";
+            }else {
+              ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$sesudah"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$jlh_halaman"?>">Next</a></li>
+          <?php }?>  
+          </ul>
+            </nav>
+            </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
-    </div>
+      </div>
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">

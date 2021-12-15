@@ -154,21 +154,17 @@ include '../includes/function.php'
         </div>
       </nav>
       <!-- End Navbar -->
-
       <div class="content">
         <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h2 class="card-title ">Daftar Peminjaman </h4>
-                </div>
-                <div class="card-body table-responsive">
-                  <div class= "row">
-                  <div class= "container-clearfix">
-                  <div class= "content">
-              
-            <?php if(isset($_GET["cari"])) { ?>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h2 class="card-title">Peminjaman</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="container clearfix">
+                  <div class="content">
+                  <?php if(isset($_GET["cari"])) { ?>
             <?php $data_pinjam = cari2($_GET["keyword"]);}?>
 
                 <table style="border-collapse:separate; border-spacing: 20px;">
@@ -251,16 +247,14 @@ include '../includes/function.php'
           <?php }?>  
           </ul>
             </nav>
-
-                  </div>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
-        </div></div>
-     
+    </div>
+  
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
