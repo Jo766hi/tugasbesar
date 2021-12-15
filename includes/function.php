@@ -123,7 +123,7 @@ function cari3($keyword){
             JOIN kembali ON pinjam.pinjam_id = kembali.pinjam_id
             WHERE user.nama
             LIKE '%$keyword%' OR
-            buku.buku_judul LIKE '%$keyword%'";
+            buku.buku_judul LIKE '%$keyword%'"; 
         }
         else if($_SESSION['level'] == 'anggota') {
         $query = "SELECT buku.buku_judul, pinjam.tgl_pinjam, pinjam.tgl_jatuh_tempo,kembali.kembali_id, kembali.tgl_kembali, user.nama, kembali.denda
@@ -145,4 +145,52 @@ function cari3($keyword){
     }
     // ... lanjut di tampilan
     return $data_kembali;
+}
+
+//pencarian untuk buku
+function cari4($keyword) {
+    
+include '../includes/koneksi.php';
+
+$query = "SELECT buku.*, kategori.kategori_nama
+    FROM buku
+    JOIN kategori
+    ON buku.kategori_id = kategori.kategori_id
+    WHERE buku_judul LIKE '%$keyword%' OR 
+    kategori.kategori_nama LIKE '%$keyword%'
+    ";
+
+$hasil = mysqli_query($db, $query);
+mysqli_connect_error();
+// ... menampung semua data kategori
+$data_buku = array();
+
+// ... tiap baris dari hasil query dikumpulkan ke $data_buku
+while ($row = mysqli_fetch_assoc($hasil)) {
+    $data_buku[] = $row;
+}
+
+return $data_buku;
+}
+
+//pencarian untuk kategori
+function cari5($keyword) {
+    
+include '../includes/koneksi.php';
+
+$query = "SELECT * FROM kategori
+    WHERE kategori_nama LIKE '%$keyword%'
+
+";
+
+$hasil = mysqli_query($db, $query);
+
+// ... menampung semua data kategori
+$data_kategori = array();
+
+// ... tiap baris dari hasil query dikumpulkan ke $data_kategori
+while ($row = mysqli_fetch_assoc($hasil)) {
+    $data_kategori[] = $row;
+}
+return $data_kategori;
 }

@@ -17,5 +17,6 @@ while ($row = mysqli_fetch_assoc($hasil)) {
     $data_buku[] = $row;
 }
 
+//ambil jumlah rows untuk dashboard
 $row_buku = mysqli_num_rows($hasil);
 ?>

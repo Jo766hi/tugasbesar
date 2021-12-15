@@ -208,6 +208,7 @@ include '../includes/function.php';
                   $data_anggota = mysqli_query($db, $query2);
                 
                   ?>
+                  //fitur pencarian
                   <?php if(isset($_GET["cari"])) { ?>
                   <?php $data_anggota = cari($_GET["keyword"]);}?>
             <table class="data">
