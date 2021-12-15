@@ -190,21 +190,21 @@
              <?php if (empty($data_buku)) : ?>
             Tidak ada data.
             <?php else : ?>      
-            <table class="data">
+            <table style="border-collapse: separate; border-spacing: 80px;">
                 <tr>
-                    <th width="30%">Judul</th>
-                    <th width="20%">Kategori</th>
-                    <th width="35%">Deskripsi</th>
-                    <th width="15%">Jumlah</th>
-                    <th width="35%">Cover</th>
+                    <th>Judul</th>
+                    <th>Kategori</th>
+                    <th>Jumlah</th>
+                    <th>Cover</th>
+                    <th>Deskripsi</th>
                 </tr>
                 <?php foreach ($data_buku as $buku) : ?>
                 <tr>
                     <td><?php echo $buku['buku_judul'] ?></td>
                     <td><?php echo $buku['kategori_nama'] ?></td>
-                    <td><?php echo $buku['buku_deskripsi'] ?></td>
                     <td><?php echo $buku['buku_jumlah'] ?></td>
                     <td><img class="buku-cover" src="cover/<?php echo $buku['buku_cover'] ?>" width="50px"></td>
+                    <td><a href="buku-desk.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Deskripsi</a></td>
                 </tr>
                 <?php endforeach ?>
                 </table>

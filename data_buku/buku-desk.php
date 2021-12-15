@@ -1,10 +1,9 @@
 <?php 
   session_start();
-  if (($_SESSION['level']) !== 'petugas') {
-   header('Location: ../data_buku/user-buku.php');
+  if (!isset($_SESSION['username'])) {
+   header('Location: ../login/login.php');
    exit();
   }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,7 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="//cdn.ckeditor.com/4.17.1/basic/ckeditor.js"></script>
 </head>
 
 <body class="dark-edition">
@@ -148,10 +148,17 @@
             </ul>
           </div>
         </div>
+
       </nav>
       <!-- End Navbar -->
-      <?php 
+<?php
+include '../includes/koneksi.php';
 include 'buku-list.php';
+
+$id_buku = $_GET['id_buku'];
+$query = "SELECT*FROM buku WHERE buku_id = '$id_buku'";
+$hasil = mysqli_query($db, $query);
+$data_buku = mysqli_fetch_assoc($hasil);
 ?>
        <div class="content">
         <div class="container-fluid">
@@ -163,97 +170,36 @@ include 'buku-list.php';
               <div class="row">
                   <div class="container clearfix">
                   <div class="content">
-            <?php 
-                if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
-                  $halaman = $_GET['halaman'];
-                } else {
-                  $halaman = 1;
-                }
-                  $limit = 3;
-                  if ($halaman > 1){
-                    $offset = ($halaman * $limit) - $limit;
-                  } else $offset = 0;
-                  $sebelum = $halaman - 1;
-                  $sesudah = $halaman + 1;
-                  $query = "SELECT * FROM buku";
-                  $result = mysqli_query($db, $query);
-                  
-                  $jlh_data = mysqli_num_rows($result);
-                  $jlh_halaman = ceil($jlh_data/$limit);
-                  $hal_akhir = $jlh_halaman;
-                                
-                  $query2 = "SELECT buku.*, kategori.kategori_nama
-                  FROM buku
-                  JOIN kategori
-                  ON buku.kategori_id = kategori.kategori_id LIMIT $offset,$limit";
-                  $data_buku = mysqli_query($db, $query2);
-              ?>
-            <?php if (empty($data_buku)) : ?>
+            <?php if (empty($data_buku['buku_deskripsi'])) : ?>
             Tidak ada data.
-            <?php else : ?>      
-            <table style="border-collapse: separate; border-spacing: 50px;">
+            <?php else : ?>
+            <table style="border-collapse: separate; border-spacing: 70px;">
                 <tr>
-                    <th>Judul</th>
-                    <th>Kategori</th>
-                    <th>Jumlah</th>
-                    <th>Cover</th>
                     <th>Deskripsi</th>
-                    <th>Pilihan</th>
                 </tr>
-                  <?php foreach ($data_buku as $buku) : ?>
                 <tr>
-                    <td><?php echo $buku['buku_judul'] ?></td>
-                    <td><?php echo $buku['kategori_nama'] ?></td>
-                    <td><?php echo $buku['buku_jumlah'] ?></td>
-                    <td><img class="buku-cover" src="cover/<?php echo $buku['buku_cover'] ?>" width="50px"></td>
-                    <td><a href="buku-desk.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Deskripsi</a></td>
-                    <td>
-                        <a href="buku-edit.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Edit</a>
-                        <a href="buku-delete.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
+                    <td><input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>"></td>
+                    <td><h5 class="card-title"><?php echo $data_buku['buku_judul'] ?></h5><br/>
+                    <?php echo $data_buku['buku_deskripsi']?></br>
+                    <?php echo "Diperbarui Tanggal " .date('d F Y');?></br>
+                <hr></td>
                 </tr>
-                <?php endforeach ?>
             </table>
-                <a href="buku-tambah.php"><button class="btn btn-primary">Tambah Data</button></a>
             <?php endif ?>
-            <nav aria-label="Page navigation example">
-            <ul class="pagination">
-            <?php 
-            if ($halaman == 1){
-            echo "";
-            }
-            else {
-            ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "buku.php?halaman=1"?>">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "buku.php?halaman=$sebelum"?>">Previous</a></li>
-            <?php } ?>
-                            
-            <?php
-            for ($i=1; $i<=$jlh_halaman; $i++){
-            echo "<li class=page-item><a class=page-link href=buku.php?halaman=$i>$i</a></li>";
-            }
-            ?>
-            <?php
-            if ($halaman == $jlh_halaman){
-              echo "";
-            }else {
-              ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "buku.php?halaman=$sesudah"?>">Next</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "buku.php?halaman=$jlh_halaman"?>">Next</a></li>
-          <?php }?>  
-          </ul>
-            </nav>
         </div>
 
-                   </div>
+    </div>
+                
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+      </div>
+   
+
      
-      <footer class="footer">
+   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
             <ul>
