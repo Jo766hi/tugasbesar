@@ -12,6 +12,7 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+
 <?php 
   session_start();
   if (($_SESSION['level']) !== 'petugas') {
@@ -208,9 +209,10 @@ include '../includes/function.php';
                   $data_anggota = mysqli_query($db, $query2);
                 
                   ?>
-                  //fitur pencarian
+                <!-- fitur pencarian-->
                   <?php if(isset($_GET["cari"])) { ?>
                   <?php $data_anggota = cari($_GET["keyword"]);}?>
+
             <table class="data">
                 <tr>
                     <th>Username</th>
