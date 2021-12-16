@@ -167,7 +167,7 @@ include '../includes/function.php'
                   <?php if(isset($_GET["cari"])) { ?>
             <?php $data_pinjam = cari2($_GET["keyword"]);}?>
 
-                <table style="border-collapse:separate; border-spacing: 20px;">
+                <table style="border-collapse:separate; border-spacing: 30px;">
                 <tr>
                     <th>Buku  </th>
                     <th>Nama</th>

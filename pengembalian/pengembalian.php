@@ -172,7 +172,7 @@ include '../includes/function.php'
             <?php if (empty($data_kembali)) : ?>
             Tidak ada data.
             <?php else : ?>
-            <table class="data">
+            <table style="border-collapse:separate; border-spacing:50px;" >
                 <tr>
                     <th>Buku</th>
                     <th>Nama</th>
@@ -208,8 +208,8 @@ include '../includes/function.php'
             }
             else {
             ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=1"?>">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$sebelum"?>">Previous</a></li>
             <?php } ?>
                             
             <?php
