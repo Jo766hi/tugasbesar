@@ -5,8 +5,13 @@ if (!isset($_SESSION['username'])) {
  header('Location: ../login/login.php');
  exit();
 }
+
+if ($_SESSION['level'] == 'anggota') {
+  header('Location: user_peminjaman.php');
+  exit();
+}
+
 include 'proses-list-pinjam-data.php';
-include 'pinjam-form.php';
 include '../includes/function.php'
 ?>
 
@@ -219,7 +224,7 @@ include '../includes/function.php'
                 <?php endforeach ?>
                 <?php endif?>
             </table>
-
+            <?php include 'pinjam-form.php';?>
             <div class="table-responsive">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Pinjam Buku
             </button>

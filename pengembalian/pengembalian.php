@@ -6,6 +6,10 @@ if (!isset($_SESSION['username'])) {
  exit();
 }
 
+if (($_SESSION['level']) == 'anggota') {
+  header('Location: user_pengembalian.php');
+  exit();
+}
 include 'proses-list-pengembalian.php';
 include '../includes/function.php'
 ?>

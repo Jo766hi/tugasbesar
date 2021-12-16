@@ -1,18 +1,13 @@
 <?php
-include '../includes/koneksi.php';
-include '../includes/function.php';
 
-$id_pinjam = $_GET['id_pinjam'];
-$q = "SELECT user.nama, buku.*, pinjam.* FROM pinjam 
-    LEFT JOIN buku ON pinjam.buku_id = buku.buku_id 
-    LEFT JOIN user ON pinjam.anggota_id = user.id
-    WHERE pinjam.pinjam_id = $id_pinjam";
-$hasil = mysqli_query($db, $q);
-$data_pinjam = mysqli_fetch_assoc($hasil);
-$tgl_kembali = date('Y-m-d');
-var_dump($tgl_kembali);
-$denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
+session_start();
+if (!isset($_SESSION['username'])) {
+ header('Location: ../login/login.php');
+ exit();
+}
 
+include 'proses-list-pengembalian.php';
+include '../includes/function.php'
 ?>
 
 <!DOCTYPE html>
@@ -68,13 +63,13 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
               <p>Data Buku</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-iteme">
             <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
               <p>Peminjaman</p>
             </a>
           </li>
-          <li class="nav-item active ">
+          <li class="nav-item active">
             <a class="nav-link" href="../pengembalian/pengembalian.php">
               <i class="material-icons">library_books</i>
               <p>Pengembalian</p>
@@ -100,7 +95,7 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand">PEngembalian</a>
+            <a class="navbar-brand"><?php echo $_SESSION['level'] ?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -109,10 +104,10 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form class="navbar-form" action="" method="GET">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
                 </button>
@@ -142,7 +137,8 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
                   <a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
-                <li class="nav-item dropdown">
+              </li>
+              <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
@@ -158,51 +154,82 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
         </div>
       </nav>
       <!-- End Navbar -->
+    
+
       <div class="content">
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Pengembalian</h4>
-              <p class="card-category"></p>
+              <h2 class="card-title">Pengembalian</h2>
             </div>
             <div class="card-body">
-              <div id="typography">
-              <form method="post" action="proses-pengembalian.php">
-                <input type="hidden" name="pinjam_id" value="<?php echo $data_pinjam['pinjam_id'] ?>">
-                <input type="hidden" name="tgl_kembali" value="<?php echo $tgl_kembali ?>">
-                <input type="hidden" name="denda" value="<?php echo $denda ?>">
-                <p>Buku</p>
-                <p>
-                    <input type="text" value="<?php echo $data_pinjam['buku_judul'] ?>" disabled>
-                </p>
+              <div class="row">
+                  <div class="container clearfix">
+                  <div class="content">
+            <?php if(isset($_GET["cari"])) { ?>
+            <?php $data_kembali = cari3($_GET["keyword"]);}?>
 
-                <p>Anggota</p>
-                <p>
-                    <input type="text" value="<?php echo $data_pinjam['nama'] ?>" disabled>
-                </p>
+            <?php if (empty($data_kembali)) : ?>
+            Tidak ada data.
+            <?php else : ?>
+            <table style="border-collapse:separate; border-spacing:50px;" >
+                <tr>
+                    <th>Buku</th>
+                    <th>Nama</th>
+                    <th>Tgl Pinjam</th>
+                    <th>Tgl Jatuh Tempo</th>
+                    <th>Tgl Kembali</th>
+                    <th>Denda</th>
+                </tr>
 
-                <p>Tanggal Pinjam</p>
-                <p><input type="date" value="<?php echo $data_pinjam['tgl_pinjam'] ?>" disabled></p>
+                <?php foreach ($data_kembali as $kembali) : ?>
+                <tr>
+                    <td><?php echo $kembali['buku_judul'] ?></td>
+                    <td><?php echo $kembali['nama'] ?></td>
+                    <td><?php echo $kembali['tgl_pinjam'] ?></td>
+                    <td><?php echo $kembali['tgl_jatuh_tempo'] ?></td>
+                    <td><?php echo $kembali['tgl_kembali'] ?></td>
+                    <td><?php echo $kembali['denda'] ?></td>
 
-                <p>Tanggal Jatuh Tempo</p>
-                <p><input type="date" value="<?php echo $data_pinjam['tgl_jatuh_tempo'] ?>" disabled></p>
-
-                <p>Tanggal Kembali</p>
-                <p><input type="date" value="<?php echo $tgl_kembali ?>" disabled></p>
-
-                <p>Denda</p>
-                <p><input type="text" value="<?php echo $denda ?>" disabled></p>
-
-                <p><input type="submit" class="btn btn-submit" value="Simpan"></p>
-            </form>
-                
+                </tr>
+                <?php endforeach ?>
+                    
+            </table>
+            <?php endif ?>
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <?php 
+            if ($halaman == 1){
+            echo "";
+            }
+            else {
+            ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$sebelum"?>">Previous</a></li>
+            <?php } ?>
+                            
+            <?php
+            for ($i=1; $i<=$jlh_halaman; $i++){
+            echo "<li class=page-item><a class=page-link href=pengembalian.php?halaman=$i>$i</a></li>";
+            }
+            ?>
+            <?php
+            if ($halaman == $jlh_halaman){
+              echo "";
+            }else {
+              ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$sesudah"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$jlh_halaman"?>">Next</a></li>
+          <?php }?>  
+          </ul>
+            </nav>
+            </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-  
+      </div>
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
@@ -237,3 +264,5 @@ $denda = hitung_denda($tgl_kembali, $data_pinjam['tgl_jatuh_tempo']);
 </body>
 
 </html>
+
+

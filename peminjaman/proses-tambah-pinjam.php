@@ -18,7 +18,8 @@ if ($hasil == true) {
 
     kurangi_stok($db, $buku);
 
-    $_SESSION['messages'] = '<font color="green">Peminjaman sukses!</font>';
+    echo "<script>window.alert('Data Berhasil di Tambah')
+    window.location='peminjaman.php'</script>";
     
-    header('Location: peminjaman.php');
+
 }
