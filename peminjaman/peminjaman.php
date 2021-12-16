@@ -188,10 +188,10 @@ include '../includes/function.php'
                     <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
                     <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
                     <td>
-                    <?php  
+                    <?php
                         if (empty($pinjam['tgl_kembali'])) {
                             echo "-";
-                        } 
+                        }
                         else {
                             echo date('d-m-Y', strtotime($pinjam['tgl_kembali']));
                         }
@@ -204,11 +204,11 @@ include '../includes/function.php'
                         <?php $status = 'pinjam' ?>
                         <?php else: ?>
                             kembali
-                        <?php $status = 'kembali' ?>  
+                        <?php $status = 'kembali' ?>
                         <?php endif ?>
                     </td>
                     <td>
-                        
+
                         <?php if (empty($pinjam['tgl_kembali'])): ?>
                             <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-primary" title="klik untuk proses pengembalian">Kembali</a>
                             <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-primary">Edit</a>
@@ -227,7 +227,7 @@ include '../includes/function.php'
 
             <nav aria-label="Page navigation example">
             <ul class="pagination">
-            <?php 
+            <?php
             if ($halaman == 1){
             echo "";
             }
@@ -236,7 +236,7 @@ include '../includes/function.php'
             <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=1"?>">Previous</a></li>
             <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
             <?php } ?>
-                            
+
             <?php
             for ($i=1; $i<=$jlh_halaman; $i++){
             echo "<li class=page-item><a class=page-link href=peminjaman.php?halaman=$i>$i</a></li>";
@@ -249,7 +249,7 @@ include '../includes/function.php'
               ?>
             <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sesudah"?>">Next</a></li>
             <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$jlh_halaman"?>">Next</a></li>
-          <?php }?>  
+          <?php }?>
           </ul>
             </nav>
                 </div>
@@ -259,7 +259,7 @@ include '../includes/function.php'
         </div>
       </div>
     </div>
-  
+
   <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
@@ -271,7 +271,7 @@ include '../includes/function.php'
             </ul>
           </nav>
       </footer>
-      
+
     <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -290,7 +290,7 @@ include '../includes/function.php'
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
-  
+
 </body>
 
 </html>

@@ -41,9 +41,9 @@ if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
     $sebelum = $halaman - 1;
     $sesudah = $halaman + 1;
     $query = "SELECT * FROM pinjam WHERE anggota_id = $id";
-    $result = mysqli_query($db, $query);
+    $hasil = mysqli_query($db, $query);
     
-    $jlh_data = mysqli_num_rows($result);
+    $jlh_data = mysqli_num_rows($hasil);
     $jlh_halaman = ceil($jlh_data/$limit);
     $hal_akhir = $jlh_halaman;
                   
