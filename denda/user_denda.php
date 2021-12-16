@@ -1,13 +1,15 @@
 <?php
-
 session_start();
-if (!isset($_SESSION['username'])) {
+if (empty($_SESSION['username'])) {
  header('Location: ../login/login.php');
  exit();
 }
-include 'proses-list-pinjam-data.php';
-include 'pinjam-form.php';
-include '../includes/function.php'
+
+include '../includes/koneksi.php';
+
+$q = mysqli_query($db, "SELECT * FROM denda");
+$uang = mysqli_fetch_row($q);
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +65,7 @@ include '../includes/function.php'
               <p>Data Buku</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="../peminjaman/peminjaman.php">
               <i class="material-icons">content_paste</i>
               <p>Peminjaman</p>
@@ -75,7 +77,7 @@ include '../includes/function.php'
               <p>Pengembalian</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" href="../denda/denda.php">
               <i class="material-icons">attach_money</i>
               <p>Denda</p>
@@ -95,7 +97,7 @@ include '../includes/function.php'
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand"><?php echo $_SESSION['level'] ?></a>
+            <a class="navbar-brand" href="javascript:void(0)">Denda</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -104,10 +106,10 @@ include '../includes/function.php'
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form" action="" method="GET">
+            <form class="navbar-form">
               <div class="input-group no-border">
-                <input type="text" value="" name="keyword" class="form-control" placeholder="Search...">
-                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
                 </button>
@@ -149,7 +151,6 @@ include '../includes/function.php'
                   <a class="dropdown-item" href="../login/logout.php">Log Out</a>
                 </div>
               </li>
-            </ul>
           </div>
         </div>
       </nav>
@@ -158,109 +159,27 @@ include '../includes/function.php'
         <div class="container-fluid">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h2 class="card-title">Peminjaman</h2>
+              <h2 class="card-title">Denda</h2>
+
             </div>
             <div class="card-body">
-              <div class="row">
-                  <div class="container clearfix">
-                  <div class="content">
-                  <!-- Pencarian -->
-                  <?php if(isset($_GET["cari"])) { ?>
-                  <?php $data_pinjam = cari2($_GET["keyword"]);}?>
 
-                  <?php if (empty($data_pinjam)) : ?>
-                  Tidak ada data.
-                  <?php else : ?>
-                <table style="border-collapse:separate; border-spacing: 20px;">
-                <tr>
-                    <th>Buku  </th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th>Status</th>
-                    <th>Pilihan</th>
-                </tr>
-                <?php foreach ($data_pinjam as $pinjam) : ?>
-                <tr>
-                    <td><?php echo $pinjam['buku_judul'] ?></td>
-                    <td><?php echo $pinjam['nama'] ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
-                    <td>
-                    <?php  
-                        if (empty($pinjam['tgl_kembali'])) {
-                            echo "-";
-                        } 
-                        else {
-                            echo date('d-m-Y', strtotime($pinjam['tgl_kembali']));
-                        }
-                    ?>
-                    </td>
-                    <td>
-                        <?php $status = '' ?>
-                        <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            pinjam
-                        <?php $status = 'pinjam' ?>
-                        <?php else: ?>
-                            kembali
-                        <?php $status = 'kembali' ?>  
-                        <?php endif ?>
-                    </td>
-                    <td>
-                        
-                        <?php if (empty($pinjam['tgl_kembali'])): ?>
-                            <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-primary" title="klik untuk proses pengembalian">Kembali</a>
-                            <a href="edit-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>" class="btn btn-primary">Edit</a>
-                        <?php endif ?>
-                        <a href="proses-delete-pinjam.php?id_pinjam=<?php echo $pinjam['pinjam_id']; ?>&&status=<?php echo $status; ?>&&buku_id=<?php echo $pinjam['buku_id']; ?>"  class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-                <?php endif?>
-            </table>
-
-            <div class="table-responsive">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Pinjam Buku
-            </button>
-
-
-            <nav aria-label="Page navigation example">
-            <ul class="pagination">
-            <?php 
-            if ($halaman == 1){
-            echo "";
-            }
-            else {
-            ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=1"?>">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
-            <?php } ?>
-                            
-            <?php
-            for ($i=1; $i<=$jlh_halaman; $i++){
-            echo "<li class=page-item><a class=page-link href=peminjaman.php?halaman=$i>$i</a></li>";
-            }
-            ?>
-            <?php
-            if ($halaman == $jlh_halaman){
-              echo "";
-            }else {
+              <?php
+              $q = mysqli_query($db, "SELECT * FROM denda");
+              $uang = mysqli_fetch_row($q);
+              
               ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sesudah"?>">Next</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$jlh_halaman"?>">Next</a></li>
-          <?php }?>  
-          </ul>
-            </nav>
-                </div>
-              </div>
+                <h2>Setiap Keterlambatan sehari akan dikenakan denda sebesar <?= $uang[0]; ?></h2>
+              
             </div>
+
           </div>
         </div>
       </div>
-    </div>
-  
-  <footer class="footer">
+
+
+
+      <footer class="footer">
         <div class="container-fluid">
           <nav class="float-mid">
             <ul>
@@ -271,26 +190,26 @@ include '../includes/function.php'
             </ul>
           </nav>
       </footer>
-      
-    <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-  <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-  
+
+      <!--   Core JS Files   -->
+      <script src="../assets/js/core/jquery.min.js"></script>
+      <script src="../assets/js/core/popper.min.js"></script>
+      <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+      <script src="https://unpkg.com/default-passive-events"></script>
+      <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+      <!-- Place this tag in your head or just before your close body tag. -->
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+      <!--  Google Maps Plugin    -->
+      <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+      <!-- Chartist JS -->
+      <script src="../assets/js/plugins/chartist.min.js"></script>
+      <!--  Notifications Plugin    -->
+      <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+      <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
+      <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+      <script src="../assets/demo/demo.js"></script>
+
 </body>
 
 </html>

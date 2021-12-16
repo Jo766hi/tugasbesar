@@ -1,9 +1,9 @@
 <?php
 session_start();
-  if (!isset($_SESSION['username'])) {
-   header('Location: ../login/login.php');
-   exit();
-  }
+if (($_SESSION['level']) !== 'petugas') {
+  header('Location: user_denda.php');
+  exit();
+ }
 
 include '../includes/koneksi.php';
 
@@ -170,7 +170,14 @@ $uang = mysqli_fetch_row($q);
 
                 $query = "UPDATE denda SET 
                   nominal = $nominal";
-                mysqli_query($db, $query);
+                $hasil = mysqli_query($db, $query);
+
+                if ($hasil == true) {
+                  echo "<script>window.alert('Data Berhasil di Update')
+                  window.location='denda.php'</script>";
+                } else {
+                echo "koneksi gagal" .mysqli_error($db);
+                }
               }
               ?>
 

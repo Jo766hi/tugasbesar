@@ -39,7 +39,7 @@ else if($_SESSION['level'] == 'anggota') {
         } else $offset = 0;
         $sebelum = $halaman - 1;
         $sesudah = $halaman + 1;
-        $query = "SELECT * FROM kembali WHERE anggota_id = '" . $_SESSION['id'] . "'";
+        $query = "SELECT * FROM kembali";
         $result = mysqli_query($db, $query);
         
         $jlh_data = mysqli_num_rows($result);
