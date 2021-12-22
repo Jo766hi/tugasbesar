@@ -212,7 +212,7 @@ include '../includes/function.php'
             }
             else {
             ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=1"?>">&lt;&lt;</a></li>
             <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$sebelum"?>">Previous</a></li>
             <?php } ?>
                             
@@ -227,7 +227,7 @@ include '../includes/function.php'
             }else {
               ?>
             <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$sesudah"?>">Next</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$jlh_halaman"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "pengembalian.php?halaman=$jlh_halaman"?>">&gt;&gt;</a></li>
           <?php }?>  
           </ul>
             </nav>

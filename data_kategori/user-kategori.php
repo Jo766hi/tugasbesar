@@ -209,7 +209,7 @@ if (empty($_SESSION['username'])){
             }
             else {
             ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "user-kategori.php?halaman=1"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "user-kategori.php?halaman=1"?>">&lt;&lt;</a></li>
             <li class="page-item"><a class="page-link" href="<?php echo "user-kategori.php?halaman=$sebelum"?>">Previous</a></li>
             <?php } ?>
                             
@@ -224,7 +224,7 @@ if (empty($_SESSION['username'])){
             }else {
               ?>
             <li class="page-item"><a class="page-link" href="<?php echo "user-kategori.php?halaman=$sesudah"?>">Next</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "user-kategori.php?halaman=$jlh_halaman"?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "user-kategori.php?halaman=$jlh_halaman"?>">&gt;&gt;</a></li>
           <?php }?>  
         </div>
                 </div>

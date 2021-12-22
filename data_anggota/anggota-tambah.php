@@ -179,22 +179,45 @@
           $nama = $_POST['nama'];
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
-          $pass = $_POST['password'];
+          $pass = md5($_POST['password']);
+          $konfigurasi = md5($_POST['konfigurasi']);
           $level = $_POST['level'];
-          
-          if ($pass !== $data_anggota['password']){
-            $pass = md5($_POST['password']);
-          }
 
+          $cek1 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$user'"));
+          $cek2 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE email='$email'"));
+          $cek3 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$user' or email='$email'"));
+  
+          if ($cek1 > 0) {
+              echo "<div class=alert alert-danger role=alert>
+              Username sudah Terdaftar
+            </div>";
+              return false;
+          } 
+          if ($cek2 > 0) {
+              echo "<div class=alert alert-danger role=alert>
+              Email sudah Terdaftar
+            </div>";
+              return false;
+          }if ($cek3 > 0) {
+              echo "<div class=alert alert-danger role=alert>
+              Username dan Email sudah Terdaftar
+            </div>";
+              return false;
+          }
+        
+          if ($konfigurasi == $pass) { 
           $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
-          VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$pass', '$level')";
+          VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$konfigurasi', '$level')";
           $hasil = mysqli_query($db, $query);
-     
+
           if ($hasil == true) {
             echo "<script>window.alert('Data Berhasil di Tambah')
             window.location='anggota.php'</script>";
           } else {
             echo "koneksi gagal" .mysqli_error($db);
+          }
+          }else {
+            echo "Konfigurasi Password Salah";
           }
           }
           ?>
@@ -251,6 +274,10 @@
 									<div class="invalid-feedback">
 										Password is required
 									</div>
+								</div>
+                <div class="form-group">
+									<label for="konfigurasi">Konfigurasi Password</label><br/>
+									<input id="konfiguras" type="password" class="form-control" name="konfigurasi" value="" required data-eye>
 								</div>
                 <div class="form-group">
 									<label for="level">Level</label><br/>
