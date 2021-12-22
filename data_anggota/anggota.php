@@ -213,7 +213,7 @@ include '../includes/function.php';
                   <?php if(isset($_GET["cari"])) { ?>
                   <?php $data_anggota = cari($_GET["keyword"]);}?>
 
-            <table class="data">
+            <table class="table table-bordered border-light data">
                 <tr>
                     <th>Username</th>
                     <th>Email</th>
