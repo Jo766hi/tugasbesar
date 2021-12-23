@@ -122,16 +122,6 @@ include '../includes/function.php';
           </button>
           <div class="collapse navbar-collapse justify-content-end">
 
-            <form class="navbar-form" action="" method="GET">
-              <div class="input-group no-border">
-                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
-                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
-
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -212,30 +202,40 @@ include '../includes/function.php';
                 <!-- fitur pencarian-->
                   <?php if(isset($_GET["cari"])) { ?>
                   <?php $data_anggota = cari($_GET["keyword"]);}?>
+            <form class="navbar-form" action="" method="GET">
+              <div class="input-group no-border">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <br>
 
-            <table class="data">
+            <table class="table table-bordered-light data">
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Nama</th>
-                    <th>Jenis Kelamin</th>
-                    <th>No. Telepon</th>
-                    <th>Password</th>
-                    <th>level</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">Username</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">E-mail</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">Nama</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">Jenis Kelamin</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">No. Telepon</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">Password</th>
+                  <th style="color:thistle; border:1px solid; text-align:center;">Level</th>
 
-                    <th width="20%">Pilihan</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;" width="20%">Pilihan</th>
                 </tr>
                     <?php foreach ($data_anggota as $anggota) : ?>
                 <tr>
-                    <td><?php echo $anggota['username'] ?></td>
-                    <td><?php echo $anggota['email'] ?></td>
-                    <td><?php echo $anggota['nama'] ?></td>
-                    <td><?php echo $anggota['jk'] ?></td>
-                    <td><?php echo $anggota['telp'] ?></td>
-                    <td><?php echo $anggota['password'] ?></td>
-                    <td><?php echo $anggota['level'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $anggota['username'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $anggota['email'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $anggota['nama'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $anggota['jk'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $anggota['telp'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $anggota['password'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $anggota['level'] ?></td>
 
-                    <td>
+                    <td style="color:white; border:1px solid; text-align:center;">
                         <a href="anggota-edit.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-primary">Edit</a>
                         <a href="anggota-delete.php?id_anggota=<?php echo $anggota['id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>

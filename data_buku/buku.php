@@ -101,15 +101,6 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form" action="" method="GET">
-              <div class="input-group no-border">
-                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
-                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -195,24 +186,34 @@ include 'buku-list.php';
 
             <?php if (empty($data_buku)) : ?>
             Tidak ada data.
-            <?php else : ?>        
-            <table style="border-collapse: separate; border-spacing: 50px;">
+            <?php else : ?>  
+            <form class="navbar-form" action="" method="GET">
+              <div class="input-group no-border">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <br>      
+            <table class="table table-bordered-light data; border-collapse: separate; border-spacing: 50px;">
                 <tr>
-                    <th>Judul</th>
-                    <th>Kategori</th>
-                    <th>Jumlah</th>
-                    <th>Cover</th>
-                    <th>Deskripsi</th>
-                    <th>Pilihan</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Judul</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Kategori</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Jumlah</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Cover</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Deskripsi</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Pilihan</th>
                 </tr>
                   <?php foreach ($data_buku as $buku) : ?>
                 <tr>
-                    <td><?php echo $buku['buku_judul'] ?></td>
-                    <td><?php echo $buku['kategori_nama'] ?></td>
-                    <td><?php echo $buku['buku_jumlah'] ?></td>
-                    <td><img class="buku-cover" src="cover/<?php echo $buku['buku_cover'] ?>" width="50px"></td>
-                    <td><a href="buku-desk.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Deskripsi</a></td>
-                    <td>
+                    <td style="color:white; border:1px solid;" ><?php echo $buku['buku_judul'] ?></td>
+                    <td style="color:white; border:1px solid;" ><?php echo $buku['kategori_nama'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $buku['buku_jumlah'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><img class="buku-cover" src="cover/<?php echo $buku['buku_cover'] ?>" width="50px"></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><a href="buku-desk.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Deskripsi</a></td>
+                    <td style="color:white; border:1px solid; text-align:center;">
                         <a href="buku-edit.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary">Edit</a>
                         <a href="buku-delete.php?id_buku=<?php echo $buku['buku_id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>

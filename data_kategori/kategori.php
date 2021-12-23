@@ -101,15 +101,6 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form"  action="" method="GET">
-              <div class="input-group no-border">
-                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
-                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -193,16 +184,26 @@ include 'kategori-list.php';
             <?php if (empty($data_kategori)) : ?>
             Tidak ada data.
             <?php else : ?>   
-            <table class="data">
+            <form class="navbar-form" action="" method="GET">
+              <div class="input-group no-border">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <br>
+            <table class="table table-bordered-light data">
                 <tr>
-                    <th>Kategori</th>
-                    <th width="20%">Pilihan</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Kategori</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;" width="20%">Pilihan</th>
                 </tr>
                
                   <?php foreach ($data_kategori as $kategori) : ?>
                 <tr>
-                    <td><?php echo $kategori['kategori_nama'] ?></td>
-                    <td>
+                    <td style="color:white; border:1px solid;" ><?php echo $kategori['kategori_nama'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;">
                         <a href="kategori-edit.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-primary">Edit</a>
                         <a href="kategori-delete.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>

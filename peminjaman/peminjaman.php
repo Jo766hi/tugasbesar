@@ -109,15 +109,6 @@ include '../includes/function.php'
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form" action="" method="GET">
-              <div class="input-group no-border">
-                <input type="text" value="" name="keyword" class="form-control" placeholder="Search...">
-                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -176,23 +167,34 @@ include '../includes/function.php'
                   <?php if (empty($data_pinjam)) : ?>
                   Tidak ada data.
                   <?php else : ?>
-                <table style="border-collapse:separate; border-spacing: 20px;">
+            <form class="navbar-form" action="" method="GET">
+              <div class="input-group no-border">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <br>
+
+                <table class="table table-bordered-light data; border-collapse: separate; border-spacing: 20px;">
                 <tr>
-                    <th>Buku  </th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th>Status</th>
-                    <th>Pilihan</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Buku</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Nama</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Tgl Pinjam</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Tgl Jatuh Tempo</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Tgl Kembali</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Status</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Pilihan</th>
                 </tr>
                 <?php foreach ($data_pinjam as $pinjam) : ?>
                 <tr>
-                    <td><?php echo $pinjam['buku_judul'] ?></td>
-                    <td><?php echo $pinjam['nama'] ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
-                    <td><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
-                    <td>
+                    <td style="color:white; border:1px solid;"><?php echo $pinjam['buku_judul'] ?></td>
+                    <td style="color:white; border:1px solid;"><?php echo $pinjam['nama'] ?></td>
+                    <td style="color:white; border:1px solid;"><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;">
                     <?php
                         if (empty($pinjam['tgl_kembali'])) {
                             echo "-";
@@ -202,7 +204,7 @@ include '../includes/function.php'
                         }
                     ?>
                     </td>
-                    <td>
+                    <td style="color:white; border:1px solid; text-align:center;">
                         <?php $status = '' ?>
                         <?php if (empty($pinjam['tgl_kembali'])): ?>
                             pinjam
@@ -212,7 +214,7 @@ include '../includes/function.php'
                         <?php $status = 'kembali' ?>
                         <?php endif ?>
                     </td>
-                    <td>
+                    <td style="color:white; border:1px solid; text-align:center;">
 
                         <?php if (empty($pinjam['tgl_kembali'])): ?>
                             <a href="../pengembalian/list-pengembalian.php?id_pinjam=<?php echo $pinjam['pinjam_id'] ?>" class="btn btn-primary" title="klik untuk proses pengembalian">Kembali</a>
@@ -263,6 +265,7 @@ include '../includes/function.php'
           </div>
         </div>
       </div>
+    </div>
     </div>
 
   <footer class="footer">

@@ -100,15 +100,6 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -175,11 +166,11 @@ $data_buku = mysqli_fetch_assoc($hasil);
             <?php else : ?>
             <table style="border-collapse: separate; border-spacing: 70px;">
                 <tr>
-                    <th>Deskripsi</th>
+                    <th style="color:white;">Deskripsi</th>
                 </tr>
                 <tr>
-                    <td><input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>"></td>
-                    <td><h5 class="card-title"><?php echo $data_buku['buku_judul'] ?></h5><br/>
+                    <td style="color:white;"><input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>"></td>
+                    <td style="color:white;"><h5 class="card-title"><?php echo $data_buku['buku_judul'] ?></h5><br/>
                     <?php echo $data_buku['buku_deskripsi']?></br>
                     <?php echo "Diperbarui Tanggal " .date('d F Y');?></br>
                 <hr></td>

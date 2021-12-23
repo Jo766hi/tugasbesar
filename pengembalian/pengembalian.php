@@ -108,15 +108,6 @@ include '../includes/function.php'
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form" action="" method="GET">
-              <div class="input-group no-border">
-                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
-                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -176,27 +167,37 @@ include '../includes/function.php'
             <?php if (empty($data_kembali)) : ?>
             Tidak ada data.
             <?php else : ?>
-            <table style="border-collapse:separate; border-spacing:50px;" >
+            <form class="navbar-form" action="" method="GET">
+              <div class="input-group no-border">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <br>
+            <table class="table table-bordered-light data; border-collapse: separate; border-spacing: 50px;">
                 <tr>
-                    <th>Buku</th>
-                    <th>Nama</th>
-                    <th>Tgl Pinjam</th>
-                    <th>Tgl Jatuh Tempo</th>
-                    <th>Tgl Kembali</th>
-                    <th>Denda</th>
-                    <th width="20%">Pilihan</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Buku</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Nama</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Tgl Pinjam</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Tgl Jatuh Tempo</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Tgl Kembali</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;">Denda</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;" width="20%">Pilihan</th>
                 </tr>
 
                 <?php foreach ($data_kembali as $kembali) : ?>
                 <tr>
-                    <td><?php echo $kembali['buku_judul'] ?></td>
-                    <td><?php echo $kembali['nama'] ?></td>
-                    <td><?php echo $kembali['tgl_pinjam'] ?></td>
-                    <td><?php echo $kembali['tgl_jatuh_tempo'] ?></td>
-                    <td><?php echo $kembali['tgl_kembali'] ?></td>
-                    <td><?php echo $kembali['denda'] ?></td>
+                    <td style="color:white; border:1px solid;"><?php echo $kembali['buku_judul'] ?></td>
+                    <td style="color:white; border:1px solid;"><?php echo $kembali['nama'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $kembali['tgl_pinjam'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $kembali['tgl_jatuh_tempo'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $kembali['tgl_kembali'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $kembali['denda'] ?></td>
 
-                    <td>
+                    <td style="color:white; border:1px solid; text-align:center;">
                     <a href="delete-pengembalian.php?id_kembali=<?php echo $kembali['kembali_id'] ?>" onclick="return confirm('anda yakin akan menghapus data?')" class="btn btn-primary">Hapus</a>
                     </td>
                 </tr>

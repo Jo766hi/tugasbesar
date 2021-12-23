@@ -130,15 +130,6 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -189,7 +180,7 @@
                   <div class="card-icon">
                     <i class="material-icons">group</i>
                   </div>
-                  <p class="card-category">Total Siswa</p>
+                  <p style="color:white" class="card-category">Total Siswa</p>
                   <h3 class="card-title"><?php echo $row_anggota; ?></h3>
                 </div>
                 <div class="card-footer">
@@ -204,7 +195,7 @@
                   <div class="card-icon">
                     <i class="material-icons">chrome_reader_mode</i>
                   </div>
-                  <p class="card-category">Total Buku</p>
+                  <p  style="color:white" class="card-category">Total Buku</p>
                   <h3 class="card-title"><?php echo $row_buku; ?></h3>
                 </div>
                 <div class="card-footer">
@@ -219,7 +210,7 @@
                   <div class="card-icon">
                     <i class="material-icons">style</i>
                   </div>
-                  <p class="card-category">Peminjaman</p>
+                  <p style="color:white" class="card-category">Peminjaman</p>
                   <h3 class="card-title"><?php echo $row_peminjaman; ?></h3>
                 </div>
                 <div class="card-footer">
