@@ -192,7 +192,7 @@ include '../includes/function.php'
                 <tr>
                     <td style="color:white; border:1px solid;"><?php echo $pinjam['buku_judul'] ?></td>
                     <td style="color:white; border:1px solid;"><?php echo $pinjam['nama'] ?></td>
-                    <td style="color:white; border:1px solid;"><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo date('d-m-Y', strtotime($pinjam['tgl_pinjam'])) ?></td>
                     <td style="color:white; border:1px solid; text-align:center;"><?php echo date('d-m-Y', strtotime($pinjam['tgl_jatuh_tempo'])) ?></td>
                     <td style="color:white; border:1px solid; text-align:center;">
                     <?php

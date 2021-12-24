@@ -4,6 +4,8 @@ if (empty($_SESSION['username'])){
     header ("location: ../login/login.php");
     exit();
 }
+
+  include '../includes/function.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,15 +101,6 @@ if (empty($_SESSION['username'])){
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-default btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
@@ -189,15 +182,25 @@ if (empty($_SESSION['username'])){
             <?php if (empty($data_kategori)) : ?>
             Tidak ada data.
             <?php else : ?>   
-            <table class="data">
+            <form class="navbar-form" action="" method="GET">
+              <div class="input-group no-border">
+                <input type="text" name="keyword" value="" class="form-control" placeholder="Search...">
+                <button type="submit" name="cari" class="btn btn-default btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <br>
+            <table class="table table-bordered-light data">
                 <tr>
-                    <th width="50%">No.</th>
-                    <th width="30%">Kategori</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;" width="30%">No.</th>
+                    <th style="color:thistle; border:1px solid; text-align:center;" width="50%">Kategori</th>
                 </tr>
                 <?php foreach ($data_kategori as $kategori) : ?>
                 <tr>
-                    <td><?php echo $no++?></td>
-                    <td><?php echo $kategori['kategori_nama'] ?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $no++?></td>
+                    <td style="color:white; border:1px solid; text-align:center;"><?php echo $kategori['kategori_nama'] ?></td>
                 <?php  endforeach ?>
             </table>
             <?php endif ?>
