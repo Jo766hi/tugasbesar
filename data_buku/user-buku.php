@@ -187,6 +187,7 @@
                   ON buku.kategori_id = kategori.kategori_id LIMIT $offset,$limit";
                   $data_buku = mysqli_query($db, $query2);
                 ?>
+                
              <?php if (empty($data_buku)) : ?>
             Tidak ada data.
             <?php else : ?>      
