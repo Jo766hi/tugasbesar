@@ -204,8 +204,8 @@ include 'kategori-list.php';
                 <tr>
                     <td style="color:white; border:1px solid;" ><?php echo $kategori['kategori_nama'] ?></td>
                     <td style="color:white; border:1px solid; text-align:center;">
-                        <a href="kategori-edit.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-primary">Edit</a>
-                        <a href="kategori-delete.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-primary" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
+                        <a href="kategori-edit.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-primary btn-block">Edit</a>
+                        <a href="kategori-delete.php?id_kategori=<?php echo $kategori['kategori_id']; ?>" class="btn btn-primary btn-block" onclick="return confirm('anda yakin akan menghapus data?');">Hapus</a>
                     </td>
                 </tr>
                 <?php  endforeach ?>

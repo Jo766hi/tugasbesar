@@ -177,20 +177,46 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $nama = $_POST['nama'];
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
-          $pass = ($_POST['password']);
+          $pass = $_POST['password'];
+          $baru = $_POST['baru'];
+          $konfigurasi = $_POST['konfigurasi'];
           $level = $_POST['level'];
 
-          if ($pass !== $data_anggota['password']){
+          if (empty($pass)){
+            $result = "UPDATE user
+                      SET username = '$user',
+                      email = '$email',
+                      nama = '$nama',
+                      jk = '$jenis_kelamin',
+                      telp = '$no_telepon',
+                      level = '$level'
+                  WHERE id = $id_anggota";
+            $has = mysqli_query($db, $result);
+                   // var_dump(mysqli_error($db));
+            if ($has == true) {
+            echo "<script>window.alert('Data Berhasil di Update')
+            window.location='anggota.php'</script>";
+            } 
+          }
+          if (!empty($pass)){
             $pass = md5($_POST['password']);
           }
-
-          $query = "UPDATE user
+          if ($pass !== $data_anggota['password']){
+            echo "<div class=alert alert-danger role=alert>
+            Password Lama Salah !!!
+          </div>";
+            return false;
+          } 
+            
+          if ($baru == $konfigurasi) {
+            $baru = md5($_POST['baru']);
+            $query = "UPDATE user
               SET username = '$user',
                   email = '$email',
                   nama = '$nama',
                   jk = '$jenis_kelamin',
                   telp = '$no_telepon',
-                  password = '$pass',
+                  password = '$baru',
                   level = '$level'
               WHERE id = $id_anggota";
 
@@ -200,8 +226,12 @@ $data_anggota = mysqli_fetch_assoc($hasil);
             echo "<script>window.alert('Data Berhasil di Update')
             window.location='anggota.php'</script>";
           } else {
-          echo "koneksi gagal" .mysqli_error($db);
+            echo "<div class=alert alert-danger role=alert>
+            Konfigurasi Tidak Sesuai !!!
+          </div>";
+            return false;
           }
+        }
           }
             
             ?>
@@ -258,13 +288,17 @@ $data_anggota = mysqli_fetch_assoc($hasil);
 									</div>
 								</div><br/>
 						<div class="form-group">
-									<label for="password">Password<br/>
-									</label>
-									<input id="password" type="password" class="form-control" name="password" value="<?php echo $data_anggota['password']; ?>" required data-eye>
-									<div class="invalid-feedback">
-										Password is required
-									</div>
-								</div>
+									<label for="password">Password Lama</label><br/>
+									<input id="password" type="password" class="form-control" name="password" value="" >
+								</div><br/>
+                <div class="form-group">
+									<label for="baru">Password Baru</label><br/>
+									<input id="baru" type="password" class="form-control" name="baru" value="" >
+								</div><br/>
+                <div class="form-group">
+									<label for="konfigurasi">Konfigurasi Password</label><br/>
+									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" >
+								</div><br/>
                 <div class="form-group">
 									<label for="level">Level</label><br/>
 									<select id ="level" class="custom-select" name="level">
