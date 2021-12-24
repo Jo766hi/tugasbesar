@@ -144,9 +144,9 @@
 
 include '../includes/koneksi.php';
 
-// ambil artikel yang mau di edit
+// ambil data yang mau di edit
 $tampil = mysqli_query($db, "SELECT * FROM user WHERE id = '$_SESSION[id]'");
-$data_anggota = mysqli_fetch_array($tampil);
+$data = mysqli_fetch_array($tampil);
 
 
 ?>
@@ -163,19 +163,47 @@ $data_anggota = mysqli_fetch_array($tampil);
           $jenis_kelamin = $_POST['jk'];
           $no_telepon = $_POST['no_telepon'];
           $pass = $_POST['password'];
+          $baru = $_POST['baru'];
+          $konfigurasi = $_POST['konfigurasi'];
+          $level = 'anggota';
 
-          if ($pass !== $data_anggota['password']){
+          if (empty($pass)){
+            $result = "UPDATE user
+                      SET username = '$user',
+                      email = '$email',
+                      nama = '$nama',
+                      jk = '$jenis_kelamin',
+                      telp = '$no_telepon',
+                      level = '$level'
+                  WHERE id = $id_anggota";
+            $has = mysqli_query($db, $result);
+                   // var_dump(mysqli_error($db));
+            if ($has == true) {
+            echo "<script>window.alert('Data Berhasil di Update')
+            window.location='user-edit.php'</script>";
+            } 
+          }
+          if (!empty($pass)){
             $pass = md5($_POST['password']);
           }
-
-          $query = "UPDATE user
+          if ($pass !== $data['password']){
+            echo "<div class=alert alert-danger role=alert>
+            Password Lama Salah !!!
+          </div>";
+            return false;
+          } 
+            
+          if ($baru == $konfigurasi) {
+            $baru = md5($_POST['baru']);
+            $query = "UPDATE user
               SET username = '$user',
                   email = '$email',
                   nama = '$nama',
                   jk = '$jenis_kelamin',
                   telp = '$no_telepon',
-                  password = '$pass'
-              WHERE id = $id_anggota AND level = 'anggota'";
+                  password = '$baru',
+                  level = '$level'
+              WHERE id = $id_anggota";
 
           $hasil = mysqli_query($db, $query);
           // var_dump(mysqli_error($db));
@@ -183,8 +211,12 @@ $data_anggota = mysqli_fetch_array($tampil);
             echo "<script>window.alert('Data Berhasil di Update')
             window.location='user-edit.php'</script>";
           } else {
-          echo "koneksi gagal" .mysqli_error($db);
+            echo "<div class=alert alert-danger role=alert>
+            Konfigurasi Tidak Sesuai !!!
+          </div>";
+            return false;
           }
+        }
           }
             
             ?>
@@ -199,24 +231,24 @@ $data_anggota = mysqli_fetch_array($tampil);
 
             <div class="col-12">
             <form method="post" action="">
-            <input type="hidden" name="id" value="<?php echo $data_anggota['id']?>">
+            <input type="hidden" name="id" value="<?php echo $data['id']?>">
             <div class="form-group">
 									<label for="username">Username</label><br/>
-									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data_anggota['username'];?>" required autofocus>
+									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data['username'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Username is invalid
 									</div>
 								</div><br/>
             <div class="form-group">
 									<label for="email">Email</label><br/>
-									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data_anggota['email'];?>" required autofocus>
+									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data['email'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
 								</div><br/>
            <div class="form-group">
 									<label for="nama">Nama</label><br/>
-									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data_anggota['nama'];?>" required autofocus>
+									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data['nama'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Name is invalid
 									</div>
@@ -224,7 +256,7 @@ $data_anggota = mysqli_fetch_array($tampil);
            <div class="form-group">
 									<label for="jk">Jenis Kelamin</label><br/>
 									<select id="jk" class="custom-select" name="jk">
-                    <?php if($data_anggota['jk'] == "L") :?>
+                    <?php if($data['jk'] == "L") :?>
                       <option value = "L" selected >Laki- laki</option>
                       <option value = "P" >Perempuan</option>
                     <?php else : ?>
@@ -235,18 +267,23 @@ $data_anggota = mysqli_fetch_array($tampil);
 								</div><br/>
          <div class="form-group">
 									<label for="telp">Telephone</label><br/>
-									<input id="telp" type="text" class="form-control" name="no_telepon" value="<?php echo $data_anggota['telp'];?>" required autofocus>
+									<input id="telp" type="text" class="form-control" name="no_telepon" value="<?php echo $data['telp'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Telephone is invalid
 									</div>
 								</div><br/>
 						<div class="form-group">
 									<label for="password">Password</label><br/>
-									<input id="password" type="password" class="form-control" name="password" value="<?php echo $data_anggota['password']; ?>" required data-eye>
-									<div class="invalid-feedback">
-										Password is required
-									</div>
+									<input id="password" type="password" class="form-control" name="password" value="">
 								</div>
+            <div class="form-group">
+									<label for="baru">Password Baru</label><br/>
+									<input id="baru" type="password" class="form-control" name="baru" value="" >
+								</div><br/>
+            <div class="form-group">
+									<label for="konfigurasi">Konfigurasi Password</label><br/>
+									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" >
+								</div><br/>
                 <p>
                     <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="save">
                     <input type="reset" class="btn btn-primary btn-block" value="Batal" onclick="self.history.back();">

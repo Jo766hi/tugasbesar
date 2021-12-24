@@ -176,10 +176,9 @@
 
           $cek1 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$user'"));
           $cek2 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE email='$email'"));
-          $cek3 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$user' or email='$email'"));
   
           if ($cek1 > 0) {
-              echo "<div class=alert alert-danger role=alert>
+              echo "<div class=alert alert-secondary>
               Username sudah Terdaftar
             </div>";
               return false;
@@ -189,13 +188,7 @@
               Email sudah Terdaftar
             </div>";
               return false;
-          }if ($cek3 > 0) {
-              echo "<div class=alert alert-danger role=alert>
-              Username dan Email sudah Terdaftar
-            </div>";
-              return false;
           }
-        
           if ($konfigurasi == $pass) { 
           $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
           VALUES ('$user', '$email', '$nama', '$jenis_kelamin', '$no_telepon', '$konfigurasi', '$level')";
@@ -268,7 +261,7 @@
 								</div>
                 <div class="form-group">
 									<label for="konfigurasi">Konfigurasi Password</label><br/>
-									<input id="konfiguras" type="password" class="form-control" name="konfigurasi" value="" required data-eye>
+									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" required data-eye>
 								</div>
                 <div class="form-group">
 									<label for="level">Level</label><br/>
