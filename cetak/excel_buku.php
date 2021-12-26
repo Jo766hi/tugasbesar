@@ -1,20 +1,24 @@
 <h3>LAPORAN DATA BUKU PERPUSTAKAAN</h3>
 	<?php 
 		include '../data_buku/buku-list.php';
+
+		header("Content-type: application/vnd-ms-excel");
+		header("Content-Disposition: attachment; filename=Data Buku.xls");
 	?>
 
 		<table border="1">
 			<br>
 			<tr>
-				<th width="1%" >No</th>
+				<th>No</th>
 				<th>Judul</th>
 				<th>Kategori</th>
 				<th>Deskripsi</th>
 				<th>Jumlah</th>
 			</tr>
 
-			<?php $no = 1;
-				foreach ($data_buku as $buku) :
+			<?php 
+			$no = 1;
+			foreach ($data_buku as $buku) :
 			?>
 				<tr>
 					<td><?php echo $no++; ?></td>
@@ -25,14 +29,3 @@
 				</tr>
 			<?php endforeach ?>
 			</table>
-
-
-<?php
-  
-  header("Content-type: application/vnd-ms-excel");
-  header("Content-Disposition: attachment; filename=Data Buku.xls");
-  
-?>
-
-
-   

@@ -44,6 +44,7 @@
 		<th>Jenis Kelamin</th>
 		<th>No. HP</th>
         <th>Email</th>
+		<th>Level</th>
     </tr>
 
 	<?php
@@ -58,6 +59,7 @@
             <td><?php echo $anggota['jk'] ?></td>
             <td><?php echo $anggota['telp'] ?></td>
             <td><?php echo $anggota['email'] ?></td>
+			<td><?php echo $anggota['level'] ?></td>
 		</tr>
 		<?php endforeach ?>
 </table>

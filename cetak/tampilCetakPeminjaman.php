@@ -30,12 +30,50 @@
 <center><h3>LAPORAN DATA PEMINJAMAN PERPUSTAKAAN</h3></center>
 <hr>
 <?php 
-	include '../peminjaman/proses-list-pinjam-data.php';
+	include '../includes/koneksi.php';
+    include '../includes/function.php';
+    if($_SESSION['level'] == 'petugas') { 
+            $query = "SELECT * FROM pinjam";
+            $result = mysqli_query($db, $query);
+            
+            $jlh_data = mysqli_num_rows($result);
+                        
+            $query2 = "SELECT pinjam.*,pinjam.pinjam_id as id_pinjam, buku.buku_id ,buku.buku_judul, user.nama,
+            (SELECT tgl_kembali FROM kembali JOIN pinjam ON kembali.pinjam_id=pinjam.pinjam_id WHERE kembali.pinjam_id=id_pinjam) as tgl_kembali
+            FROM pinjam
+            JOIN buku ON buku.buku_id = pinjam.buku_id
+            JOIN user ON user.id = pinjam.anggota_id";
+    }
+    
+    else if($_SESSION['level'] == 'anggota') { 
+            $id = $_SESSION['id'];
+            $query = "SELECT * FROM pinjam WHERE anggota_id = $id";
+            $hasil = mysqli_query($db, $query);
+            
+            $jlh_data = mysqli_num_rows($hasil);
+        
+            $query2 = "SELECT pinjam.*,pinjam.pinjam_id as id_pinjam, buku.buku_id ,buku.buku_judul, user.nama, 
+            (SELECT tgl_kembali FROM kembali JOIN pinjam ON kembali.pinjam_id=pinjam.pinjam_id WHERE kembali.pinjam_id=id_pinjam) as tgl_kembali
+            FROM pinjam
+            JOIN buku ON buku.buku_id = pinjam.buku_id
+            JOIN user ON user.id = pinjam.anggota_id
+            WHERE anggota_id = '$id'";
+    }
+        
+    $h = mysqli_query($db, $query2);
+    mysqli_connect_error();
+    // ... menampung semua data kategori
+    $data_pinjam = array();
+    
+    // ... tiap baris dari hasil query dikumpulkan ke $data_buku
+    while ($row = mysqli_fetch_assoc($h)) {
+        $data_pinjam[] = $row;
+    }
 ?>
     <?php if (empty($data_pinjam)) : ?>
             Tidak ada data.
     <?php else : ?>
-	<table id="table-datatables" class="DataTabl" border="1" cellpadding="8">
+	<table id="table-datatables" class="Data" border="1" cellpadding="8">
     <br>
     <tr>
 		<th width="1%" >No</th>
