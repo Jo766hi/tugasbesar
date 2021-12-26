@@ -201,7 +201,10 @@
             echo "koneksi gagal" .mysqli_error($db);
           }
           }else {
-            echo "Konfigurasi Password Salah";
+            echo "<div class=alert alert-danger role=alert>
+            Konfigurasi Password Salah
+          </div>";
+            return false;
           }
           }
           ?>
@@ -216,27 +219,18 @@
 
 
             <div class="col-12">
-            <form method="post" action="">
+            <form method="post" action="" class="my-login-validation" id="admin">
             <div class="form-group">
 									<label for="username">Username</label><br/>
-									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
-									<div class="invalid-feedback">
-										Username is invalid
-									</div>
+									<input id="username" type="text" class="form-control" name="username" value="" required/>
 								</div><br/>
             <div class="form-group">
 									<label for="email">Email</label><br/>
-									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									<input id="email" type="email" class="form-control" name="email" value="" placeholder="JohnDoe34@gmail.com" required/>
 								</div><br/>
            <div class="form-group">
 									<label for="nama">Nama</label><br/>
-									<input id="nama" type="text" class="form-control" name="nama" value="" required autofocus>
-									<div class="invalid-feedback">
-										Name is invalid
-									</div>
+									<input id="nama" type="text" class="form-control" name="nama" value="" required/>
 								</div><br/>
            <div class="form-group">
 									<label for="jk">Jenis Kelamin</label><br/>
@@ -247,21 +241,15 @@
 								</div><br/>
          <div class="form-group">
 									<label for="telp">Telephone</label><br/>
-									<input id="telp" type="text" class="form-control" name="no_telepon" value="" required autofocus>
-									<div class="invalid-feedback">
-										Telephone is invalid
-									</div>
+									<input id="telp" type="text" class="form-control" name="no_telepon" value="" placeholder="08xxxxxxxxxx" minlength="11" maxlength="13" required/>
 								</div><br/>
 						<div class="form-group">
 									<label for="password">Password</label><br/>
-									<input id="password" type="password" class="form-control" name="password" value="" required data-eye>
-									<div class="invalid-feedback">
-										Password is required
-									</div>
+									<input id="password" type="password" class="form-control" name="password" value="" required/>
 								</div>
                 <div class="form-group">
 									<label for="konfigurasi">Konfigurasi Password</label><br/>
-									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" required data-eye>
+									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" required/>
 								</div>
                 <div class="form-group">
 									<label for="level">Level</label><br/>
@@ -298,6 +286,7 @@
       
     <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/jquery.validate.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
@@ -314,6 +303,29 @@
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script>
+  $(document).ready(function() {
+        $.validator.addMethod("EMAIL", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9._-]+@[g]+[m]+[a]+[i]+[l]+\.[c]+[o]+[m]$/i.test(value);
+        }, "Email Address is invalid: Please enter a valid email address.");
+        $.validator.addMethod("TELEPHONE",function(value,element){
+                return this.optional(element) || /^[0]+[8]+\d{9,11}/i.test(value);
+            },"Please enter the valid code.");
+        $.validator.addMethod("PASSWORD",function(value,element){
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+            },"Passwords are 8-16 characters with uppercase letters, lowercase letters and at least one number.");
+
+    $('#admin').validate({
+        rules: {
+            email: "required EMAIL",
+            no_telepon: "required TELEPHONE",
+            password: "required PASSWORD",
+            konfigurasi: "required PASSWORD",
+        },
+    }); 
+
+});
+</script>
   
 </body>
 

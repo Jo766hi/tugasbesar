@@ -230,25 +230,25 @@ $data = mysqli_fetch_array($tampil);
 
 
             <div class="col-12">
-            <form method="post" action="">
+            <form method="post" action="" class="my-login-validation" id="person">
             <input type="hidden" name="id" value="<?php echo $data['id']?>">
             <div class="form-group">
 									<label for="username">Username</label><br/>
-									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data['username'];?>" required autofocus>
+									<input id="username" type="text" class="form-control" name="username" value="<?php echo $data['username'];?>" required/>
 									<div class="invalid-feedback">
 										Username is invalid
 									</div>
 								</div><br/>
             <div class="form-group">
 									<label for="email">Email</label><br/>
-									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data['email'];?>" required autofocus>
+									<input id="email" type="email" class="form-control" name="email" value="<?php echo $data['email'];?>" required/>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
 								</div><br/>
            <div class="form-group">
 									<label for="nama">Nama</label><br/>
-									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data['nama'];?>" required autofocus>
+									<input id="nama" type="text" class="form-control" name="nama" value="<?php echo $data['nama'];?>" required/>
 									<div class="invalid-feedback">
 										Name is invalid
 									</div>
@@ -267,7 +267,7 @@ $data = mysqli_fetch_array($tampil);
 								</div><br/>
          <div class="form-group">
 									<label for="telp">Telephone</label><br/>
-									<input id="telp" type="text" class="form-control" name="no_telepon" value="<?php echo $data['telp'];?>" required autofocus>
+									<input id="telp" type="text" class="form-control" minlength="11" maxlength="13" name="no_telepon" value="<?php echo $data['telp'];?>" required autofocus>
 									<div class="invalid-feedback">
 										Telephone is invalid
 									</div>
@@ -313,6 +313,7 @@ $data = mysqli_fetch_array($tampil);
       
     <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/jquery.validate.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
@@ -329,6 +330,27 @@ $data = mysqli_fetch_array($tampil);
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script>
+  $(document).ready(function() {
+        $.validator.addMethod("EMAIL", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9._-]+@[g]+[m]+[a]+[i]+[l]+\.[c]+[o]+[m]$/i.test(value);
+        }, "Email Address is invalid: Please enter a valid email address.");
+        $.validator.addMethod("TELEPHONE",function(value,element){
+                return this.optional(element) || /^[0]+[8]+\d{9,11}/i.test(value);
+            },"Please enter the valid code.");
+        $.validator.addMethod("PASSWORD",function(value,element){
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+            },"Passwords are 8-16 characters with uppercase letters, lowercase letters and at least one number.");
+
+    $('#person').validate({
+        rules: {
+            email: "required EMAIL",
+            no_telepon: "required TELEPHONE",
+        },
+    }); 
+
+});
+</script>
   
 </body>
 

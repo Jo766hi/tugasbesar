@@ -35,17 +35,65 @@
                             <h3 class="card-title">Register</h3>
                         </div>
                         <div class="card-body">
+                        <?php
+                            require("../includes/koneksi.php");
+                            if (isset($_POST['btnRegister'])) {
+                                $username = $_POST['anggota_usrnm'];
+                                $nama = $_POST['anggota_nama'];
+                                $jk = $_POST['anggota_jk'];
+                                $telp = $_POST['anggota_telp'];
+                                $email = $_POST['anggota_email'];
+                                $password = md5($_POST['anggota_pass']);
+                                $konfigurasi = md5($_POST['konfigurasi']);
+                                $level = 'anggota';
+
+                                $cek1 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username'"));
+                                $cek2 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE email='$email'"));
+
+                                if ($cek1 > 0) {
+                                    echo "<div class=alert alert-danger role=alert>
+                                    Username sudah Terdaftar
+                                </div>";
+                                    return false;
+                                } 
+                                if ($cek2 > 0) {
+                                    echo "<div class=alert alert-danger role=alert>
+                                    Email sudah Terdaftar
+                                </div>";
+                                    return false;
+                                }
+                                if ($konfigurasi == $password) { 
+                                    $query = "INSERT INTO user (username, email, nama, jk, telp, password, level) 
+                                    VALUES ('$username', '$email', '$nama', '$jk', '$telp', '$konfigurasi', '$level')";
+                                    $hasil = mysqli_query($db, $query);
+                        
+                                    if ($hasil == true) {
+                                    echo "<script>window.alert('Data Berhasil di Tambah')
+                                    window.location='login.php'</script>";
+                                    } else {
+                                    echo "koneksi gagal" .mysqli_error($db);
+                                    }
+                                }
+                                else {
+                                    echo "<div class=alert alert-danger role=alert>
+                                    Konfigurasi Password Salah
+                                    </div>";
+                                    return false;
+                                    }
+                            }
+                            $db->close();
+                            ?>
 
                             <form method="POST" class="my-login-validation" action="" id="user" onsubmit="return validation()">
                                 <div class="form-group">
                                     <label for="anggota_usrnm">Username</label>
-                                    <input id="angggota_usrnm" type="text" class="form-control" name="anggota_usrnm" required/>
-                                </div>
+                                    <input id="angggota_usrnm" type="text" class="form-control" name="anggota_usrnm" required>
+                                </div><br/>
 
                                     <div class="form-group">
                                         <label for="anggota_nama">Nama</label>
                                         <input id="anggota_nama" type="text" class="form-control" name="anggota_nama" required/>
-                                    </div>
+                                    </div><br/>
                                     <div class="form-group">
                                         <label for="anggota_jk">Jenis Kelamin</label>
                                         <div class="form-check form-check-radio">
@@ -67,26 +115,23 @@
                                         <br>
                                         <div class="form-group">
                                             <label for="anggota_telp">No. Telp</label>
-                                            <input id="anggota_telp" type="text" class="form-control" name="anggota_telp" minlength="11" required/>
+                                            <input id="anggota_telp" type="text" class="form-control" name="anggota_telp" minlength="11" maxlength="13" placeholder="08xxxxxxxxxx" required/>
 
-                                        </div>
+                                        </div><br/>
                                         <div class="form-group">
                                             <label for="anggota_email">Email</label>
-                                            <input id="anggota_email" type="email" class="form-control" name="anggota_email" required/>
+                                            <input id="anggota_email" type="email" class="form-control" name="anggota_email" placeholder="JohnDoe23@gmail.com" required/>
 
-                                        </div>
+                                        </div><br/>
                                         <div class="form-group">
                                             <label for="anggota_pass">Password</label>
-                                            <input id="anggota_pass" type="password" class="form-control" name="anggota_pass" minlength="8" required/>
-                                        </div>
-                                        
+                                            <input id="anggota_pass" type="password" class="form-control" name="anggota_pass" required/>
+                                        </div><br/>
                                         <div class="form-group">
-                                            <label for="level">Level</label>
-                                            <select name="level" class="custom-select" id="" disabled>
-                                                <option value="anggota">anggota</option>
-                                            </select>
-
-                                        </div>
+                                            <label for="konfigurasi">Konfigurasi Password</label>
+                                            <input id="konfigurasi" type="password" class="form-control" name="konfigurasi"  required/>
+                                        </div><br/>
+                
 
                                         <div class="form-group m-0">
                                             <button type="submit" name="btnRegister" class="btn btn-primary btn-block">
@@ -105,48 +150,7 @@
         </div>
     </section>
 
-    <?php
-    require("../includes/koneksi.php");
-    if (isset($_POST['btnRegister'])) {
-        $username = $_POST['anggota_usrnm'];
-        $nama = $_POST['anggota_nama'];
-        $jk = $_POST['anggota_jk'];
-        $telp = $_POST['anggota_telp'];
-        $email = $_POST['anggota_email'];
-        $password = md5($_POST['anggota_pass']);
-        $level = 'anggota';
-
-        $sql = "INSERT INTO user (username, email, nama, jk, telp, password, level) VALUES ('$username','$email','$nama','$jk','$telp','$password','anggota')";
-
-        $cek1 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username'"));
-        $cek2 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE email='$email'"));
-        $cek3 = mysqli_num_rows(mysqli_query($db, "SELECT * FROM user WHERE username='$username' or email='$email'"));
-
-        if ($cek1 > 0) {
-            echo "<div class=alert alert-danger role=alert>
-            Username sudah Terdaftar
-          </div>";
-            return false;
-        } 
-        if ($cek2 > 0) {
-            echo "<div class=alert alert-danger role=alert>
-            Email sudah Terdaftar
-          </div>";
-            return false;
-        }if ($cek3 > 0) {
-            echo "<div class=alert alert-danger role=alert>
-            Username dan Email sudah Terdaftar
-          </div>";
-            return false;
-        }elseif ($db->query($sql) === TRUE) {
-            "<script>window.alert('Register Berhasil')
-            window.location='login.php'</script>";
-        } else {
-            echo "Terjadi kesalahan: " . $sql . "<br/>" . $db->error;
-        }
-    }
-    $db->close();
-    ?>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/my-login.js"></script>
@@ -175,39 +179,24 @@
     <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+        $.validator.addMethod("EMAIL", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9._-]+@[g]+[m]+[a]+[i]+[l]+\.[c]+[o]+[m]$/i.test(value);
+        }, "Email Address is invalid: Please enter a valid email address.");
+        $.validator.addMethod("TELEPHONE",function(value,element){
+                return this.optional(element) || /^[0]+[8]+\d{9,11}/i.test(value);
+            },"Please enter the valid code.");
+        $.validator.addMethod("PASSWORD",function(value,element){
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+            },"Passwords are 8-16 characters with uppercase letters, lowercase letters and at least one number.");
+
     $('#user').validate({
         rules: {
-            anggota_telp: {
-                digits:true,
-                maxlength:13,
-                minlength:11
-            },
-            email: {
-                email:true
-            },
-            password: {
-                digits:true,
-                maxlength:8,
-                minlength:8
-            }
+            anggota_email: "required EMAIL",
+            anggota_telp: "required TELEPHONE",
+            anggota_pass: "required PASSWORD",
+            konfigurasi: "required PASSWORD",
         },
-        messages: {
-            anggota_telp: {
-                required: "No. Telephone harus Diisi",
-                minlength: "No. Telephone minimal terdiri dari 11 digit",
-			    maxlength: "No. Telephone maksimal terdiri dari 13 digit"
-            },
-            email: {
-                required: "Email Harus Diisi",
-                email: "Format Email tidak Valid" 
-            },
-            password: {
-                required: "Password Harus Diisi",
-                minlength: "Password minimal terdiri dari 8 karakter",
-			    maxlength: "Password maksimal terdiri dari 8 karakter" 
-            }
-        }
-    });
+    }); 
 
 });
 </script>

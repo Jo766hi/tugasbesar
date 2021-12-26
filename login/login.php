@@ -27,9 +27,9 @@
 							<h4 class="card-title">Login</h4>
 						</div>
 						<div class="card-body table-responsive">
-							<form method="POST" class="my-login-validation" novalidate="">
+							<form method="POST" class="my-login-validation" novalidate>
 								<div class="form-group">
-									<label for="username">Username</label>
+									<label for="username">Username or Email</label>
 									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
@@ -78,7 +78,7 @@
 		$user_login = $_POST['username'];
 		$pass_login = md5($_POST['password']);
 
-		$sql = "SELECT * FROM user WHERE username = '{$user_login}' and password = '{$pass_login}'";
+		$sql = "SELECT * FROM user WHERE (username = '$user_login' OR email = '$user_login') and password = '$pass_login'";
 		$query = mysqli_query($db, $sql);
 
 		while ($row = mysqli_fetch_array($query)) {
@@ -89,7 +89,7 @@
 			$level = $row['level'];
 			$id = $row['id'];
 		}
-		if ($user_login == $user && $pass_login == $pass) {
+		if ($user_login == $user || $user_login == $email  && $pass_login == $pass) {
 			echo "Username : $user_login dan Password : $pass_login";
 			header("Location: ../home/dashboard.php");
 			$_SESSION['username'] = $user;
