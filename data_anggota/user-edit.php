@@ -346,6 +346,8 @@ $data = mysqli_fetch_array($tampil);
         rules: {
             email: "required EMAIL",
             no_telepon: "required TELEPHONE",
+            baru: "PASSWORD",
+            Konfigurasi: "PASSWORD",
         },
     }); 
 
