@@ -226,13 +226,13 @@ include '../includes/function.php'
             }
             else {
             ?>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=1"?>">&lt;&lt;</a></li>
-            <li class="page-item"><a class="page-link" href="<?php echo "peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "user_peminjaman.php?halaman=1"?>">&lt;&lt;</a></li>
+            <li class="page-item"><a class="page-link" href="<?php echo "user_peminjaman.php?halaman=$sebelum"?>">Previous</a></li>
             <?php } ?>
 
             <?php
             for ($i=1; $i<=$jlh_halaman; $i++){
-            echo "<li class=page-item><a class=page-link href=peminjaman.php?halaman=$i>$i</a></li>";
+            echo "<li class=page-item><a class=page-link href=user_peminjaman.php?halaman=$i>$i</a></li>";
             }
             ?>
             <?php

@@ -5,8 +5,8 @@ include '../includes/function.php';
 
 $buku     			= $_POST['buku'];
 $anggota  			= $_POST['anggota'];
-$tgl_pinjam 		= date('Y-m-d',strtotime($_POST['tgl_pinjam']));
-$tgl_jatuh_tempo    = date('Y-m-d',strtotime($_POST['tgl_jatuh_tempo']));
+$tgl_pinjam 		= date('Y-m-d',strtotime(date('Y-m-d')));
+$tgl_jatuh_tempo    = date('Y-m-d',strtotime('+7 days',strtotime(date('Y-m-d'))));
 
 // cek stok buku
 $stok_buku = cek_stok($db, $buku);

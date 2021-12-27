@@ -6,7 +6,7 @@ if($_SESSION['level'] == 'petugas') {
     } else {
         $halaman = 1;
     }
-        $limit = 3;
+        $limit = 5;
         if ($halaman > 1){
         $offset = ($halaman * $limit) - $limit;
         } else $offset = 0;
@@ -29,12 +29,12 @@ if($_SESSION['level'] == 'petugas') {
 
 else if($_SESSION['level'] == 'anggota') { 
      $id = $_SESSION['id'];
-if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
+  if (isset($_GET['halaman']) && $_GET['halaman'] != ""){
     $halaman = $_GET['halaman'];
   } else {
     $halaman = 1;
   }
-    $limit = 3;
+    $limit = 5;
     if ($halaman > 1){
       $offset = ($halaman * $limit) - $limit;
     } else $offset = 0;
