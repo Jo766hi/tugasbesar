@@ -179,6 +179,10 @@ if (empty($_SESSION['username'])){
                   $query2 = "SELECT * FROM kategori LIMIT $offset,$limit";
                   $data_kategori = mysqli_query($db, $query2);
                   ?>
+
+                  <?php if(isset($_GET["cari"])) { ?>
+                  <?php $data_kategori = cari5($_GET["keyword"]);}?>
+                  
             <?php if (empty($data_kategori)) : ?>
             Tidak ada data.
             <?php else : ?>   

@@ -4,6 +4,7 @@
    header('Location: ../login/login.php');
    exit();
   }
+  include '../includes/function.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -178,7 +179,10 @@
                   ON buku.kategori_id = kategori.kategori_id LIMIT $offset,$limit";
                   $data_buku = mysqli_query($db, $query2);
                 ?>
-                
+
+                <?php if(isset($_GET["cari"])) { ?>
+                <?php $data_buku = cari4($_GET["keyword"]);}?>
+
              <?php if (empty($data_buku)) : ?>
             Tidak ada data.
             <?php else : ?> 
