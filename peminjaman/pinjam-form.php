@@ -51,10 +51,10 @@ else if($_SESSION['level'] == 'anggota') {
                 </p>
 
                 <p>Tanggal Pinjam</p>
-                <p><input type="date" name="tgl_pinjam" value="<?=date('Y-m-d');?>"</p>
+                <p><input disabled type="date" name="tgl_pinjam" value="<?=date('Y-m-d');?>"</p>
 
                 <p>Tanggal Jatuh Tempo</p>
-                <p><input type="date" name="tgl_jatuh_tempo"></p>
+                <p><input disabled type="date" name="tgl_jatuh_tempo" value="<?=date('Y-m-d',strtotime('+7 days',strtotime(date('Y-m-d'))));?>"></p>
         </div>
         
         <div class="modal-footer">
