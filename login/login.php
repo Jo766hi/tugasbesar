@@ -15,6 +15,7 @@
 
 	<!-- Material Dashboard CSS -->
 	<link rel="stylesheet" href="../assets/css/material-dashboard.css">
+	<script src="https://kit.fontawesome.com/6b104fdfc3.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="dark-edition">
@@ -30,20 +31,18 @@
 							<form method="POST" class="my-login-validation" novalidate>
 								<div class="form-group">
 									<label for="username">Username or Email</label>
-									<input id="username" type="text" class="form-control" name="username" value="<?php if(isset($_COOKIE["user"])) { echo $_COOKIE["user"] ;} ?>" required autofocus>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									<input id="username" type="text" class="form-control" name="username" value="<?php if(isset($_COOKIE["user"])) { echo $_COOKIE["user"] ;} ?>" required>
+
 								</div>
 
 								<div class="form-group">
-									<label for="password">Password
-									</label>
-									<input id="password" type="password" class="form-control" name="password"  value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"] ;} ?>"required data-eye>
-									<div class="invalid-feedback">
-										Password is required
+									<label for="password">Password</label>
+									<div class="input-group" id="show_hide_password">
+									<input id="password" type="password" class="form-control" name="password"  value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"] ;} ?>"required>
+									<div class="input-group-addon">
+										<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
 									</div>
-								</div>
+								</div></div>
 
 								<div class="form-group">
 									<div class="custom-checkbox custom-control">
@@ -142,6 +141,26 @@
 
 	<!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
 	<script src="assets/js/material-dashboard.js?v=2.1.0"></script>
+	<!--Material Hide Password-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/b9bdbd120a.js"></script>
+	<script>
+	$(document).ready(function() {
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+});</script>
 </body>
 
 </html>
