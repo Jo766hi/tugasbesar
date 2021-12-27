@@ -30,7 +30,7 @@
 							<form method="POST" class="my-login-validation" novalidate>
 								<div class="form-group">
 									<label for="username">Username or Email</label>
-									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
+									<input id="username" type="text" class="form-control" name="username" value="<?php if(isset($_COOKIE["user"])) { echo $_COOKIE["user"] ;} ?>" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -39,7 +39,7 @@
 								<div class="form-group">
 									<label for="password">Password
 									</label>
-									<input id="password" type="password" class="form-control" name="password" required data-eye>
+									<input id="password" type="password" class="form-control" name="password"  value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"] ;} ?>"required data-eye>
 									<div class="invalid-feedback">
 										Password is required
 									</div>
@@ -47,7 +47,7 @@
 
 								<div class="form-group">
 									<div class="custom-checkbox custom-control">
-										<input type="checkbox" name="remember" id="remember" class="custom-control-input">
+										<input type="checkbox" name="remember" id="remember" class="custom-control-input" <?php if(isset($_COOKIE["user"])) { ?> checked <?php } ?>>
 										<label for="remember" class="custom-control-label">Remember Me</label>
 									</div>
 								</div>
@@ -97,6 +97,20 @@
 			$_SESSION['email'] = $email;
 			$_SESSION['level'] = $level;
 			$_SESSION['id'] = $id;
+
+			//jika remember me diklik
+			if(!empty($_POST["remember"])) {
+				//buat cookie
+				setcookie ("user", $_POST["username"], time()+ 3600);
+				setcookie ("pass", $_POST["password"], time()+ 3600);
+			} else {
+				if (isset($_COOKIE["user"])) {
+					setcookie ("user", "");
+				}
+				if (isset($_COOKIE["pass"])) {
+					setcookie ("pass", "");
+				}
+			}
 
 
 		} else {

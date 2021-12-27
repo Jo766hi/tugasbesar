@@ -14,10 +14,11 @@
 -->
 <?php 
   session_start();
+  
   require ("../includes/koneksi.php");
   if(empty($_SESSION['username'])){
       header ("Location:error.php");
-  }     
+  }
   include '../includes/koneksi.php';
   include '../data_buku/buku-list.php';
   include '../peminjaman/proses-list-pinjam-data.php';
