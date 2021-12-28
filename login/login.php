@@ -40,11 +40,11 @@
 								</div>
 
 								<div class="form-group">
-									<label for="password">Password</label>
-									<div class="input-group" id="show_hide_password">
-									<input id="password" type="password" class="form-control" name="password"  value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"] ;} ?>"required>
+									<label for="pwd">Password</label>
+									<div class="input-group">
+									<input id="pwd" type="password" class="form-control" name="password"  value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"] ;} ?>"required>
 									<div class="input-group-addon">
-										<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+										<i class="fa fa-eye-slash" id="icon"></i>
 									</div>
 								</div></div>
 
@@ -146,25 +146,7 @@
 	<!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
 	<script src="assets/js/material-dashboard.js?v=2.1.0"></script>
 	<!--Material Hide Password-->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/b9bdbd120a.js"></script>
-	<script>
-	$(document).ready(function() {
-    $("#show_hide_password a").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password input').attr("type") == "text"){
-            $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass( "fa-eye-slash" );
-            $('#show_hide_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password input').attr("type") == "password"){
-            $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password i').addClass( "fa-eye" );
-        }
-    });
-});</script>
+	<script src="../assets/js/show.js"></script>
 </body>
 
 </html>

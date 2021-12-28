@@ -26,6 +26,7 @@
 
     <!-- Material Dashboard CSS -->
     <link rel="stylesheet" href="../assets/css/material-dashboard.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
 </head>
 
 <body class="dark-edition">
@@ -128,12 +129,20 @@
 
                                         </div><br/>
                                         <div class="form-group">
-                                            <label for="anggota_pass">Password</label>
-                                            <input id="anggota_pass" type="password" class="form-control" name="anggota_pass" required/>
+                                            <label for="pwd">Password</label>
+                                            <div class="input-group">
+                                            <input id="pwd" type="password" class="form-control" name="anggota_pass" required/>
+                                            <div class="input-group-append">
+										    <i class="fa fa-eye-slash" id="icon"></i>
+                                        </div></div>
                                         </div><br/>
                                         <div class="form-group">
-                                            <label for="konfigurasi">Konfigurasi Password</label>
-                                            <input id="konfigurasi" type="password" class="form-control" name="konfigurasi"  required/>
+                                            <label for="konfig">Konfigurasi Password</label>
+                                            <div class="input-group">
+                                            <input id="konfig" type="password" class="form-control" name="konfigurasi"  required/>
+                                            <div class="input-group-append">
+                                            <i class="fa fa-eye-slash" id="eye"></i>
+                                            </div>
                                         </div><br/>
                 
 
@@ -158,6 +167,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/my-login.js"></script>
+
+    <script src="../assets/js/show.js"></script>
+
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/jquery.validate.js"></script>
@@ -205,5 +217,4 @@
 });
 </script>
 </body>
-
 </html>
