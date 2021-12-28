@@ -52,9 +52,19 @@ else if($_SESSION['level'] == 'anggota') {
 
                 <p>Tanggal Pinjam</p>
                 <p><input disabled type="date" name="tgl_pinjam" value="<?=date('Y-m-d');?>"</p>
-
                 <p>Tanggal Jatuh Tempo</p>
-                <p><input disabled type="date" name="tgl_jatuh_tempo" value="<?=date('Y-m-d',strtotime('+7 days',strtotime(date('Y-m-d'))));?>"></p>
+                <?php if($_SESSION['level'] == 'petugas') {
+                    $date = date('Y-m-d');
+                    $type='';
+                }
+
+                else if($_SESSION['level'] == 'anggota') {
+                    $type='disabled';
+                    $date = date('Y-m-d',strtotime('+7 days',strtotime(date('Y-m-d'))));
+                }
+                ?>
+                
+                <p><input <?= $type;?> type="date" name="tgl_jatuh_tempo" value="<?= $date;?>"></p>
         </div>
         
         <div class="modal-footer">

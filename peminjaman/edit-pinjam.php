@@ -178,7 +178,7 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
             <input type="hidden" name="pinjam_id" value="<?php echo $id_pinjam ?>">
                 <p>Buku</p>
                 <p>
-                    <select name="buku" disabled>
+                    <select name="buku">
                         <?php foreach ($data_buku as $buku): ?>
                             <option value="<?php echo $buku['buku_id'] ?>" <?php echo ($buku['buku_id'] == $data_pinjam['buku_id']) ? 'selected' : '' ; ?> ><?php echo $buku['buku_judul'] ?></option>
                         <?php endforeach ?>
@@ -187,7 +187,7 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
 
                 <p>Anggota</p>
                 <p>
-                    <select name="anggota" disabled>
+                    <select name="anggota" >
                         <?php foreach ($data_anggota as $anggota) : ?>
                         <option value="<?php echo $anggota['id'] ?>" <?php echo ($anggota['id'] == $data_pinjam['anggota_id']) ? 'selected' : '' ; ?> ><?php echo $anggota['nama'] ?></option>
                         <?php endforeach ?>
@@ -195,7 +195,7 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
                 </p>
 
                 <p>Tanggal Pinjam</p>
-                <p><input type="date" name="tgl_pinjam" disabled value="<?php echo $data_pinjam['tgl_pinjam'] ?>"></p>
+                <p><input type="date" name="tgl_pinjam" value="<?php echo $data_pinjam['tgl_pinjam'] ?>"></p>
 
                 <p>Tanggal Jatuh Tempo</p>
                 <p><input type="date" name="tgl_jatuh_tempo" value="<?php echo $data_pinjam['tgl_jatuh_tempo'] ?>"></p>
