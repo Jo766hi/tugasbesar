@@ -278,16 +278,28 @@ $data = mysqli_fetch_array($tampil);
 									</div>
 								</div><br/>
 						<div class="form-group">
-									<label for="password">Password</label><br/>
-									<input id="password" type="password" class="form-control" name="password" value="">
+									<label for="pwd">Password</label><br/>
+                  <div class="input-group">
+									<input id="pwd" type="password" class="form-control" name="password" value="">
+                  <div class="input-group-append">
+                    <i class="fa fa-eye-slash" id="icon"></i>
+                  </div></div>
 								</div>
             <div class="form-group">
 									<label for="baru">Password Baru</label><br/>
+                  <div class="input-group">
 									<input id="baru" type="password" class="form-control" name="baru" value="" >
+                  <div class="input-group-append">
+                    <i class="fa fa-eye-slash" id="see"></i>
+                  </div></div>
 								</div><br/>
             <div class="form-group">
-									<label for="konfigurasi">Konfigurasi Password</label><br/>
-									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" >
+									<label for="konfig">Konfigurasi Password</label><br/>
+                  <div class="input-group">
+									<input id="konfig" type="password" class="form-control" name="konfigurasi" value="" >
+                  <div class="input-group-append">
+                    <i class="fa fa-eye-slash" id="eye"></i>
+                  </div></div>
 								</div><br/>
                 <p>
                     <input type="submit" class="btn btn-primary btn-block" value="Simpan" name="save">
@@ -323,6 +335,8 @@ $data = mysqli_fetch_array($tampil);
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--Material Show and Hide Password-->
+  <script src="../assets/js/show.js"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->

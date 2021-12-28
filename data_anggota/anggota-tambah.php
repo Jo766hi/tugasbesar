@@ -249,12 +249,20 @@
 									<input id="telp" type="text" class="form-control" name="no_telepon" value="" placeholder="08xxxxxxxxxx" minlength="11" maxlength="13" required/>
 								</div><br/>
 						<div class="form-group">
-									<label for="password">Password</label><br/>
-									<input id="password" type="password" class="form-control" name="password" value="" required/>
+									<label for="pwd">Password</label><br/>
+                  <div class="input-group">
+									<input id="pwd" type="password" class="form-control" name="password" value="" required/>
+                  <div class="input-group-append">
+                    <i class="fa fa-eye-slash" id="icon"></i>
+                  </div></div>
 								</div>
                 <div class="form-group">
-									<label for="konfigurasi">Konfigurasi Password</label><br/>
-									<input id="konfigurasi" type="password" class="form-control" name="konfigurasi" value="" required/>
+									<label for="konfig">Konfigurasi Password</label><br/>
+                  <div class="input-group">
+									<input id="konfig" type="password" class="form-control" name="konfigurasi" value="" required/>
+                  <div class="input-group-append">
+                    <i class="fa fa-eye-slash" id="eye"></i>
+                  </div></div>
 								</div>
                 <div class="form-group">
 									<label for="level">Level</label><br/>
@@ -296,6 +304,8 @@
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--Material Show and Hide Password-->
+  <script src="../assets/js/show.js"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->

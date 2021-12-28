@@ -29,3 +29,19 @@ var konfig = document.getElementById('konfig'),
     }
 
 }
+
+var baru = document.getElementById('baru'),
+    see = document.getElementById('see');
+
+   see.onclick = function () {
+
+    if (baru.type === "password"){
+        baru.type = 'text'
+        see.className = 'fa fa-eye';
+    }
+    else {
+        baru.type = 'password';
+        see.className = 'fa fa-eye-slash';
+    }
+
+}
