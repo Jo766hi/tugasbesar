@@ -171,8 +171,15 @@ $data = mysqli_fetch_array($tampil);
           $baru = $_POST['baru'];
           $konfigurasi = $_POST['konfigurasi'];
           $level = 'anggota';
-
+          
+          //jika password kosong, password baru tidak bisa diupdate
           if (empty($pass)){
+            if(!empty($baru) || ($konfigurasi)){
+              $id_anggota = $data_anggota['id'];
+              echo "<script>window.alert('Password Gagal diUpdate!! Masukkan Password Lama')
+            window.location='user-edit.php'</script>";
+            }
+            else {
             $result = "UPDATE user
                       SET username = '$user',
                       email = '$email',
@@ -182,22 +189,29 @@ $data = mysqli_fetch_array($tampil);
                       level = '$level'
                   WHERE id = $id_anggota";
             $has = mysqli_query($db, $result);
-                   // var_dump(mysqli_error($db));
+            // var_dump(mysqli_error($db));
             if ($has == true) {
             echo "<script>window.alert('Data Berhasil di Update')
             window.location='user-edit.php'</script>";
             } 
           }
-          if (!empty($pass)){
+        }
+
+          //jika password lama diisi, maka enkripsi
+          if (!empty($pass) && ($baru) && ($konfigurasi)){
             $pass = md5($_POST['password']);
           }
+
+
+          //cek kebenaran password lama
           if ($pass !== $data['password']){
             echo "<div class=alert alert-danger role=alert>
-            Password Lama Salah !!!
+            Password Lama Salah! Setiap Elemen Password Harus diisi
           </div>";
             return false;
           } 
-            
+          
+          //jika password baru sama dengan konfigurasi maka jalankan query
           if ($baru == $konfigurasi) {
             $baru = md5($_POST['baru']);
             $query = "UPDATE user
@@ -215,13 +229,13 @@ $data = mysqli_fetch_array($tampil);
           if ($hasil == true) {
             echo "<script>window.alert('Data Berhasil di Update')
             window.location='user-edit.php'</script>";
-          } else {
+          } 
+          }else {
             echo "<div class=alert alert-danger role=alert>
             Konfigurasi Tidak Sesuai !!!
           </div>";
             return false;
           }
-        }
           }
             
             ?>
