@@ -187,7 +187,14 @@ $data_anggota = mysqli_fetch_assoc($hasil);
           $konfigurasi = $_POST['konfigurasi'];
           $level = $_POST['level'];
 
+          //jika password lama kosong password tidak dapat diupdate
           if (empty($pass)){
+            if(!empty($baru) || ($konfigurasi)){
+              $id_anggota = $data_anggota['id'];
+              echo "<script>window.alert('Password Gagal diUpdate!! Masukkan Password Lama')
+            window.location='anggota-edit.php?id_anggota=$id_anggota'</script>";
+            }
+            else {
             $result = "UPDATE user
                       SET username = '$user',
                       email = '$email',
@@ -197,22 +204,30 @@ $data_anggota = mysqli_fetch_assoc($hasil);
                       level = '$level'
                   WHERE id = $id_anggota";
             $has = mysqli_query($db, $result);
-                   // var_dump(mysqli_error($db));
-            if ($has == true) {
-            echo "<script>window.alert('Data Berhasil di Update')
-            window.location='anggota.php'</script>";
-            } 
+              // var_dump(mysqli_error($db));
+              if ($has == true) {
+              echo "<script>window.alert('Data Berhasil di Update')
+              window.location='anggota.php'</script>";
+              } else {
+                echo "Koneksi Gagal" .mysqli_error($db);
+              }
+            }
           }
-          if (!empty($pass)){
+
+          //jika password tidak kosong maka dienkripsi
+          if (!empty($pass) && ($baru) && ($konfigurasi)){
             $pass = md5($_POST['password']);
           }
+
+          //jika password lama salah
           if ($pass !== $data_anggota['password']){
             echo "<div class=alert alert-danger role=alert>
-            Password Lama Salah !!!
+            Password Lama Salah! Setiap Elemen Password Harus Diisi
           </div>";
             return false;
           } 
-            
+          
+          //check password baru dan konfigurasinya
           if ($baru == $konfigurasi) {
             $baru = md5($_POST['baru']);
             $query = "UPDATE user
@@ -226,18 +241,18 @@ $data_anggota = mysqli_fetch_assoc($hasil);
               WHERE id = $id_anggota";
 
           $hasil = mysqli_query($db, $query);
-          // var_dump(mysqli_error($db));
-          if ($hasil == true) {
-            echo "<script>window.alert('Data Berhasil di Update')
-            window.location='anggota.php'</script>";
-          } else {
-            echo "<div class=alert alert-danger role=alert>
-            Konfigurasi Tidak Sesuai !!!
-          </div>";
-            return false;
-          }
+            // var_dump(mysqli_error($db));
+            if ($hasil == true) {
+              echo "<script>window.alert('Data Berhasil di Update')
+              window.location='anggota.php'</script>";
+            }
+          }else {
+              echo "<div class=alert alert-danger role=alert>
+              Konfigurasi Tidak Sesuai !!!
+            </div>";
+              return false;
+            }
         }
-          }
             
             ?>
           <div class="card">

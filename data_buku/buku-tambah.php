@@ -165,18 +165,29 @@ include '../data_kategori/kategori-list.php';
       $nama_file   = $_FILES['cover']['name'];
       $destination = "cover/" . $nama_file;
 
-      $query = "INSERT INTO buku (buku_judul, kategori_id, buku_deskripsi, buku_jumlah, buku_cover) 
-          VALUES ('$judul', $kategori, '$deskripsi', $jumlah, '$nama_file')";
-      $hasil = mysqli_query($db, $query);
-      if ($hasil == true) {
+      $cek = mysqli_num_rows(mysqli_query($db, "SELECT*FROM buku WHERE buku_judul = '$judul'"));
+      if ($cek > 0){
+        echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
+          <strong>Buku Sudah terdaftar!</strong>
+          <button type=button class=close data-dismiss=alert aria-label=Close>
+            <span aria-hidden=true>&times;</span>
+          </button>
+        </div>";
+      } 
+      else {
+        $query = "INSERT INTO buku (buku_judul, kategori_id, buku_deskripsi, buku_jumlah, buku_cover) 
+            VALUES ('$judul', $kategori, '$deskripsi', $jumlah, '$nama_file')";
+        $hasil = mysqli_query($db, $query);
+        if ($hasil == true) {
 
-          // jika data berhasil diinsert, lakukan proses upload
-          move_uploaded_file($file, $destination);
+            // jika data berhasil diinsert, lakukan proses upload
+            move_uploaded_file($file, $destination);
 
-          echo "<script>window.alert('Data Berhasil di Tambah')
-          window.location='buku.php'</script>";
-      } else {
-        echo "koneksi gagal" .mysqli_error($db);
+            echo "<script>window.alert('Data Berhasil di Tambah')
+            window.location='buku.php'</script>";
+        } else {
+          echo "koneksi gagal" .mysqli_error($db);
+        }
       }
       }?>
      

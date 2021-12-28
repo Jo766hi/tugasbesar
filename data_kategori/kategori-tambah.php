@@ -152,21 +152,28 @@
 
         if(isset($_POST["tambah"])){
         $kategori = $_POST['kategori'];
-        
-        $query = "INSERT INTO kategori (kategori_nama) 
-            VALUES ('$kategori')";
-        $hasil = mysqli_query($db, $query);
-        
-        if ($hasil == true) {
+
+        $cek = mysqli_num_rows(mysqli_query($db, "SELECT*FROM kategori WHERE kategori_nama = '$kategori'"));
+
+        if ($cek > 0){
           echo "<div class=alert alert-primary alert-dismissible fade show role=alert >
-            <strong>Kategori Berhasil di Tambah!</strong>
+            <strong>Kategori Sudah terdaftar!</strong>
             <button type=button class=close data-dismiss=alert aria-label=Close>
               <span aria-hidden=true>&times;</span>
             </button>
           </div>";
+        } 
+        else {
+        $query = "INSERT INTO kategori (kategori_nama) 
+                  VALUES ('$kategori')";
+        $hasil = mysqli_query($db, $query);
+        
+        if ($hasil == true) {
+          echo "<script>window.alert('Kategori Berhasil diTambah')
+          window.location='kategori.php'</script>";
         } else {
           echo "koneksi gagal" .mysqli_error($db);
-        }
+        }}
     }
     ?>
           <div class="card">
@@ -179,7 +186,7 @@
                   <div class="content">
             <form method="post" action="">
             <div class="form-group">
-									<label for="kategori">Kategori</label>
+									<label for="kategori">Kategori</label><br/>
 									<input id="kategori" type="text" class="form-control" name="kategori" value="" required autofocus>
 								</div><br/>
                 <p>
