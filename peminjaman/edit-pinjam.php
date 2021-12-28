@@ -24,7 +24,7 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard Dark Edition by Creative Tim
+  Perpustakaan Web
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -39,11 +39,16 @@ $data_pinjam = mysqli_fetch_assoc($hasil);
 <body class="dark-edition">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
+      <div class="logo"><a href="../display/index.html" class="simple-text logo-normal">
           Perpustakaan
         </a></div>
-      <div class="sidebar-wrapper">
+        <div class="sidebar-wrapper">
         <ul class="nav">
+        <img src="../assets/img/user.png" style="width:90px; padding: 10px;">
+        <span style="color:#a9afbbd1; font-size: 20px; font-family: arvo; ">
+        <?php echo "$_SESSION[nama]"; ?>  
+        </span>     
+        <hr> 
           <li class="nav-item ">
             <a class="nav-link" href="../home/dashboard.php">
               <i class="material-icons">home</i>
