@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2021 at 03:15 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.11
+-- Waktu pembuatan: 29 Des 2021 pada 04.04
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `buku`
+-- Struktur dari tabel `buku`
 --
 
 CREATE TABLE `buku` (
@@ -37,19 +37,20 @@ CREATE TABLE `buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `buku`
+-- Dumping data untuk tabel `buku`
 --
 
 INSERT INTO `buku` (`buku_id`, `buku_judul`, `kategori_id`, `buku_deskripsi`, `buku_jumlah`, `buku_cover`) VALUES
-(9, 'Narnia', 1, 'Author : C.S Lewis', 26, 'pict5.jpg'),
+(9, 'Narnia', 1, 'Author : C.S Lewis', 24, 'pict5.jpg'),
 (10, 'The Two Towers', 1, 'Author : J.R.R Tolkien', 14, 'pict6.jpg'),
-(11, 'Harry Potter', 1, 'Author : J.K Rowling', 27, 'pict7.jpg'),
-(13, 'Milk and Honey', 1, 'Author : Rupi Kaur', 9, 'pict8.jpg');
+(11, 'Harry Potter', 1, 'Author : J.K Rowling', 28, 'pict7.jpg'),
+(13, 'Milk and Honey', 1, '<p>Author : Rupi Kaur</p>', 0, 'pict8.jpg'),
+(15, 'Dongeng', 1, '', 67, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `denda`
+-- Struktur dari tabel `denda`
 --
 
 CREATE TABLE `denda` (
@@ -58,7 +59,7 @@ CREATE TABLE `denda` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `denda`
+-- Dumping data untuk tabel `denda`
 --
 
 INSERT INTO `denda` (`nominal`, `id_denda`) VALUES
@@ -67,7 +68,7 @@ INSERT INTO `denda` (`nominal`, `id_denda`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -76,17 +77,18 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`kategori_id`, `kategori_nama`) VALUES
 (1, 'Fiksi'),
-(12, 'Non Fiksi');
+(12, 'Non Fiksi'),
+(17, 'science');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kembali`
+-- Struktur dari tabel `kembali`
 --
 
 CREATE TABLE `kembali` (
@@ -97,19 +99,26 @@ CREATE TABLE `kembali` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kembali`
+-- Dumping data untuk tabel `kembali`
 --
 
 INSERT INTO `kembali` (`kembali_id`, `pinjam_id`, `tgl_kembali`, `denda`) VALUES
 (9, 22, '2021-12-07', 0),
 (10, 23, '2021-12-07', 24000),
 (11, 25, '2021-12-08', 10000),
-(12, 26, '2021-12-08', 70000);
+(12, 26, '2021-12-08', 70000),
+(14, 29, '2021-12-28', 0),
+(15, 30, '2021-12-28', 0),
+(17, 32, '2021-12-29', 0),
+(18, 33, '2021-12-29', 0),
+(19, 34, '2021-12-29', 0),
+(20, 35, '2021-12-29', 0),
+(21, 36, '2021-12-29', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pinjam`
+-- Struktur dari tabel `pinjam`
 --
 
 CREATE TABLE `pinjam` (
@@ -121,20 +130,16 @@ CREATE TABLE `pinjam` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pinjam`
+-- Dumping data untuk tabel `pinjam`
 --
 
 INSERT INTO `pinjam` (`pinjam_id`, `buku_id`, `anggota_id`, `tgl_pinjam`, `tgl_jatuh_tempo`) VALUES
-(23, 9, 10, '2002-12-12', '2001-02-11'),
-(24, 11, 10, '2021-12-12', '2021-12-12'),
-(25, 13, 10, '2021-12-05', '2021-12-07'),
-(26, 9, 10, '2021-11-12', '2021-12-01'),
-(27, 9, 10, '2019-12-12', '2020-09-12');
+(37, 9, 36, '2021-12-29', '2022-01-05');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -149,46 +154,46 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `nama`, `jk`, `telp`, `password`, `level`) VALUES
-(9, 'dywdgyew', 'hbddweyi@gmail.com', 'jkhsdcuigf', 'L', '72376', 'wkbffuiwe', 'petugas'),
-(10, 'lapet', 'lapet@gmail.com', 'lapet', 'L', '1234567', 'lapet', 'anggota'),
-(11, 'melati', 'melati@gmail.com', 'melati', 'P', '12345678', '27e80ebc907bd57004986be9e6f2dd83', 'petugas');
+(14, 'admin', 'saya@admin', 'admin', 'L', '9087654', '21232f297a57a5a743894a0e4a801fc3', 'petugas'),
+(36, 'ama', 'Azlia@gmail.com', 'ama', 'L', '0899999972376', '835f21d979d81961be691e6044a3c8e5', 'anggota'),
+(37, 'Mutia', 'Mutia56@gmail.com', 'Mutia Rahmah', 'P', '089876543210', 'b40d2a9d9418b015ba01fa4b198018c9', 'petugas');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `buku`
+-- Indeks untuk tabel `buku`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`buku_id`),
   ADD KEY `kategori_id` (`kategori_id`);
 
 --
--- Indexes for table `denda`
+-- Indeks untuk tabel `denda`
 --
 ALTER TABLE `denda`
   ADD PRIMARY KEY (`id_denda`);
 
 --
--- Indexes for table `kategori`
+-- Indeks untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`kategori_id`);
 
 --
--- Indexes for table `kembali`
+-- Indeks untuk tabel `kembali`
 --
 ALTER TABLE `kembali`
   ADD PRIMARY KEY (`kembali_id`),
   ADD KEY `pinjam_id` (`pinjam_id`);
 
 --
--- Indexes for table `pinjam`
+-- Indeks untuk tabel `pinjam`
 --
 ALTER TABLE `pinjam`
   ADD PRIMARY KEY (`pinjam_id`),
@@ -196,44 +201,44 @@ ALTER TABLE `pinjam`
   ADD KEY `buku_id` (`buku_id`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `buku`
+-- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `buku_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `buku_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `kategori`
+-- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `kategori_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `kategori_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `kembali`
+-- AUTO_INCREMENT untuk tabel `kembali`
 --
 ALTER TABLE `kembali`
-  MODIFY `kembali_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `kembali_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `pinjam`
+-- AUTO_INCREMENT untuk tabel `pinjam`
 --
 ALTER TABLE `pinjam`
-  MODIFY `pinjam_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `pinjam_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
