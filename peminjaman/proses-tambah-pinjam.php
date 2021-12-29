@@ -10,6 +10,11 @@ $tgl_jatuh_tempo    = date('Y-m-d',strtotime('+7 days',strtotime(date('Y-m-d')))
 
 // cek stok buku
 $stok_buku = cek_stok($db, $buku);
+if ($stok_buku < 1) {
+    echo "<script>window.alert('Stok buku sudah habis, Peminjaman Gagal')
+    window.location='peminjaman.php'</script>";
+    exit();
+}
 
 $query = "INSERT INTO pinjam (buku_id, anggota_id, tgl_pinjam, tgl_jatuh_tempo) 
     VALUES ('$buku', $anggota, '$tgl_pinjam', '$tgl_jatuh_tempo')";
