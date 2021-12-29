@@ -26,14 +26,10 @@
   $data = mysqli_query($db, $q);
   $row_anggota = mysqli_num_rows($data);
 
-  $query = "SELECT * FROM pinjam";
-  $pinjam = mysqli_query($db, $query);
-  $row_pinjam = mysqli_num_rows($pinjam);
-
   $a = "SELECT * FROM kembali";
   $kembali = mysqli_query($db, $a);
   $row_kembali = mysqli_num_rows($kembali);
-  $row_peminjaman = $row_pinjam - $row_kembali;
+  $row_peminjaman = $row_kembali;
   
 ?>
 <!DOCTYPE html>
@@ -215,7 +211,7 @@
                   <div class="card-icon">
                     <i class="material-icons">style</i>
                   </div>
-                  <p style="color:white" class="card-category">Peminjaman</p>
+                  <p style="color:white" class="card-category">Kembali</p>
                   <h3 class="card-title"><?php echo $row_peminjaman; ?></h3>
                 </div>
                 <div class="card-footer">
